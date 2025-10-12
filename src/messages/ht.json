@@ -1,0 +1,18 @@
+{
+  "brand": "ATA - Aprann Travay Avanse",
+  "nav": { "home": "Akèy", "hire": "Jwenn Travayè", "profile": "Pwofil" },
+  "hero": {
+    "title": "Aprann. Travay. Avanse.",
+    "subtitle": "Kou kout • Katalòg travayè • Pwofil ak CV nan yon sèl platfòm.",
+    "ctaLearn": "Kòmanse aprann",
+    "ctaHire": "Jwenn moun pou travay"
+  },
+  "hire": {
+    "title": "Jwenn Travayè",
+    "coming": "Filtè & rezilta ap vini la byento."
+  },
+  "profile": {
+    "title": "Pwofil piblik",
+    "coming": "Detay, badj, sèvis, CV—ap vini byento."
+  }
+}

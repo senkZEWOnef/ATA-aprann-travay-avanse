@@ -1,0 +1,22 @@
+{
+  "brand": "ATA - Aprann Travay Avanse",
+  "nav": {
+    "home": "Accueil",
+    "hire": "Trouver un prestataire",
+    "profile": "Profil"
+  },
+  "hero": {
+    "title": "Apprendre. Travailler. Avancer.",
+    "subtitle": "Micro-cours • Annuaire des prestataires • Profil & CV sur une seule plateforme.",
+    "ctaLearn": "Commencer à apprendre",
+    "ctaHire": "Trouver un prestataire"
+  },
+  "hire": {
+    "title": "Trouver un prestataire",
+    "coming": "Filtres & résultats à venir."
+  },
+  "profile": {
+    "title": "Profil public",
+    "coming": "Détails, badges, services, CV — bientôt disponible."
+  }
+}
