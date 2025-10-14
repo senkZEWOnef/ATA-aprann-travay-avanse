@@ -264,7 +264,7 @@ export default function DemoTestimonials() {
 
                 {/* Testimonial Text */}
                 <blockquote className="text-gray-700 text-lg leading-relaxed mb-6 italic">
-                  "{locale === 'ht' ? testimonial.testimonialHt : testimonial.testimonialFr}"
+                  &quot;{locale === 'ht' ? testimonial.testimonialHt : testimonial.testimonialFr}&quot;
                 </blockquote>
 
                 {/* Author Info */}

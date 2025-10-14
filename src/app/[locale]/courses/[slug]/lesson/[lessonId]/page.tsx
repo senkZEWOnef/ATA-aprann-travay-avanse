@@ -11,7 +11,18 @@ export default function LessonPage() {
   const params = useParams();
   const { data: session } = useSession();
   const locale = useLocale();
-  const [course, setCourse] = useState<any>(null);
+  const [course, setCourse] = useState<{
+    id: string;
+    titleHt: string;
+    titleFr: string;
+    slug: string;
+    lessons: Array<{
+      id: string;
+      order: number;
+      titleHt: string;
+      titleFr: string;
+    }>;
+  } | null>(null);
   const [loading, setLoading] = useState(true);
   
   const { slug, lessonId } = params;

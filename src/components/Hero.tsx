@@ -23,7 +23,7 @@ export default function Hero() {
           <div className="inline-flex items-center px-3 py-2 sm:px-4 sm:py-2 rounded-full bg-primary-50 text-primary-700 text-xs sm:text-sm font-medium mb-6 sm:mb-8">
             <span className="w-2 h-2 bg-primary-400 rounded-full mr-2 animate-pulse"></span>
             <span className="hidden sm:inline">🇭🇹 Platfòm nan pou jèn yo nan Ayiti / Pour les jeunes d'Haïti</span>
-            <span className="sm:hidden">🇭🇹 {locale === 'ht' ? 'Pou jèn yo nan Ayiti' : 'Pour les jeunes d\'Haïti'}</span>
+            <span className="sm:hidden">🇭🇹 {locale === 'ht' ? 'Pou jèn yo nan Ayiti' : 'Pour les jeunes d&apos;Haïti'}</span>
           </div>
 
           {/* Main heading */}

@@ -150,7 +150,13 @@ export interface ComprehensiveLessonContent {
       type: 'drag-drop' | 'matching' | 'fill-blanks' | 'sequence';
       instructionHt: string;
       instructionFr: string;
-      items: any[]; // Specific structure depends on activity type
+      items: Array<{
+        word?: string;
+        location?: string;
+        english?: string;
+        creole?: string;
+        [key: string]: unknown;
+      }>; // Specific structure depends on activity type
     }>;
   };
   

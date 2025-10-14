@@ -84,7 +84,7 @@ export default function JobDetailPage() {
     'executive': { ht: 'Egzekitif', fr: 'Exécutif' },
   };
 
-  const formatSalary = (min?: number, max?: number, currency: string) => {
+  const formatSalary = (min: number | undefined, max: number | undefined, currency: string) => {
     if (!min && !max) return null;
     const formatter = new Intl.NumberFormat('en-US');
     if (min && max) {
