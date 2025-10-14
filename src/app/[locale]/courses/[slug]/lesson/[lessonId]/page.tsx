@@ -3,8 +3,8 @@ import { notFound } from 'next/navigation';
 import { useParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useState, useEffect } from 'react';
-import LessonPlayer from '@/components/LessonPlayer';
-import { englishInterpretationCourse } from '@/data/courseContent';
+import ComprehensiveLessonPlayer from '@/components/ComprehensiveLessonPlayer';
+import { comprehensiveCourse } from '@/data/comprehensiveCourse';
 import { useLocale } from '@/components/LocaleProvider';
 
 export default function LessonPage() {
@@ -17,13 +17,13 @@ export default function LessonPage() {
   const { slug, lessonId } = params;
 
   useEffect(() => {
-    // For demo purposes, create a mock course
+    // For demo purposes, create a mock course using comprehensive lessons
     const mockCourse = {
       id: '1',
       titleHt: 'Anglè pou Entèpretasyon',
       titleFr: 'Anglais pour Interprétation',
       slug: 'angle-pou-entepretasyon-1',
-      lessons: englishInterpretationCourse.map((lesson, index) => ({
+      lessons: comprehensiveCourse.map((lesson, index) => ({
         id: lesson.id,
         order: index + 1,
         titleHt: lesson.titleHt,
@@ -53,9 +53,9 @@ export default function LessonPage() {
     );
   }
 
-  // Get lesson content from englishInterpretationCourse data
+  // Get lesson content from comprehensiveCourse data
   const lessonIndex = parseInt(lessonId as string) - 1;
-  const lessonContent = englishInterpretationCourse[lessonIndex];
+  const lessonContent = comprehensiveCourse[lessonIndex];
 
   if (!lessonContent) {
     return (
@@ -115,7 +115,7 @@ export default function LessonPage() {
                   {locale === 'ht' ? 'Leson' : 'Leçon'} {lessonId}
                 </span>
                 
-                {parseInt(lessonId as string) < englishInterpretationCourse.length && (
+                {parseInt(lessonId as string) < comprehensiveCourse.length && (
                   <a
                     href={`/${locale}/courses/${slug}/lesson/${parseInt(lessonId as string) + 1}`}
                     className="px-4 py-2 text-gray-600 hover:text-gray-900 border rounded-lg hover:bg-gray-50"
@@ -131,7 +131,7 @@ export default function LessonPage() {
 
       {/* Lesson Player */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <LessonPlayer 
+        <ComprehensiveLessonPlayer 
           lesson={lessonContent}
           onComplete={handleLessonComplete}
           onProgress={handleProgress}
