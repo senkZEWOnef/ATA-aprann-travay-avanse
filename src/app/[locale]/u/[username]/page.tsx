@@ -1,5 +1,6 @@
 'use client';
 import Navigation from "../../../../components/Navigation";
+import Footer from "../../../../components/Footer";
 import { useLocale } from "../../../../components/LocaleProvider";
 
 // Mock profile data
@@ -46,7 +47,7 @@ export default function PublicProfile({
   const locale = useLocale();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-purple-25 to-accent-25">
       <Navigation />
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -166,6 +167,7 @@ export default function PublicProfile({
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

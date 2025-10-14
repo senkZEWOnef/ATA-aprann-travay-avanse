@@ -1,0 +1,386 @@
+// ATA Platform Database Schema
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// NextAuth.js required models
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id              String    @id @default(cuid())
+  name            String?
+  email           String    @unique
+  emailVerified   DateTime?
+  image           String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  // Relations
+  accounts        Account[]
+  sessions        Session[]
+  profile         Profile?
+  services        Service[]
+  enrollments     Enrollment[]
+  reviews         Review[] @relation("ReviewAuthor")
+  receivedReviews Review[] @relation("ReviewTarget")
+  applications    Application[]
+  cvItems         CvItem[]
+  jobApplications JobApplication[]
+  forumPosts      ForumPost[]
+  forumComments   ForumComment[]
+  forumLikes      ForumLike[]
+  
+  @@map("users")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ATA Platform specific models
+model Profile {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  username      String   @unique
+  fullName      String?
+  bio           String?
+  phone         String?
+  whatsapp      String?
+  city          String?
+  country       String   @default("Haiti")
+  avatar        String?
+  preferredLang String   @default("ht")
+  isVerified    Boolean  @default(false)
+  rating        Float    @default(0)
+  ratingCount   Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badges      UserBadge[]
+}
+
+model Course {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  titleHt       String
+  titleFr       String
+  descriptionHt String
+  descriptionFr String
+  category      String
+  level         String   @default("beginner") // beginner, intermediate, advanced
+  duration      Int      // in minutes
+  price         Decimal? @db.Decimal(10,2)
+  currency      String   @default("HTG")
+  thumbnail     String?
+  isPublished   Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  lessons     Lesson[]
+  enrollments Enrollment[]
+  badges      Badge[]
+  forumPosts  ForumPost[]
+}
+
+model Lesson {
+  id          String   @id @default(cuid())
+  courseId    String
+  order       Int
+  titleHt     String
+  titleFr     String
+  contentHt   String   @db.Text
+  contentFr   String?  @db.Text
+  videoUrl    String?
+  duration    Int?     // in minutes
+  isPublished Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+}
+
+model Badge {
+  id            String   @id @default(cuid())
+  code          String   @unique
+  nameHt        String
+  nameFr        String
+  descriptionHt String?
+  descriptionFr String?
+  icon          String?
+  courseId      String?
+  createdAt     DateTime @default(now())
+
+  course Course?     @relation(fields: [courseId], references: [id])
+  users  UserBadge[]
+}
+
+model UserBadge {
+  id        String   @id @default(cuid())
+  userId    String
+  badgeId   String
+  issuedAt  DateTime @default(now())
+
+  profile Profile @relation(fields: [userId], references: [userId])
+  badge   Badge   @relation(fields: [badgeId], references: [id])
+
+  @@unique([userId, badgeId])
+}
+
+model Enrollment {
+  id           String   @id @default(cuid())
+  userId       String
+  courseId     String
+  enrolledAt   DateTime @default(now())
+  completedAt  DateTime?
+  progress     Int      @default(0) // percentage 0-100
+  
+  user   User   @relation(fields: [userId], references: [id])
+  course Course @relation(fields: [courseId], references: [id])
+
+  @@unique([userId, courseId])
+}
+
+model Service {
+  id          String   @id @default(cuid())
+  userId      String
+  titleHt     String
+  titleFr     String?
+  descHt      String?
+  descFr      String?
+  category    String   // interpreting, marketing, programming, first_aid, etc.
+  subcategory String?
+  priceType   String   // hourly, fixed, negotiable
+  price       Decimal? @db.Decimal(10,2)
+  currency    String   @default("HTG")
+  isAvailable Boolean  @default(true)
+  city        String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  applications Application[]
+}
+
+model Application {
+  id            String   @id @default(cuid())
+  serviceId     String
+  applicantId   String
+  message       String?
+  proposedPrice Decimal? @db.Decimal(10,2)
+  status        String   @default("pending") // pending, accepted, rejected
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  service   Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  applicant User    @relation(fields: [applicantId], references: [id], onDelete: Cascade)
+
+  @@unique([serviceId, applicantId])
+}
+
+model Review {
+  id         String   @id @default(cuid())
+  authorId   String
+  targetId   String
+  rating     Int      // 1-5 stars
+  comment    String?
+  context    String?  // service, course, etc.
+  contextId  String?  // ID of the service/course being reviewed
+  createdAt  DateTime @default(now())
+
+  author User @relation("ReviewAuthor", fields: [authorId], references: [id])
+  target User @relation("ReviewTarget", fields: [targetId], references: [id])
+}
+
+model CvItem {
+  id          String    @id @default(cuid())
+  userId      String
+  type        String    // experience, education, project, skill
+  title       String
+  organization String?
+  description String?
+  startDate   DateTime?
+  endDate     DateTime?
+  isActive    Boolean   @default(true)
+  orderIndex  Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// Job Board Models
+model Company {
+  id            String   @id @default(cuid())
+  name          String
+  nameHt        String?
+  nameFr        String?
+  description   String?
+  descriptionHt String?
+  descriptionFr String?
+  website       String?
+  logo          String?
+  industry      String?
+  size          String?  // startup, small, medium, large
+  city          String?
+  country       String   @default("Haiti")
+  email         String?
+  phone         String?
+  isVerified    Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  jobs JobPosting[]
+}
+
+model JobPosting {
+  id                String   @id @default(cuid())
+  companyId         String
+  titleHt           String
+  titleFr           String?
+  descriptionHt     String   @db.Text
+  descriptionFr     String?  @db.Text
+  requirementsHt    String?  @db.Text
+  requirementsFr    String?  @db.Text
+  benefitsHt        String?  @db.Text
+  benefitsFr        String?  @db.Text
+  category          String   // programming, marketing, interpreting, administration, etc.
+  subcategory       String?
+  employmentType    String   // full-time, part-time, contract, freelance, internship
+  experienceLevel   String   // entry, mid, senior, executive
+  salaryMin         Decimal? @db.Decimal(10,2)
+  salaryMax         Decimal? @db.Decimal(10,2)
+  currency          String   @default("HTG")
+  city              String?
+  isRemote          Boolean  @default(false)
+  isActive          Boolean  @default(true)
+  applicationDeadline DateTime?
+  postedAt          DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  company      Company          @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  applications JobApplication[]
+}
+
+model JobApplication {
+  id           String   @id @default(cuid())
+  jobId        String
+  applicantId  String
+  coverLetterHt String? @db.Text
+  coverLetterFr String? @db.Text
+  resumeUrl    String?
+  status       String   @default("pending") // pending, reviewing, shortlisted, rejected, hired
+  appliedAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  job       JobPosting @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  applicant User       @relation(fields: [applicantId], references: [id], onDelete: Cascade)
+
+  @@unique([jobId, applicantId])
+}
+
+// Forum Models
+model ForumPost {
+  id          String   @id @default(cuid())
+  courseId    String?
+  authorId    String
+  title       String
+  content     String   @db.Text
+  isSticky    Boolean  @default(false)
+  isLocked    Boolean  @default(false)
+  viewCount   Int      @default(0)
+  likeCount   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  course   Course?        @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  author   User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  comments ForumComment[]
+  likes    ForumLike[]
+  tags     ForumPostTag[]
+}
+
+model ForumComment {
+  id        String   @id @default(cuid())
+  postId    String
+  authorId  String
+  content   String   @db.Text
+  parentId  String?  // For nested replies
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  post     ForumPost      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author   User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  parent   ForumComment?  @relation("CommentReplies", fields: [parentId], references: [id])
+  replies  ForumComment[] @relation("CommentReplies")
+  likes    ForumLike[]
+}
+
+model ForumLike {
+  id        String   @id @default(cuid())
+  userId    String
+  postId    String?
+  commentId String?
+  createdAt DateTime @default(now())
+
+  user    User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post    ForumPost?    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  comment ForumComment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, postId])
+  @@unique([userId, commentId])
+}
+
+model ForumTag {
+  id    String @id @default(cuid())
+  name  String @unique
+  color String @default("#3B82F6")
+
+  posts ForumPostTag[]
+}
+
+model ForumPostTag {
+  id     String @id @default(cuid())
+  postId String
+  tagId  String
+
+  post ForumPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tag  ForumTag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, tagId])
+}

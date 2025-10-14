@@ -1,5 +1,6 @@
 'use client';
 import Navigation from "../../../components/Navigation";
+import Footer from "../../../components/Footer";
 import { useTranslations, useLocale } from "../../../components/LocaleProvider";
 
 // Mock data - you'll replace this with real data from your database later
@@ -95,7 +96,7 @@ export default function HirePage() {
   const locale = useLocale();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-primary-25 to-purple-25">
       <Navigation />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -172,6 +173,7 @@ export default function HirePage() {
           </button>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
