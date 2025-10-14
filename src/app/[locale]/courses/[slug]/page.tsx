@@ -49,6 +49,9 @@ export default function CourseDetailPage() {
     fetchCourse();
     if (session) {
       checkEnrollment();
+    } else {
+      // TEMPORARILY SET AS ENROLLED FOR DEMO
+      setIsEnrolled(true);
     }
   }, [session]);
 
@@ -288,35 +291,55 @@ export default function CourseDetailPage() {
               <div className="space-y-3">
                 {course.lessons
                   .sort((a, b) => a.order - b.order)
-                  .map((lesson, index) => (
-                    <div key={lesson.id} className="flex items-center p-4 border border-gray-200 rounded-lg hover:border-primary-300 transition-colors">
-                      <div className="w-8 h-8 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center font-semibold text-sm mr-4">
-                        {index + 1}
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="font-medium text-gray-900">
-                          {getLessonTitle(lesson)}
-                        </h4>
-                        {lesson.duration && (
-                          <p className="text-sm text-gray-500 mt-1">
-                            {formatDuration(lesson.duration)}
-                          </p>
-                        )}
-                      </div>
-                      <div className="flex items-center gap-2">
-                        {isEnrolled ? (
-                          <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                          </svg>
-                        ) : (
-                          <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                          </svg>
-                        )}
-                      </div>
-                    </div>
-                  ))}
+                  .map((lesson, index) => {
+                    const LessonComponent = isEnrolled ? 'a' : 'div';
+                    const lessonProps = isEnrolled 
+                      ? { href: `/${locale}/courses/${course.slug}/lesson/${lesson.order}` }
+                      : {};
+                    
+                    return (
+                      <LessonComponent 
+                        key={lesson.id} 
+                        {...lessonProps}
+                        className={`flex items-center p-4 border border-gray-200 rounded-lg transition-colors ${
+                          isEnrolled 
+                            ? 'hover:border-primary-300 hover:bg-primary-50 cursor-pointer' 
+                            : 'hover:border-gray-300'
+                        }`}
+                      >
+                        <div className="w-8 h-8 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center font-semibold text-sm mr-4">
+                          {index + 1}
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-medium text-gray-900">
+                            {getLessonTitle(lesson)}
+                          </h4>
+                          {lesson.duration && (
+                            <p className="text-sm text-gray-500 mt-1">
+                              {formatDuration(lesson.duration)}
+                            </p>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-2">
+                          {isEnrolled ? (
+                            <div className="flex items-center gap-2">
+                              <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                              </svg>
+                              <svg className="w-4 h-4 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                              </svg>
+                            </div>
+                          ) : (
+                            <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                          )}
+                        </div>
+                      </LessonComponent>
+                    );
+                  })}
               </div>
             </div>
 

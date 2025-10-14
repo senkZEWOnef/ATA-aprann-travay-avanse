@@ -59,6 +59,7 @@ model User {
   forumPosts      ForumPost[]
   forumComments   ForumComment[]
   forumLikes      ForumLike[]
+  lessonProgress  LessonProgress[]
   
   @@map("users")
 }
@@ -131,7 +132,27 @@ model Lesson {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  course   Course           @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  progress LessonProgress[]
+}
+
+model LessonProgress {
+  id                 String    @id @default(cuid())
+  userId             String
+  lessonId           String
+  progressPercentage Int       @default(0) // 0-100
+  completed          Boolean   @default(false)
+  completedAt        DateTime?
+  lastAccessedAt     DateTime  @default(now())
+  timeSpent          Int       @default(0) // in seconds
+  quizScore          Int?      // quiz score if applicable
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, lessonId])
 }
 
 model Badge {
