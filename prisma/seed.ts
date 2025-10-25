@@ -1,6 +1,197 @@
 import { PrismaClient } from '@prisma/client';
+import { pythonBeginnersCourse } from '../src/data/pythonBeginnersCourse';
 
 const prisma = new PrismaClient();
+
+async function createPythonCourse() {
+  // Create Python for Beginners course
+  const pythonCourse = await prisma.course.upsert({
+    where: { slug: 'python-pou-komanse-yo' },
+    update: {},
+    create: {
+      slug: 'python-pou-komanse-yo',
+      titleHt: 'Python pou Kòmansè yo - 15 Semèn',
+      titleFr: 'Python pour Débutants - 15 Semaines',
+      descriptionHt: 'Yon kou konplè pou aprann pwogram Python soti nan debaz yo rive nan pwojè avanse yo. Chak semèn gen leson pratik ak pwojè mini yo.',
+      descriptionFr: 'Un cours complet pour apprendre la programmation Python des bases aux projets avancés. Chaque semaine comprend des leçons pratiques et des mini-projets.',
+      category: 'programming',
+      level: 'beginner',
+      duration: 1350, // 90 minutes × 15 weeks
+      price: 1500,
+      currency: 'HTG',
+      isPublished: true,
+    }
+  });
+
+  // Delete existing lessons for this course if any
+  await prisma.lesson.deleteMany({
+    where: { courseId: pythonCourse.id }
+  });
+
+  // Create Python course lessons using comprehensive content
+  const pythonLessonsData = pythonBeginnersCourse.map((lesson) => {
+    // Create comprehensive content by combining all lesson data
+    const contentHt = `
+## Objektif yo:
+${lesson.objectives.ht.map(obj => `• ${obj}`).join('\n')}
+
+## Konsèp Kle yo ak Kòd Egzanp yo:
+${lesson.keyConceptsCode.map(concept => `
+### ${concept.concept}
+\`\`\`python
+${concept.codeExample}
+\`\`\`
+${concept.explanation.ht}
+`).join('\n')}
+
+## Egzèsis Pratik yo:
+${lesson.practiceExercises.map((exercise, index) => `
+### Egzèsis ${index + 1}: ${exercise.title.ht}
+${exercise.instruction.ht}
+
+${exercise.starterCode ? `**Kòd Kòmanse:**
+\`\`\`python
+${exercise.starterCode}
+\`\`\`` : ''}
+
+${exercise.expectedOutput ? `**Rezilta Yo Atann:**
+\`\`\`
+${exercise.expectedOutput}
+\`\`\`` : ''}
+
+**Solisyon:**
+\`\`\`python
+${exercise.solution}
+\`\`\`
+`).join('\n')}
+
+## Pwojè Mini:
+### ${lesson.miniProject.title.ht}
+${lesson.miniProject.description.ht}
+
+**Kondisyon yo:**
+${lesson.miniProject.requirements.ht.map(req => `• ${req}`).join('\n')}
+
+${lesson.miniProject.starterCode ? `**Kòd Kòmanse:**
+\`\`\`python
+${lesson.miniProject.starterCode}
+\`\`\`` : ''}
+
+**Solisyon Konplè:**
+\`\`\`python
+${lesson.miniProject.sampleSolution}
+\`\`\`
+
+## Quiz:
+${lesson.quiz.map((q, index) => `
+### Kesyon ${index + 1}: ${q.question.ht}
+${q.options.map((opt, i) => `${String.fromCharCode(97 + i)}) ${opt.ht}`).join('\n')}
+
+**Repons:** ${String.fromCharCode(97 + q.correctAnswer)}
+**Eksplikasyon:** ${q.explanation.ht}
+`).join('\n')}
+
+## Devwa Kay:
+${lesson.homework.ht}
+`;
+
+    const contentFr = `
+## Objectifs:
+${lesson.objectives.fr.map(obj => `• ${obj}`).join('\n')}
+
+## Concepts Clés et Exemples de Code:
+${lesson.keyConceptsCode.map(concept => `
+### ${concept.concept}
+\`\`\`python
+${concept.codeExample}
+\`\`\`
+${concept.explanation.fr}
+`).join('\n')}
+
+## Exercices Pratiques:
+${lesson.practiceExercises.map((exercise, index) => `
+### Exercice ${index + 1}: ${exercise.title.fr}
+${exercise.instruction.fr}
+
+${exercise.starterCode ? `**Code de Départ:**
+\`\`\`python
+${exercise.starterCode}
+\`\`\`` : ''}
+
+${exercise.expectedOutput ? `**Résultat Attendu:**
+\`\`\`
+${exercise.expectedOutput}
+\`\`\`` : ''}
+
+**Solution:**
+\`\`\`python
+${exercise.solution}
+\`\`\`
+`).join('\n')}
+
+## Mini-Projet:
+### ${lesson.miniProject.title.fr}
+${lesson.miniProject.description.fr}
+
+**Exigences:**
+${lesson.miniProject.requirements.fr.map(req => `• ${req}`).join('\n')}
+
+${lesson.miniProject.starterCode ? `**Code de Départ:**
+\`\`\`python
+${lesson.miniProject.starterCode}
+\`\`\`` : ''}
+
+**Solution Complète:**
+\`\`\`python
+${lesson.miniProject.sampleSolution}
+\`\`\`
+
+## Quiz:
+${lesson.quiz.map((q, index) => `
+### Question ${index + 1}: ${q.question.fr}
+${q.options.map((opt, i) => `${String.fromCharCode(97 + i)}) ${opt.fr}`).join('\n')}
+
+**Réponse:** ${String.fromCharCode(97 + q.correctAnswer)}
+**Explication:** ${q.explanation.fr}
+`).join('\n')}
+
+## Devoir:
+${lesson.homework.fr}
+`;
+
+    return {
+      courseId: pythonCourse.id,
+      order: lesson.order,
+      titleHt: lesson.titleHt,
+      titleFr: lesson.titleFr,
+      contentHt: contentHt,
+      contentFr: contentFr,
+      duration: lesson.duration,
+      isPublished: true,
+    };
+  });
+
+  await prisma.lesson.createMany({
+    data: pythonLessonsData
+  });
+
+  // Create Python badge
+  await prisma.badge.upsert({
+    where: { code: 'PYTHON_BEGINNER' },
+    update: {},
+    create: {
+      code: 'PYTHON_BEGINNER',
+      nameHt: 'Pwogramè Python Kòmansè',
+      nameFr: 'Programmeur Python Débutant',
+      descriptionHt: 'Fini kou Python pou kòmansè yo ak 15 semèn',
+      descriptionFr: 'Terminé le cours Python pour débutants de 15 semaines',
+      icon: '🐍',
+      courseId: pythonCourse.id,
+    }
+  });
+
+  console.log('✅ Python course created successfully');
+}
 
 async function main() {
   console.log('🌱 Seeding database...');
@@ -9,6 +200,15 @@ async function main() {
   const existingCompanies = await prisma.company.count();
   if (existingCompanies > 0) {
     console.log('ℹ️  Companies already exist, skipping company and job seeding');
+    
+    // Check if Python course exists and create it if it doesn't
+    const pythonCourseExists = await prisma.course.findUnique({
+      where: { slug: 'python-pou-komanse-yo' }
+    });
+    
+    console.log('🐍 Updating Python course with comprehensive content...');
+    await createPythonCourse();
+    
     return;
   }
 
@@ -93,7 +293,26 @@ async function main() {
     }
   });
 
-  // Create lessons for the course
+  // Create Python for Beginners course
+  const pythonCourse = await prisma.course.upsert({
+    where: { slug: 'python-pou-komanse-yo' },
+    update: {},
+    create: {
+      slug: 'python-pou-komanse-yo',
+      titleHt: 'Python pou Kòmansè yo - 15 Semèn',
+      titleFr: 'Python pour Débutants - 15 Semaines',
+      descriptionHt: 'Yon kou konplè pou aprann pwogram Python soti nan debaz yo rive nan pwojè avanse yo. Chak semèn gen leson pratik ak pwojè mini yo.',
+      descriptionFr: 'Un cours complet pour apprendre la programmation Python des bases aux projets avancés. Chaque semaine comprend des leçons pratiques et des mini-projets.',
+      category: 'programming',
+      level: 'beginner',
+      duration: 1350, // 90 minutes × 15 weeks
+      price: 1500,
+      currency: 'HTG',
+      isPublished: true,
+    }
+  });
+
+  // Create lessons for the interpretation course
   await prisma.lesson.createMany({
     data: [
       {
@@ -179,6 +398,162 @@ async function main() {
     ]
   });
 
+  // Create Python course lessons
+  await prisma.lesson.createMany({
+    data: [
+      {
+        courseId: pythonCourse.id,
+        order: 1,
+        titleHt: 'Entwodiksyon nan Python',
+        titleFr: 'Introduction à Python',
+        contentHt: 'Konprann ki sa Python ye ak kijan li fonksyone. Enstale Python ak VS Code sou òdinatè w. Ekri ak egzekite premye script ou. Itilize deklarasyon print ak kòmantè yo.',
+        contentFr: 'Comprendre ce qu\'est Python et comment il fonctionne. Installer Python et VS Code sur votre ordinateur. Écrire et exécuter votre premier script. Utiliser les instructions print et les commentaires.',
+        duration: 90,
+        isPublished: true,
+      },
+      {
+        courseId: pythonCourse.id,
+        order: 2,
+        titleHt: 'Varyab ak Tip Done yo',
+        titleFr: 'Variables et Types de Données',
+        contentHt: 'Konprann ki sa varyab yo ye ak kijan pou kreye yo. Aprann tip done debaz yo: int, float, str, bool. Fè konvèsyon ant tip done yo.',
+        contentFr: 'Comprendre ce que sont les variables et comment les créer. Apprendre les types de données de base : int, float, str, bool. Faire des conversions entre types de données.',
+        duration: 90,
+        isPublished: true,
+      },
+      {
+        courseId: pythonCourse.id,
+        order: 3,
+        titleHt: 'String ak Operasyon sou String yo',
+        titleFr: 'Chaînes et Opérations sur les Chaînes',
+        contentHt: 'Konprann indexing ak slicing nan string yo. Aprann f-string ak fòmataj tèks. Itilize metòd string yo kòm .upper(), .lower(), .strip().',
+        contentFr: 'Comprendre l\'indexation et le découpage dans les chaînes. Apprendre les f-strings et le formatage de texte. Utiliser les méthodes de chaînes comme .upper(), .lower(), .strip().',
+        duration: 90,
+        isPublished: true,
+      },
+      {
+        courseId: pythonCourse.id,
+        order: 4,
+        titleHt: 'Lis ak Tupl yo',
+        titleFr: 'Listes et Tuples',
+        contentHt: 'Kreye ak manipile lis yo. Itilize metòd lis yo kòm append(), remove(), sort(). Konprann diferans ant lis ak tupl yo.',
+        contentFr: 'Créer et manipuler les listes. Utiliser les méthodes de listes comme append(), remove(), sort(). Comprendre la différence entre listes et tuples.',
+        duration: 90,
+        isPublished: true,
+      },
+      {
+        courseId: pythonCourse.id,
+        order: 5,
+        titleHt: 'Deklarasyon Kondisyonèl yo',
+        titleFr: 'Instructions Conditionnelles',
+        contentHt: 'Itilize if, elif, ak else. Konprann operatè konparezon yo. Konbine kondisyon yo ak operatè lojik.',
+        contentFr: 'Utiliser if, elif, et else. Comprendre les opérateurs de comparaison. Combiner les conditions avec les opérateurs logiques.',
+        duration: 90,
+        isPublished: true,
+      },
+      {
+        courseId: pythonCourse.id,
+        order: 6,
+        titleHt: 'Loop yo (For ak While)',
+        titleFr: 'Boucles (For et While)',
+        contentHt: 'Itilize for loop yo pou itere sou lis ak strings. Konprann ak itilize while loop yo. Kontrole loop yo ak break ak continue.',
+        contentFr: 'Utiliser les boucles for pour itérer sur les listes et chaînes. Comprendre et utiliser les boucles while. Contrôler les boucles avec break et continue.',
+        duration: 90,
+        isPublished: true,
+      },
+      {
+        courseId: pythonCourse.id,
+        order: 7,
+        titleHt: 'Fonksyon yo',
+        titleFr: 'Fonctions',
+        contentHt: 'Defini ak rele fonksyon yo. Itilize paramèt ak agiman yo. Konprann return values ak scope.',
+        contentFr: 'Définir et appeler des fonctions. Utiliser les paramètres et arguments. Comprendre les valeurs de retour et la portée.',
+        duration: 90,
+        isPublished: true,
+      },
+      {
+        courseId: pythonCourse.id,
+        order: 8,
+        titleHt: 'Pwojè nan Mitan an',
+        titleFr: 'Projet de Mi-parcours',
+        contentHt: 'Revizyon ak pwojè ti kras ki konbine tout subjè yo. Sistèm jesyon nòt etidyan yo.',
+        contentFr: 'Révision et petit projet qui combine tous les sujets. Système de gestion des notes d\'étudiants.',
+        duration: 90,
+        isPublished: true,
+      },
+      {
+        courseId: pythonCourse.id,
+        order: 9,
+        titleHt: 'Diksyonè ak Ansanm yo',
+        titleFr: 'Dictionnaires et Ensembles',
+        contentHt: 'Travay ak pè kle-valè yo. Itere sou diksyonè yo. Operasyon sou ansanm yo.',
+        contentFr: 'Travailler avec les paires clé-valeur. Itérer sur les dictionnaires. Opérations sur les ensembles.',
+        duration: 90,
+        isPublished: true,
+      },
+      {
+        courseId: pythonCourse.id,
+        order: 10,
+        titleHt: 'Jesyon Fichye yo',
+        titleFr: 'Gestion des Fichiers',
+        contentHt: 'Li ak ekri fichye tèks yo. Itilize ak open() ak jesyon otomatik resous yo.',
+        contentFr: 'Lire et écrire des fichiers texte. Utiliser avec open() et la gestion automatique des ressources.',
+        duration: 90,
+        isPublished: true,
+      },
+      {
+        courseId: pythonCourse.id,
+        order: 11,
+        titleHt: 'Jesyon Erè yo',
+        titleFr: 'Gestion des Erreurs',
+        contentHt: 'Itilize try/except pou jere erè yo. Leve eksepsyon yo ak raise.',
+        contentFr: 'Utiliser try/except pour gérer les erreurs. Lever des exceptions avec raise.',
+        duration: 90,
+        isPublished: true,
+      },
+      {
+        courseId: pythonCourse.id,
+        order: 12,
+        titleHt: 'Modil ak Pake yo',
+        titleFr: 'Modules et Packages',
+        contentHt: 'Enpòte modil yo. Itilize math, random, datetime ak lòt modil yo.',
+        contentFr: 'Importer des modules. Utiliser math, random, datetime et autres modules.',
+        duration: 90,
+        isPublished: true,
+      },
+      {
+        courseId: pythonCourse.id,
+        order: 13,
+        titleHt: 'Debaz Pwogram Oriyante Objè',
+        titleFr: 'Bases de la Programmation Orientée Objet',
+        contentHt: 'Klas yo ak objè yo. Atribi ak metòd yo. Kreye simulatè kont bank la.',
+        contentFr: 'Classes et objets. Attributs et méthodes. Créer un simulateur de compte bancaire.',
+        duration: 90,
+        isPublished: true,
+      },
+      {
+        courseId: pythonCourse.id,
+        order: 14,
+        titleHt: 'Travay ak Done Ekstèn yo',
+        titleFr: 'Travailler avec des Données Externes',
+        contentHt: 'JSON ak API yo. Itilize requests pou rele API yo. Pwojè aplikasyon meteo.',
+        contentFr: 'JSON et APIs. Utiliser requests pour appeler les APIs. Projet d\'application météo.',
+        duration: 90,
+        isPublished: true,
+      },
+      {
+        courseId: pythonCourse.id,
+        order: 15,
+        titleHt: 'Pwojè Final ak Egzamen',
+        titleFr: 'Projet Final et Examen',
+        contentHt: 'Konbine tout kapasite yo nan yon pwojè. Aplikasyon CLI Asistan Pèsonèl.',
+        contentFr: 'Combiner toutes les compétences dans un projet. Application CLI Assistant Personnel.',
+        duration: 90,
+        isPublished: true,
+      }
+    ]
+  });
+
   // Create badges
   const badge1 = await prisma.badge.upsert({
     where: { code: 'ENG_INTERP_L1' },
@@ -191,6 +566,21 @@ async function main() {
       descriptionFr: 'Terminé le cours d\'anglais pour interprétation niveau 1',
       icon: '🇺🇸',
       courseId: course1.id,
+    }
+  });
+
+  // Create Python badge
+  const pythonBadge = await prisma.badge.upsert({
+    where: { code: 'PYTHON_BEGINNER' },
+    update: {},
+    create: {
+      code: 'PYTHON_BEGINNER',
+      nameHt: 'Pwogramè Python Kòmansè',
+      nameFr: 'Programmeur Python Débutant',
+      descriptionHt: 'Fini kou Python pou kòmansè yo ak 15 semèn',
+      descriptionFr: 'Terminé le cours Python pour débutants de 15 semaines',
+      icon: '🐍',
+      courseId: pythonCourse.id,
     }
   });
 
