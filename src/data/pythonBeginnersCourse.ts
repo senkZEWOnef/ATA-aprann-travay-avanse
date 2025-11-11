@@ -1,4 +1,6 @@
 // Python for Beginners - 15 Week Comprehensive Course
+// Based on curriculum: Introduction to Python → Variables & Data Types → ... → Final Project
+
 export interface PythonLessonContent {
   id: string;
   order: number;
@@ -1556,6 +1558,720 @@ export const pythonBeginnersCourse: PythonLessonContent[] = [
       fr: 'Semaine prochaine : Projet de mi-parcours - combiner toutes les compétences',
       en: 'Next week: Midterm project - combining all skills'
     }
+  },
+
+  // Week 8: Midterm Project - Student Grade Tracker
+  {
+    id: 'python-week-8',
+    order: 8,
+    weekNumber: 8,
+    titleHt: 'Pwojè nan Mitan an - Sistèm Jesyon Nòt Etidyan',
+    titleFr: 'Projet de Mi-parcours - Système de Gestion des Notes',
+    titleEn: 'Midterm Project - Student Grade Tracker',
+    duration: 120,
+    objectives: {
+      ht: [
+        'Konbine tout konpetans yo ki aprann depi kòmansman',
+        'Kreye yon aplikasyon konplè ak plizyè fonksyon',
+        'Pratike jesyon done ak operasyon matematik',
+        'Devlope pwogram ki itilizatè yo ka itilize nan lavi reyèl'
+      ],
+      fr: [
+        'Combiner toutes les compétences apprises depuis le début',
+        'Créer une application complète avec plusieurs fonctions',
+        'Pratiquer la gestion de données et les opérations mathématiques',
+        'Développer un programme utilisable dans la vraie vie'
+      ],
+      en: [
+        'Combine all skills learned from the beginning',
+        'Create a complete application with multiple features',
+        'Practice data management and mathematical operations',
+        'Develop a real-world usable program'
+      ]
+    },
+    keyConceptsCode: [
+      {
+        concept: 'Project Planning & Structure',
+        codeExample: '# Student Grade Tracker - Project Structure\n# 1. Student Management\n# 2. Grade Recording\n# 3. Statistics & Reports\n# 4. Data Validation\n\nstudents = []  # List to store student names\ngrades = {}    # Dictionary to store grades\n\ndef main():\n    """Main program loop"""\n    print("=== Student Grade Tracker ===")\n    show_menu()\n\ndef show_menu():\n    """Display menu options"""\n    print("\\n1. Add Student")\n    print("2. Record Grade")\n    print("3. View Report")\n    print("4. Exit")',
+        explanation: {
+          ht: 'Pwojè yo ki byen òganize yo kòmanse ak planifikasyon ak divize nan fonksyon ki pi piti',
+          fr: 'Les projets bien organisés commencent par la planification et se divisent en petites fonctions',
+          en: 'Well-organized projects start with planning and breaking down into smaller functions'
+        }
+      },
+      {
+        concept: 'Data Validation & Error Handling',
+        codeExample: '# Input validation examples\ndef get_valid_grade():\n    """Get a valid grade from user (0-100)"""\n    while True:\n        try:\n            grade = float(input("Enter grade (0-100): "))\n            if 0 <= grade <= 100:\n                return grade\n            else:\n                print("Grade must be between 0 and 100")\n        except ValueError:\n            print("Please enter a valid number")\n\n# Usage\nstudent_grade = get_valid_grade()\nprint(f"Valid grade entered: {student_grade}")',
+        explanation: {
+          ht: 'Validasyon done ak jesyon erè yo fè pwogram yo pi solid ak pi itilizab',
+          fr: 'La validation des données et la gestion des erreurs rendent les programmes plus robustes et utilisables',
+          en: 'Data validation and error handling make programs more robust and user-friendly'
+        }
+      }
+    ],
+    practiceExercises: [
+      {
+        title: {
+          ht: 'Fonksyon Jesyon Etidyan',
+          fr: 'Fonction de Gestion des Étudiants',
+          en: 'Student Management Functions'
+        },
+        instruction: {
+          ht: 'Kreye fonksyon ki ajoute etidyan yo ak valide non yo.',
+          fr: 'Créez des fonctions qui ajoutent des étudiants et valident leurs noms.',
+          en: 'Create functions that add students and validate their names.'
+        },
+        expectedOutput: 'Student "John Doe" added successfully!\nTotal students: 1',
+        solution: 'students = []\n\ndef add_student(name):\n    """Add a student if name is valid and not duplicate"""\n    name = name.strip().title()\n    \n    if not name:\n        return "Error: Name cannot be empty"\n    \n    if name in students:\n        return f"Error: Student {name} already exists"\n    \n    students.append(name)\n    return f\'Student "{name}" added successfully!\\nTotal students: {len(students)}\'\n\n# Test the function\nprint(add_student("john doe"))\nprint(add_student("jane smith"))\nprint(add_student("john doe"))  # Should show error'
+      }
+    ],
+    miniProject: {
+      title: {
+        ht: 'Sistèm Jesyon Nòt Etidyan Konplè',
+        fr: 'Système Complet de Gestion des Notes',
+        en: 'Complete Student Grade Tracker System'
+      },
+      description: {
+        ht: 'Devlope yon sistèm konplè ki ka jesyone enfòmasyon etidyan yo, nòt yo, ak bay rapò detaye ak estatistik yo.',
+        fr: 'Développez un système complet qui peut gérer les informations des étudiants, leurs notes, et fournir des rapports détaillés avec statistiques.',
+        en: 'Develop a complete system that can manage student information, grades, and provide detailed reports with statistics.'
+      },
+      requirements: {
+        ht: [
+          'Ajoute ak retire etidyan yo ak validasyon',
+          'Anrejistre ak modifye nòt yo (0-100)',
+          'Kalkile mwayèn, maksimòm, ak minimòm',
+          'Klase etidyan yo dapre pèfòmans yo',
+          'Kreye rapò detaye ak estatistik klas la',
+          'Konsève done yo nan fichye yo',
+          'Interface itilizatè ki fasil'
+        ],
+        fr: [
+          'Ajouter et supprimer des étudiants avec validation',
+          'Enregistrer et modifier les notes (0-100)',
+          'Calculer moyennes, maximum et minimum',
+          'Classer les étudiants selon leur performance',
+          'Créer un rapport détaillé avec statistiques de classe',
+          'Sauvegarder les données dans des fichiers',
+          'Interface utilisateur conviviale'
+        ],
+        en: [
+          'Add and remove students with validation',
+          'Record and modify grades (0-100)',
+          'Calculate averages, maximum, and minimum',
+          'Rank students by performance',
+          'Create detailed report with class statistics',
+          'Save data to files',
+          'User-friendly interface'
+        ]
+      },
+      starterCode: '# Student Grade Tracker - Midterm Project Starter\n\n# Global data storage\nstudents = []  # List of student names\ngrades = {}    # Dictionary: {student_name: [list_of_grades]}\n\ndef main():\n    """Main program loop"""\n    print("🎓 STUDENT GRADE TRACKER")\n    print("=" * 40)\n    \n    while True:\n        show_menu()\n        choice = input("\\nEnter your choice: ").strip()\n        \n        if choice == "1":\n            add_student_menu()\n        elif choice == "2":\n            record_grade_menu()\n        elif choice == "3":\n            view_reports_menu()\n        elif choice == "4":\n            print("Goodbye! 👋")\n            break\n        else:\n            print("❌ Invalid choice. Please try again.")\n\ndef show_menu():\n    """Display the main menu"""\n    print("\\n📋 MAIN MENU")\n    print("1. 👤 Add Student")\n    print("2. 📝 Record Grade")\n    print("3. 📊 View Reports")\n    print("4. 🚪 Exit")\n\ndef add_student_menu():\n    """Handle adding a new student"""\n    # TODO: Implement student addition\n    print("\\n👤 ADD STUDENT")\n    print("TODO: Implement this function")\n\ndef record_grade_menu():\n    """Handle recording grades"""\n    # TODO: Implement grade recording\n    print("\\n📝 RECORD GRADE")\n    print("TODO: Implement this function")\n\ndef view_reports_menu():\n    """Handle viewing reports"""\n    # TODO: Implement reporting\n    print("\\n📊 VIEW REPORTS")\n    print("TODO: Implement this function")\n\n# Helper functions to implement\ndef validate_student_name(name):\n    """Validate student name input"""\n    # TODO: Implement validation\n    pass\n\ndef validate_grade(grade_str):\n    """Validate grade input (0-100)"""\n    # TODO: Implement validation\n    pass\n\ndef calculate_average(grade_list):\n    """Calculate average of grades"""\n    # TODO: Implement calculation\n    pass\n\ndef get_letter_grade(average):\n    """Convert numeric average to letter grade"""\n    # TODO: Implement grade conversion\n    pass\n\nif __name__ == "__main__":\n    main()',
+      sampleSolution: '# Complete Student Grade Tracker System\n\n# Global data storage\nstudents = []\ngrades = {}\n\ndef main():\n    """Main program loop"""\n    print("🎓 STUDENT GRADE TRACKER / SISTÈM JESYON NÒT ETIDYAN")\n    print("=" * 60)\n    print("Welcome! Track student grades and generate reports.")\n    print("Byenvni! Swiv nòt etidyan yo ak kreye rapò yo.")\n    \n    while True:\n        show_menu()\n        choice = input("\\nEnter your choice / Chwazi: ").strip()\n        \n        if choice == "1":\n            add_student_menu()\n        elif choice == "2":\n            record_grade_menu()\n        elif choice == "3":\n            view_reports_menu()\n        elif choice == "4":\n            save_data_menu()\n        elif choice == "5":\n            print("\\n👋 Thank you for using Grade Tracker!")\n            print("Mèsi pou sèvi ak Sistèm Jesyon Nòt yo!")\n            break\n        else:\n            print("❌ Invalid choice. Please enter 1-5.")\n            print("Chwa ki pa bon. Tanpri chwazi 1-5.")\n\ndef show_menu():\n    """Display the main menu"""\n    print("\\n" + "="*40)\n    print("📋 MAIN MENU / MENU PRENSIPAL")\n    print("="*40)\n    print("1. 👤 Add Student / Ajoute Etidyan")\n    print("2. 📝 Record Grade / Anrejistre Nòt")\n    print("3. 📊 View Reports / Wè Rapò yo")\n    print("4. 💾 Save Data / Konsève Done yo")\n    print("5. 🚪 Exit / Sòti")\n    print("="*40)\n\ndef add_student_menu():\n    """Handle adding a new student"""\n    print("\\n👤 ADD NEW STUDENT")\n    print("="*25)\n    \n    name = input("Enter student name / Non etidyan: ").strip()\n    \n    # Validate name\n    if not validate_student_name(name):\n        return\n    \n    # Format name (Title Case)\n    name = name.title()\n    \n    # Check for duplicates\n    if name in students:\n        print(f"❌ Student {name} already exists!")\n        print(f"Etidyan {name} deja ekziste!")\n        return\n    \n    # Add student\n    students.append(name)\n    grades[name] = []\n    \n    print(f"✅ Student {name} added successfully!")\n    print(f"Etidyan {name} ajoute ak siksè!")\n    print(f"Total students / Total etidyan: {len(students)}")\n\ndef record_grade_menu():\n    """Handle recording grades"""\n    if not students:\n        print("\\n❌ No students found. Add students first.")\n        print("Pa gen etidyan. Ajoute etidyan yo anvan.")\n        return\n    \n    print("\\n📝 RECORD GRADE")\n    print("="*20)\n    \n    # Show available students\n    print("\\nAvailable students:")\n    for i, student in enumerate(students, 1):\n        print(f"{i}. {student}")\n    \n    # Get student selection\n    try:\n        choice = int(input("\\nSelect student number: ")) - 1\n        if 0 <= choice < len(students):\n            student = students[choice]\n        else:\n            print("❌ Invalid selection")\n            return\n    except ValueError:\n        print("❌ Please enter a valid number")\n        return\n    \n    # Get grade\n    grade_str = input(f"\\nEnter grade for {student} (0-100): ")\n    grade = validate_grade(grade_str)\n    \n    if grade is not None:\n        grades[student].append(grade)\n        print(f"✅ Grade {grade} recorded for {student}")\n        print(f"Nòt {grade} anrejistre pou {student}")\n        \n        # Show current average\n        if grades[student]:\n            avg = calculate_average(grades[student])\n            letter = get_letter_grade(avg)\n            print(f"Current average / Mwayèn aktyèl: {avg:.1f} ({letter})")\n    else:\n        print("❌ Grade not recorded due to invalid input")\n\ndef view_reports_menu():\n    """Handle viewing reports"""\n    if not students:\n        print("\\n❌ No students found.")\n        return\n    \n    print("\\n📊 STUDENT GRADE REPORTS")\n    print("="*35)\n    \n    # Individual student reports\n    print("\\n👥 INDIVIDUAL STUDENT REPORTS")\n    print("-"*40)\n    \n    all_averages = []\n    \n    for student in sorted(students):\n        student_grades = grades[student]\n        print(f"\\n👤 {student}")\n        \n        if student_grades:\n            avg = calculate_average(student_grades)\n            letter = get_letter_grade(avg)\n            all_averages.append(avg)\n            \n            print(f"   📝 Grades: {student_grades}")\n            print(f"   📊 Average: {avg:.1f}")\n            print(f"   🎯 Letter Grade: {letter}")\n            print(f"   📈 Total Assignments: {len(student_grades)}")\n        else:\n            print("   ❌ No grades recorded")\n        \n        print("-" * 30)\n    \n    # Class statistics\n    if all_averages:\n        print("\\n📈 CLASS STATISTICS / ESTATISTIK KLAS LA")\n        print("="*45)\n        class_avg = calculate_average(all_averages)\n        print(f"📊 Class Average / Mwayèn Klas la: {class_avg:.1f}")\n        print(f"🏆 Highest Average / Pi wo mwayèn: {max(all_averages):.1f}")\n        print(f"📉 Lowest Average / Pi ba mwayèn: {min(all_averages):.1f}")\n        print(f"👥 Total Students / Total etidyan: {len(students)}")\n        \n        # Grade distribution\n        grade_counts = {"A": 0, "B": 0, "C": 0, "D": 0, "F": 0}\n        for avg in all_averages:\n            grade_counts[get_letter_grade(avg)] += 1\n        \n        print("\\n📊 Grade Distribution:")\n        for grade, count in grade_counts.items():\n            percentage = (count / len(all_averages)) * 100\n            print(f"   {grade}: {count} students ({percentage:.1f}%)")\n\ndef save_data_menu():\n    """Handle saving data to file"""\n    try:\n        with open("student_grades.txt", "w") as file:\n            file.write("STUDENT GRADE TRACKER DATA\\n")\n            file.write("="*40 + "\\n\\n")\n            \n            for student in sorted(students):\n                file.write(f"Student: {student}\\n")\n                if grades[student]:\n                    file.write(f"Grades: {grades[student]}\\n")\n                    avg = calculate_average(grades[student])\n                    file.write(f"Average: {avg:.1f}\\n")\n                    file.write(f"Letter Grade: {get_letter_grade(avg)}\\n")\n                else:\n                    file.write("Grades: No grades recorded\\n")\n                file.write("-"*30 + "\\n")\n        \n        print("\\n💾 Data saved to student_grades.txt")\n        print("Done yo konsève nan student_grades.txt")\n    except Exception as e:\n        print(f"❌ Error saving data: {e}")\n\n# Helper functions\ndef validate_student_name(name):\n    """Validate student name input"""\n    if not name or not name.strip():\n        print("❌ Name cannot be empty")\n        print("Non an pa ka vid")\n        return False\n    \n    if len(name.strip()) < 2:\n        print("❌ Name must be at least 2 characters")\n        print("Non an dwe gen omwen 2 lèt")\n        return False\n    \n    if not all(c.isalpha() or c.isspace() for c in name):\n        print("❌ Name can only contain letters and spaces")\n        print("Non an ka gen sèlman lèt ak espas yo")\n        return False\n    \n    return True\n\ndef validate_grade(grade_str):\n    """Validate grade input (0-100)"""\n    try:\n        grade = float(grade_str)\n        if 0 <= grade <= 100:\n            return grade\n        else:\n            print("❌ Grade must be between 0 and 100")\n            print("Nòt la dwe ant 0 ak 100")\n            return None\n    except ValueError:\n        print("❌ Please enter a valid number")\n        print("Tanpri antre yon nimewo ki valab")\n        return None\n\ndef calculate_average(grade_list):\n    """Calculate average of grades"""\n    if not grade_list:\n        return 0\n    return sum(grade_list) / len(grade_list)\n\ndef get_letter_grade(average):\n    """Convert numeric average to letter grade"""\n    if average >= 90:\n        return "A"\n    elif average >= 80:\n        return "B"\n    elif average >= 70:\n        return "C"\n    elif average >= 60:\n        return "D"\n    else:\n        return "F"\n\nif __name__ == "__main__":\n    main()'
+    },
+    quiz: [
+      {
+        question: {
+          ht: 'Ki avantaj yo ki genyen nan itilize fonksyon yo nan pwojè yo?',
+          fr: 'Quels sont les avantages d\'utiliser des fonctions dans les projets ?',
+          en: 'What are the advantages of using functions in projects?'
+        },
+        options: [
+          { ht: 'Yo fè kòd la pi difisil', fr: 'Elles rendent le code plus difficile', en: 'They make code more difficult' },
+          { ht: 'Yo òganize, reutilize ak teste kòd pi fasil', fr: 'Elles organisent, réutilisent et testent le code plus facilement', en: 'They organize, reuse and test code more easily' },
+          { ht: 'Yo fè pwogram yo pi gwo', fr: 'Elles rendent les programmes plus gros', en: 'They make programs bigger' }
+        ],
+        correctAnswer: 1,
+        explanation: {
+          ht: 'Fonksyon yo divize pwogram yo nan pati ki pi piti ak pi itil, yo ka reutilize ak yo pi fasil pou teste',
+          fr: 'Les fonctions divisent les programmes en parties plus petites et utiles, réutilisables et plus faciles à tester',
+          en: 'Functions break programs into smaller, useful parts that are reusable and easier to test'
+        }
+      }
+    ],
+    homework: {
+      ht: 'Amelyore sistèm jesyon nòt ou ak ajoute fonksyon yo: rechèch etidyan, ekspò rapò nan fichye, ak jesyon klas yo',
+      fr: 'Améliorez votre système de gestion des notes en ajoutant : recherche d\'étudiants, export de rapports vers fichier, et gestion de classes',
+      en: 'Improve your grade tracking system by adding: student search, report export to file, and class management'
+    },
+    nextWeekPreview: {
+      ht: 'Semèn k ap vini an: Diksyonè ak Set yo - jesyone done ak zouti pi pwisan yo',
+      fr: 'Semaine prochaine : Dictionnaires et Sets - gérer les données avec des outils plus puissants',
+      en: 'Next week: Dictionaries and Sets - managing data with more powerful tools'
+    }
+  },
+
+  // Week 9: Dictionaries & Sets
+  {
+    id: 'python-week-9',
+    order: 9,
+    weekNumber: 9,
+    titleHt: 'Diksyonè ak Set yo',
+    titleFr: 'Dictionnaires et Sets',
+    titleEn: 'Dictionaries & Sets',
+    duration: 90,
+    objectives: {
+      ht: [
+        'Konprann ak itilize diksyonè yo pou stock kle-valè',
+        'Aprann operasyon set yo ak sèvi ak yo',
+        'Itère nan diksyonè ak set yo',
+        'Kreye yon sistèm jesyon kontak'
+      ],
+      fr: [
+        'Comprendre et utiliser les dictionnaires pour stocker clé-valeur',
+        'Apprendre les opérations des sets et les utiliser',
+        'Itérer dans les dictionnaires et sets',
+        'Créer un système de gestion de contacts'
+      ],
+      en: [
+        'Understand and use dictionaries for key-value pairs',
+        'Learn set operations and how to use them',
+        'Iterate through dictionaries and sets',
+        'Create a contact management system'
+      ]
+    },
+    keyConceptsCode: [
+      {
+        concept: 'Dictionary Basics',
+        codeExample: '# Creating dictionaries\ncontact = {\n    "name": "Alice",\n    "phone": "555-1234",\n    "email": "alice@email.com"\n}\n\n# Accessing values\nprint(contact["name"])  # Alice\nprint(contact.get("phone"))  # 555-1234\n\n# Adding/updating\ncontact["address"] = "123 Main St"\ncontact["phone"] = "555-5678"\n\nprint(contact)',
+        explanation: {
+          ht: 'Diksyonè yo stock done nan fòma kle-valè, ki pèmèt aksè rapid ak jesyon fasil',
+          fr: 'Les dictionnaires stockent les données en format clé-valeur, permettant un accès rapide et une gestion facile',
+          en: 'Dictionaries store data in key-value format, allowing fast access and easy management'
+        }
+      },
+      {
+        concept: 'Set Operations',
+        codeExample: '# Creating sets\nfruits = {"apple", "banana", "orange"}\ncolors = {"red", "green", "orange"}\n\n# Set operations\nprint(fruits.union(colors))  # All items\nprint(fruits.intersection(colors))  # Common items\nprint(fruits.difference(colors))  # Only in fruits\n\n# Adding/removing\nfruits.add("grape")\nfruits.discard("banana")\nprint(fruits)',
+        explanation: {
+          ht: 'Set yo se koleksyon eleman inik ki sipòte operasyon matematik',
+          fr: 'Les sets sont des collections d\'éléments uniques qui supportent des opérations mathématiques',
+          en: 'Sets are collections of unique elements that support mathematical operations'
+        }
+      }
+    ],
+    practiceExercises: [
+      {
+        title: {
+          ht: 'Jesyon Enfòmasyon Kontak',
+          fr: 'Gestion des Informations de Contact',
+          en: 'Contact Information Management'
+        },
+        instruction: {
+          ht: 'Kreye yon diksyonè ki stock enfòmasyon kontak ak fonksyon yo pou jesyone yo.',
+          fr: 'Créez un dictionnaire qui stocke les informations de contact et des fonctions pour les gérer.',
+          en: 'Create a dictionary that stores contact information and functions to manage them.'
+        },
+        expectedOutput: 'Contact: John Doe\nPhone: 555-1234\nEmail: john@email.com\nAdded to Friends category',
+        solution: 'contacts = {}\n\ndef add_contact(name, phone, email, category="general"):\n    contacts[name] = {\n        "phone": phone,\n        "email": email,\n        "category": category\n    }\n    return f"Contact: {name}\\nPhone: {phone}\\nEmail: {email}\\nAdded to {category} category"\n\ndef search_contact(name):\n    if name in contacts:\n        contact = contacts[name]\n        return f"Found: {name} - {contact[\'phone\']} - {contact[\'email\']}"}\n    return "Contact not found"\n\n# Test\nprint(add_contact("John Doe", "555-1234", "john@email.com", "Friends"))'
+      }
+    ],
+    miniProject: {
+      title: {
+        ht: 'Sistèm Jesyon Kontak',
+        fr: 'Système de Gestion de Contacts',
+        en: 'Contact Management System'
+      },
+      description: {
+        ht: 'Devlope yon sistèm kontak konplè ki ka jesyone kontak yo, rechèch yo, ak òganize yo nan kategori.',
+        fr: 'Développez un système de contacts complet qui peut gérer les contacts, les rechercher, et les organiser en catégories.',
+        en: 'Develop a complete contact system that can manage contacts, search them, and organize them into categories.'
+      },
+      requirements: {
+        ht: [
+          'Ajoute ak retire kontak yo',
+          'Rechèch kontak pa non, telefòn oswa email',
+          'Òganize kontak yo nan kategori (fanmi, zanmi, travay)',
+          'Montre tout kontak yo pa kategori',
+          'Edit enfòmasyon kontak yo'
+        ],
+        fr: [
+          'Ajouter et supprimer des contacts',
+          'Rechercher des contacts par nom, téléphone ou email',
+          'Organiser les contacts en catégories (famille, amis, travail)',
+          'Afficher tous les contacts par catégorie',
+          'Modifier les informations de contact'
+        ],
+        en: [
+          'Add and remove contacts',
+          'Search contacts by name, phone, or email',
+          'Organize contacts into categories (family, friends, work)',
+          'Display all contacts by category',
+          'Edit contact information'
+        ]
+      },
+      starterCode: '# Contact Management System\n\ncontacts = {}  # Dictionary to store contacts\ncategories = {"family", "friends", "work", "general"}  # Set of categories\n\ndef main():\n    print("📞 CONTACT MANAGER")\n    # TODO: Implement menu system\n    pass\n\ndef add_contact():\n    # TODO: Add new contact\n    pass\n\ndef search_contacts():\n    # TODO: Search functionality\n    pass\n\ndef display_by_category():\n    # TODO: Display contacts by category\n    pass\n\nif __name__ == "__main__":\n    main()',
+      sampleSolution: '# Complete Contact Management System\n\ncontacts = {}\ncategories = {"family", "friends", "work", "general"}\n\ndef main():\n    print("📞 CONTACT MANAGER / JESYONÈ KONTAK")\n    \n    while True:\n        print("\\n" + "="*40)\n        print("1. 👤 Add Contact")\n        print("2. 🔍 Search Contact")\n        print("3. 📝 Edit Contact")\n        print("4. 🗑️  Delete Contact")\n        print("5. 📋 View All Contacts")\n        print("6. 📊 View by Category")\n        print("7. 🚪 Exit")\n        \n        choice = input("Choose option: ")\n        \n        if choice == "1":\n            add_contact()\n        elif choice == "2":\n            search_contacts()\n        elif choice == "3":\n            edit_contact()\n        elif choice == "4":\n            delete_contact()\n        elif choice == "5":\n            view_all_contacts()\n        elif choice == "6":\n            view_by_category()\n        elif choice == "7":\n            print("👋 Goodbye!")\n            break\n\ndef add_contact():\n    print("\\n👤 ADD NEW CONTACT")\n    name = input("Name: ").strip().title()\n    \n    if not name:\n        print("❌ Name cannot be empty")\n        return\n    \n    if name in contacts:\n        print(f"❌ Contact {name} already exists")\n        return\n    \n    phone = input("Phone: ").strip()\n    email = input("Email: ").strip().lower()\n    \n    print(f"Categories: {categories}")\n    category = input("Category: ").strip().lower()\n    \n    if category not in categories:\n        categories.add(category)\n    \n    contacts[name] = {\n        "phone": phone,\n        "email": email,\n        "category": category\n    }\n    \n    print(f"✅ Contact {name} added successfully!")\n\ndef search_contacts():\n    if not contacts:\n        print("❌ No contacts found")\n        return\n    \n    search_term = input("🔍 Search by name, phone, or email: ").strip().lower()\n    found = False\n    \n    for name, info in contacts.items():\n        if (search_term in name.lower() or \n            search_term in info["phone"] or \n            search_term in info["email"]):\n            print(f"\\n👤 {name}")\n            print(f"📞 {info[\'phone\']}")\n            print(f"📧 {info[\'email\']}")\n            print(f"🏷️  {info[\'category\']}")\n            found = True\n    \n    if not found:\n        print("❌ No contacts found")\n\ndef view_by_category():\n    if not contacts:\n        print("❌ No contacts found")\n        return\n    \n    for category in sorted(categories):\n        category_contacts = [name for name, info in contacts.items() \n                           if info["category"] == category]\n        \n        if category_contacts:\n            print(f"\\n🏷️ {category.upper()}")\n            for name in sorted(category_contacts):\n                info = contacts[name]\n                print(f"  👤 {name} | 📞 {info[\'phone\']} | 📧 {info[\'email\']}")\n\nif __name__ == "__main__":\n    main()'
+    },
+    quiz: [
+      {
+        question: {
+          ht: 'Ki diferans yo ki genyen ant yon lis ak yon set?',
+          fr: 'Quelles sont les différences entre une liste et un set ?',
+          en: 'What are the differences between a list and a set?'
+        },
+        options: [
+          { ht: 'Set yo pi vit passe lis yo', fr: 'Les sets sont plus rapides que les listes', en: 'Sets are faster than lists' },
+          { ht: 'Set yo pa aksepte eleman repete, lis yo aksepte', fr: 'Les sets n\'acceptent pas les éléments répétés, les listes oui', en: 'Sets don\'t accept repeated elements, lists do' },
+          { ht: 'Set yo pi long passe lis yo', fr: 'Les sets sont plus longs que les listes', en: 'Sets are longer than lists' }
+        ],
+        correctAnswer: 1,
+        explanation: {
+          ht: 'Set yo sèlman gen eleman inik, pandan lis yo ka gen eleman repete ak yo gen òganizasyon',
+          fr: 'Les sets ne contiennent que des éléments uniques, tandis que les listes peuvent avoir des éléments répétés et sont ordonnées',
+          en: 'Sets only contain unique elements, while lists can have repeated elements and are ordered'
+        }
+      }
+    ],
+    homework: {
+      ht: 'Amelyore sistèm kontak ou ak ajoute fonksyon backup, rechèch avanse, ak jesyon gwoup yo',
+      fr: 'Améliorez votre système de contacts en ajoutant backup, recherche avancée, et gestion de groupes',
+      en: 'Improve your contact system by adding backup, advanced search, and group management'
+    },
+    nextWeekPreview: {
+      ht: 'Semèn k ap vini an: Jesyon Fichye - li ak ekri fichye yo',
+      fr: 'Semaine prochaine : Gestion de Fichiers - lire et écrire des fichiers',
+      en: 'Next week: File Handling - reading and writing files'
+    }
+  },
+
+  // Week 10: File Handling
+  {
+    id: 'python-week-10',
+    order: 10,
+    weekNumber: 10,
+    titleHt: 'Jesyon Fichye yo',
+    titleFr: 'Gestion de Fichiers',
+    titleEn: 'File Handling',
+    duration: 90,
+    objectives: {
+      ht: [
+        'Li ak ekri fichye tèks yo',
+        'Jesyone fichye ak with open()',
+        'Konsève ak restore done yo',
+        'Kreye yon aplikasyon pou stock nòt yo'
+      ],
+      fr: [
+        'Lire et écrire des fichiers texte',
+        'Gérer les fichiers avec with open()',
+        'Sauvegarder et restaurer des données',
+        'Créer une application pour stocker des notes'
+      ],
+      en: [
+        'Read and write text files',
+        'Manage files with with open()',
+        'Save and restore data',
+        'Create an application to store notes'
+      ]
+    },
+    keyConceptsCode: [
+      {
+        concept: 'Reading Files',
+        codeExample: '# Reading a text file\nwith open("notes.txt", "r") as file:\n    content = file.read()\n    print(content)\n\n# Reading line by line\nwith open("notes.txt", "r") as file:\n    for line in file:\n        print(line.strip())\n\n# Reading all lines into a list\nwith open("notes.txt", "r") as file:\n    lines = file.readlines()\n    print(lines)',
+        explanation: {
+          ht: 'with open() ap ouvri fichye yo ak fèmen yo otomatikman, menm si gen erè',
+          fr: 'with open() ouvre les fichiers et les ferme automatiquement, même en cas d\'erreur',
+          en: 'with open() opens files and automatically closes them, even if there\'s an error'
+        }
+      },
+      {
+        concept: 'Writing Files',
+        codeExample: '# Writing to a file (overwrites)\nwith open("notes.txt", "w") as file:\n    file.write("My first note\\n")\n    file.write("Python is awesome!\\n")\n\n# Appending to a file\nwith open("notes.txt", "a") as file:\n    file.write("This is a new line\\n")\n\n# Writing a list of lines\nnotes = ["Note 1\\n", "Note 2\\n", "Note 3\\n"]\nwith open("notes.txt", "w") as file:\n    file.writelines(notes)',
+        explanation: {
+          ht: '"w" ap efase fichye a ak ekri nouvo, "a" ap ajoute nan fen an',
+          fr: '"w" efface le fichier et écrit du nouveau, "a" ajoute à la fin',
+          en: '"w" erases the file and writes new content, "a" appends to the end'
+        }
+      }
+    ],
+    practiceExercises: [
+      {
+        title: {
+          ht: 'Konsèvatè Nòt Senp',
+          fr: 'Sauvegarde de Notes Simple',
+          en: 'Simple Note Saver'
+        },
+        instruction: {
+          ht: 'Kreye fonksyon ki konsève ak li nòt yo nan yon fichye.',
+          fr: 'Créez des fonctions qui sauvent et lisent des notes dans un fichier.',
+          en: 'Create functions that save and read notes from a file.'
+        },
+        expectedOutput: 'Note saved successfully!\nYour notes:\n1. Buy groceries\n2. Call mom\n3. Study Python',
+        solution: 'def save_note(note):\n    with open("my_notes.txt", "a") as file:\n        file.write(note + "\\n")\n    print("Note saved successfully!")\n\ndef read_notes():\n    try:\n        with open("my_notes.txt", "r") as file:\n            notes = file.readlines()\n            if notes:\n                print("Your notes:")\n                for i, note in enumerate(notes, 1):\n                    print(f"{i}. {note.strip()}")\n            else:\n                print("No notes found")\n    except FileNotFoundError:\n        print("No notes file found")\n\n# Test\nsave_note("Buy groceries")\nsave_note("Call mom")\nsave_note("Study Python")\nread_notes()'
+      }
+    ],
+    miniProject: {
+      title: {
+        ht: 'Aplikasyon Jesyon Nòt',
+        fr: 'Application de Gestion de Notes',
+        en: 'Note Management Application'
+      },
+      description: {
+        ht: 'Kreye yon aplikasyon konplè ki ka ajoute, li, rechèch, ak efase nòt yo ak konsève yo nan fichye.',
+        fr: 'Créez une application complète qui peut ajouter, lire, rechercher, et supprimer des notes en les sauvegardant dans un fichier.',
+        en: 'Create a complete application that can add, read, search, and delete notes while saving them to a file.'
+      },
+      requirements: {
+        ht: [
+          'Ajoute nouvo nòt yo ak dat ak lè',
+          'Montre tout nòt yo ak nimewo yo',
+          'Rechèch nòt yo pa mo kle',
+          'Efase nòt yo pa nimewo',
+          'Konsève ak restore otomatikman nan fichye',
+          'Jesyone erè fichye yo'
+        ],
+        fr: [
+          'Ajouter de nouvelles notes avec date et heure',
+          'Afficher toutes les notes avec numéros',
+          'Rechercher des notes par mots-clés',
+          'Supprimer des notes par numéro',
+          'Sauvegarder et restaurer automatiquement depuis fichier',
+          'Gérer les erreurs de fichier'
+        ],
+        en: [
+          'Add new notes with date and time',
+          'Display all notes with numbers',
+          'Search notes by keywords',
+          'Delete notes by number',
+          'Automatically save and restore from file',
+          'Handle file errors gracefully'
+        ]
+      },
+      starterCode: '# Note Management Application\nimport datetime\n\nnotes = []\nNOTES_FILE = "notes.txt"\n\ndef main():\n    print("📝 NOTE MANAGER")\n    load_notes()  # Load existing notes\n    # TODO: Implement menu\n    pass\n\ndef add_note():\n    # TODO: Add note with timestamp\n    pass\n\ndef view_notes():\n    # TODO: Display all notes\n    pass\n\ndef search_notes():\n    # TODO: Search functionality\n    pass\n\ndef delete_note():\n    # TODO: Delete by number\n    pass\n\ndef save_notes():\n    # TODO: Save to file\n    pass\n\ndef load_notes():\n    # TODO: Load from file\n    pass\n\nif __name__ == "__main__":\n    main()',
+      sampleSolution: '# Complete Note Management Application\nimport datetime\nimport os\n\nnotes = []\nNOTES_FILE = "my_notes.txt"\n\ndef main():\n    print("📝 NOTE MANAGER / JESYONÈ NÒT")\n    print("="*40)\n    load_notes()\n    \n    while True:\n        show_menu()\n        choice = input("\\nChoose option / Chwazi: ")\n        \n        if choice == "1":\n            add_note()\n        elif choice == "2":\n            view_notes()\n        elif choice == "3":\n            search_notes()\n        elif choice == "4":\n            delete_note()\n        elif choice == "5":\n            print("\\n💾 All notes saved automatically!")\n            print("Tout nòt yo otomatikman konsève!")\n            print("👋 Goodbye!")\n            break\n        else:\n            print("❌ Invalid choice")\n\ndef show_menu():\n    print("\\n" + "="*30)\n    print("📋 MENU")\n    print("1. ➕ Add Note / Ajoute Nòt")\n    print("2. 📖 View All Notes / Wè Tout Nòt")\n    print("3. 🔍 Search Notes / Rechèch Nòt")\n    print("4. 🗑️  Delete Note / Efase Nòt")\n    print("5. 🚪 Exit / Sòti")\n    print("="*30)\n\ndef add_note():\n    print("\\n➕ ADD NEW NOTE")\n    content = input("Enter your note / Ekri nòt ou: ").strip()\n    \n    if not content:\n        print("❌ Note cannot be empty")\n        return\n    \n    # Add timestamp\n    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")\n    note_entry = f"[{timestamp}] {content}"\n    \n    notes.append(note_entry)\n    save_notes()\n    \n    print(f"✅ Note added successfully!")\n    print(f"Total notes: {len(notes)}")\n\ndef view_notes():\n    if not notes:\n        print("\\n📝 No notes found.")\n        print("Pa gen nòt yo.")\n        return\n    \n    print(f"\\n📖 ALL NOTES ({len(notes)} total)")\n    print("="*50)\n    \n    for i, note in enumerate(notes, 1):\n        print(f"{i:2d}. {note}")\n        if i % 5 == 0 and i < len(notes):\n            input("\\n📄 Press Enter to continue...")\n\ndef search_notes():\n    if not notes:\n        print("\\n❌ No notes to search")\n        return\n    \n    keyword = input("\\n🔍 Search keyword / Mo rechèch: ").strip().lower()\n    \n    if not keyword:\n        print("❌ Please enter a search term")\n        return\n    \n    found_notes = []\n    for i, note in enumerate(notes, 1):\n        if keyword in note.lower():\n            found_notes.append((i, note))\n    \n    if found_notes:\n        print(f"\\n🎯 Found {len(found_notes)} notes with \\"{keyword}\\"")\n        print("="*50)\n        for original_num, note in found_notes:\n            print(f"{original_num:2d}. {note}")\n    else:\n        print(f"❌ No notes found containing \\"{keyword}\\"")\n\ndef delete_note():\n    if not notes:\n        print("\\n❌ No notes to delete")\n        return\n    \n    view_notes()\n    \n    try:\n        note_num = int(input("\\n🗑️ Enter note number to delete: "))\n        \n        if 1 <= note_num <= len(notes):\n            deleted_note = notes.pop(note_num - 1)\n            save_notes()\n            print(f"\\n✅ Note {note_num} deleted successfully!")\n            print(f"Deleted: {deleted_note[:50]}...")\n        else:\n            print("❌ Invalid note number")\n    \n    except ValueError:\n        print("❌ Please enter a valid number")\n\ndef save_notes():\n    try:\n        with open(NOTES_FILE, "w", encoding="utf-8") as file:\n            for note in notes:\n                file.write(note + "\\n")\n    except Exception as e:\n        print(f"❌ Error saving notes: {e}")\n\ndef load_notes():\n    global notes\n    \n    if not os.path.exists(NOTES_FILE):\n        print("📝 No existing notes file found. Starting fresh!")\n        return\n    \n    try:\n        with open(NOTES_FILE, "r", encoding="utf-8") as file:\n            notes = [line.strip() for line in file.readlines() if line.strip()]\n        \n        if notes:\n            print(f"📂 Loaded {len(notes)} existing notes")\n        else:\n            print("📝 Notes file is empty")\n    \n    except Exception as e:\n        print(f"❌ Error loading notes: {e}")\n        print("Starting with empty notes...")\n        notes = []\n\nif __name__ == "__main__":\n    main()'
+    },
+    quiz: [
+      {
+        question: {
+          ht: 'Ki diferans yo ki genyen ant "w" ak "a" nan with open()?',
+          fr: 'Quelles sont les différences entre "w" et "a" dans with open() ?',
+          en: 'What are the differences between "w" and "a" in with open()?'
+        },
+        options: [
+          { ht: '"w" ak "a" se menm bagay', fr: '"w" et "a" sont identiques', en: '"w" and "a" are the same' },
+          { ht: '"w" efase ak rekri, "a" ajoute nan fen an', fr: '"w" efface et réécrit, "a" ajoute à la fin', en: '"w" erases and rewrites, "a" appends to the end' },
+          { ht: '"w" pi vit pase "a"', fr: '"w" est plus rapide que "a"', en: '"w" is faster than "a"' }
+        ],
+        correctAnswer: 1,
+        explanation: {
+          ht: '"w" (write) efase tout kontni an ak kòmanse ak nouvo, "a" (append) ajoute nan fen fichye a',
+          fr: '"w" (write) efface tout le contenu et recommence, "a" (append) ajoute à la fin du fichier',
+          en: '"w" (write) erases all content and starts fresh, "a" (append) adds to the end of the file'
+        }
+      }
+    ],
+    homework: {
+      ht: 'Amelyore aplikasyon nòt ou ak ajoute kategori, ekspò nan diferan fòma, ak backup otomatik',
+      fr: 'Améliorez votre application de notes en ajoutant des catégories, export en différents formats, et backup automatique',
+      en: 'Improve your note application by adding categories, export to different formats, and automatic backup'
+    },
+    nextWeekPreview: {
+      ht: 'Semèn k ap vini an: Jesyon Erè yo - jesyone ak prevni erè nan kòd',
+      fr: 'Semaine prochaine : Gestion des Erreurs - gérer et prévenir les erreurs dans le code',
+      en: 'Next week: Error Handling - managing and preventing errors in code'
+    }
+  },
+
+  // Week 11: Error Handling
+  {
+    id: 'python-week-11',
+    order: 11,
+    weekNumber: 11,
+    titleHt: 'Jesyon Erè yo',
+    titleFr: 'Gestion des Erreurs',
+    titleEn: 'Error Handling',
+    duration: 90,
+    objectives: {
+      ht: ['Aprann jesyone erè yo ak try/except', 'Kreye yon zouti validasyon'],
+      fr: ['Apprendre à gérer les erreurs avec try/except', 'Créer un outil de validation'],
+      en: ['Learn to handle errors with try/except', 'Create a validation tool']
+    },
+    keyConceptsCode: [
+      {
+        concept: 'Try/Except Basics',
+        codeExample: 'try:\n    number = int(input("Enter number: "))\n    result = 10 / number\n    print(f"Result: {result}")\nexcept ValueError:\n    print("Please enter a valid number")\nexcept ZeroDivisionError:\n    print("Cannot divide by zero")',
+        explanation: {
+          ht: 'try/except pèmèt nou jesyone erè yo san pwogram an kraze',
+          fr: 'try/except nous permet de gérer les erreurs sans que le programme plante',
+          en: 'try/except allows us to handle errors without the program crashing'
+        }
+      }
+    ],
+    practiceExercises: [
+      {
+        title: { ht: 'Validatè Nimewo', fr: 'Validateur de Nombres', en: 'Number Validator' },
+        instruction: { ht: 'Kreye yon fonksyon ki valide nimewo yo', fr: 'Créez une fonction qui valide les nombres', en: 'Create a function that validates numbers' },
+        expectedOutput: 'Valid number: 42',
+        solution: 'def get_valid_number():\n    while True:\n        try:\n            return int(input("Enter number: "))\n        except ValueError:\n            print("Invalid number, try again")'
+      }
+    ],
+    miniProject: {
+      title: { ht: 'Zouti Validasyon Entè', fr: 'Outil de Validation d\'Entrée', en: 'Input Validator Tool' },
+      description: { ht: 'Kreye yon zouti ki valide diferan tip entè', fr: 'Créez un outil qui valide différents types d\'entrées', en: 'Create a tool that validates different types of input' },
+      requirements: { ht: ['Valide nimewo, email, telefòn'], fr: ['Valider nombres, emails, téléphones'], en: ['Validate numbers, emails, phones'] },
+      starterCode: '# Input Validator Tool\ndef main():\n    print("Input Validator")\n    # TODO: Add validation functions',
+      sampleSolution: '# Complete Input Validator\nimport re\n\ndef validate_email(email):\n    pattern = r"^[\\w\\.-]+@[\\w\\.-]+\\.\\w+$"\n    return bool(re.match(pattern, email))\n\ndef main():\n    email = input("Enter email: ")\n    if validate_email(email):\n        print("Valid email")\n    else:\n        print("Invalid email")'
+    },
+    quiz: [
+      {
+        question: { ht: 'Ki mo kle nou itilize pou jesyone erè?', fr: 'Quel mot-clé utilisons-nous pour gérer les erreurs?', en: 'What keyword do we use to handle errors?' },
+        options: [{ ht: 'catch', fr: 'catch', en: 'catch' }, { ht: 'except', fr: 'except', en: 'except' }, { ht: 'error', fr: 'error', en: 'error' }],
+        correctAnswer: 1,
+        explanation: { ht: 'except itilize ak try pou jesyone erè yo', fr: 'except est utilisé avec try pour gérer les erreurs', en: 'except is used with try to handle errors' }
+      }
+    ],
+    homework: { ht: 'Kreye yon sistèm validasyon konplè', fr: 'Créez un système de validation complet', en: 'Create a complete validation system' },
+    nextWeekPreview: { ht: 'Semèn k ap vini an: Modil ak Pakè yo', fr: 'Semaine prochaine : Modules et Packages', en: 'Next week: Modules and Packages' }
+  },
+
+  // Week 12: Modules & Packages
+  {
+    id: 'python-week-12',
+    order: 12,
+    weekNumber: 12,
+    titleHt: 'Modil ak Pakè yo',
+    titleFr: 'Modules et Packages',
+    titleEn: 'Modules & Packages',
+    duration: 90,
+    objectives: {
+      ht: ['Enpòte ak itilize modil yo', 'Itilize math, random, datetime', 'Kreye yon jwèt oswa timer'],
+      fr: ['Importer et utiliser des modules', 'Utiliser math, random, datetime', 'Créer un jeu ou timer'],
+      en: ['Import and use modules', 'Use math, random, datetime', 'Create a game or timer']
+    },
+    keyConceptsCode: [
+      {
+        concept: 'Importing Modules',
+        codeExample: 'import math\nimport random\nfrom datetime import datetime\n\n# Using math\nprint(math.sqrt(16))  # 4.0\nprint(math.pi)        # 3.14159...\n\n# Using random\nprint(random.randint(1, 6))  # Random dice roll\nprint(random.choice(["A", "B", "C"]))\n\n# Using datetime\nnow = datetime.now()\nprint(f"Current time: {now}")',
+        explanation: {
+          ht: 'Modil yo bay fonksyon ak zouti ki deja fèt pou nou itilize',
+          fr: 'Les modules fournissent des fonctions et outils déjà créés pour notre utilisation',
+          en: 'Modules provide pre-built functions and tools for us to use'
+        }
+      }
+    ],
+    practiceExercises: [
+      {
+        title: { ht: 'Kalkile ak Math', fr: 'Calculs avec Math', en: 'Math Calculations' },
+        instruction: { ht: 'Itilize modil math pou fè kalkil yo', fr: 'Utilisez le module math pour faire des calculs', en: 'Use the math module to do calculations' },
+        expectedOutput: 'Square root of 25: 5.0',
+        solution: 'import math\n\nnumber = 25\nresult = math.sqrt(number)\nprint(f"Square root of {number}: {result}")'
+      }
+    ],
+    miniProject: {
+      title: { ht: 'Jwèt Dès oswa Timer', fr: 'Jeu de Dés ou Timer', en: 'Dice Game or Timer' },
+      description: { ht: 'Kreye yon jwèt dès oswa yon timer ak modil yo', fr: 'Créez un jeu de dés ou un timer avec des modules', en: 'Create a dice game or timer using modules' },
+      requirements: { ht: ['Itilize random pou dès', 'Itilize datetime pou timer'], fr: ['Utiliser random pour dés', 'Utiliser datetime pour timer'], en: ['Use random for dice', 'Use datetime for timer'] },
+      starterCode: '# Dice Game or Timer\nimport random\nimport datetime\n\ndef main():\n    print("Dice Game & Timer")\n    # TODO: Implement features',
+      sampleSolution: 'import random\nimport time\n\ndef roll_dice():\n    return random.randint(1, 6)\n\ndef timer(seconds):\n    for i in range(seconds, 0, -1):\n        print(f"Time remaining: {i}")\n        time.sleep(1)\n    print("Time\'s up!")\n\ndef main():\n    while True:\n        choice = input("1. Roll dice 2. Timer 3. Exit: ")\n        if choice == "1":\n            print(f"You rolled: {roll_dice()}")\n        elif choice == "2":\n            seconds = int(input("Timer seconds: "))\n            timer(seconds)\n        elif choice == "3":\n            break'
+    },
+    quiz: [
+      {
+        question: { ht: 'Ki kòmand nou itilize pou enpòte yon modil?', fr: 'Quelle commande utilisons-nous pour importer un module?', en: 'What command do we use to import a module?' },
+        options: [{ ht: 'include', fr: 'include', en: 'include' }, { ht: 'import', fr: 'import', en: 'import' }, { ht: 'load', fr: 'load', en: 'load' }],
+        correctAnswer: 1,
+        explanation: { ht: 'import se mo kle pou enpòte modil yo', fr: 'import est le mot-clé pour importer des modules', en: 'import is the keyword to import modules' }
+      }
+    ],
+    homework: { ht: 'Kreye yon pwogram ki itilize plizyè modil', fr: 'Créez un programme qui utilise plusieurs modules', en: 'Create a program that uses multiple modules' },
+    nextWeekPreview: { ht: 'Semèn k ap vini an: Pwogram Òrye Objè', fr: 'Semaine prochaine : Programmation Orientée Objet', en: 'Next week: Object-Oriented Programming' }
+  },
+
+  // Week 13: Object-Oriented Programming Basics
+  {
+    id: 'python-week-13',
+    order: 13,
+    weekNumber: 13,
+    titleHt: 'Pwogram Òrye Objè - Klas ak Objè',
+    titleFr: 'Programmation Orientée Objet - Classes et Objets',
+    titleEn: 'Object-Oriented Programming Basics - Classes & Objects',
+    duration: 90,
+    objectives: {
+      ht: ['Konprann klas ak objè yo', 'Kreye atribi ak metòd', 'Devlope yon simikatè kont bank'],
+      fr: ['Comprendre les classes et objets', 'Créer des attributs et méthodes', 'Développer un simulateur de compte bancaire'],
+      en: ['Understand classes and objects', 'Create attributes and methods', 'Develop a bank account simulator']
+    },
+    keyConceptsCode: [
+      {
+        concept: 'Classes and Objects',
+        codeExample: 'class BankAccount:\n    def __init__(self, owner, balance=0):\n        self.owner = owner\n        self.balance = balance\n    \n    def deposit(self, amount):\n        self.balance += amount\n        return f"Deposited {amount}. New balance: {self.balance}"\n    \n    def withdraw(self, amount):\n        if amount <= self.balance:\n            self.balance -= amount\n            return f"Withdrew {amount}. New balance: {self.balance}"\n        return "Insufficient funds"\n\n# Using the class\naccount = BankAccount("John", 100)\nprint(account.deposit(50))\nprint(account.withdraw(30))',
+        explanation: {
+          ht: 'Klas yo se plan pou kreye objè yo ak metòd ak atribi yo',
+          fr: 'Les classes sont des plans pour créer des objets avec leurs méthodes et attributs',
+          en: 'Classes are blueprints for creating objects with their methods and attributes'
+        }
+      }
+    ],
+    practiceExercises: [
+      {
+        title: { ht: 'Klas Moun Senp', fr: 'Classe Personne Simple', en: 'Simple Person Class' },
+        instruction: { ht: 'Kreye yon klas Person ak non ak laj', fr: 'Créez une classe Person avec nom et âge', en: 'Create a Person class with name and age' },
+        expectedOutput: 'Person: Alice, Age: 25',
+        solution: 'class Person:\n    def __init__(self, name, age):\n        self.name = name\n        self.age = age\n    \n    def introduce(self):\n        return f"Person: {self.name}, Age: {self.age}"\n\nperson = Person("Alice", 25)\nprint(person.introduce())'
+      }
+    ],
+    miniProject: {
+      title: { ht: 'Simikatè Kont Bank', fr: 'Simulateur de Compte Bancaire', en: 'Bank Account Simulator' },
+      description: { ht: 'Kreye yon sistèm jesyon kont bank ak klas yo', fr: 'Créez un système de gestion de comptes bancaires avec des classes', en: 'Create a bank account management system using classes' },
+      requirements: { ht: ['Klas BankAccount ak metòd yo', 'Depo ak retire kòb', 'Wè istwa ak balans'], fr: ['Classe BankAccount avec méthodes', 'Dépôt et retrait d\'argent', 'Voir historique et solde'], en: ['BankAccount class with methods', 'Deposit and withdraw money', 'View history and balance'] },
+      starterCode: '# Bank Account Simulator\nclass BankAccount:\n    def __init__(self, owner, initial_balance=0):\n        # TODO: Initialize attributes\n        pass\n    \n    def deposit(self, amount):\n        # TODO: Add money\n        pass\n    \n    def withdraw(self, amount):\n        # TODO: Remove money\n        pass',
+      sampleSolution: 'class BankAccount:\n    def __init__(self, owner, initial_balance=0):\n        self.owner = owner\n        self.balance = initial_balance\n        self.transactions = []\n    \n    def deposit(self, amount):\n        if amount > 0:\n            self.balance += amount\n            self.transactions.append(f"Deposit: +${amount}")\n            return f"Deposited ${amount}. New balance: ${self.balance}"\n        return "Invalid amount"\n    \n    def withdraw(self, amount):\n        if amount > 0 and amount <= self.balance:\n            self.balance -= amount\n            self.transactions.append(f"Withdrawal: -${amount}")\n            return f"Withdrew ${amount}. New balance: ${self.balance}"\n        return "Insufficient funds or invalid amount"\n    \n    def get_balance(self):\n        return f"Account balance: ${self.balance}"\n    \n    def get_history(self):\n        return "\\n".join(self.transactions) if self.transactions else "No transactions"\n\ndef main():\n    account = BankAccount("John Doe", 1000)\n    \n    while True:\n        print("\\n1. Deposit 2. Withdraw 3. Balance 4. History 5. Exit")\n        choice = input("Choose: ")\n        \n        if choice == "1":\n            amount = float(input("Deposit amount: $"))\n            print(account.deposit(amount))\n        elif choice == "2":\n            amount = float(input("Withdraw amount: $"))\n            print(account.withdraw(amount))\n        elif choice == "3":\n            print(account.get_balance())\n        elif choice == "4":\n            print("Transaction History:")\n            print(account.get_history())\n        elif choice == "5":\n            break\n\nif __name__ == "__main__":\n    main()'
+    },
+    quiz: [
+      {
+        question: { ht: 'Ki metòd espesyal yo itilize pou inisyalize yon objè?', fr: 'Quelle méthode spéciale utilise-t-on pour initialiser un objet?', en: 'What special method is used to initialize an object?' },
+        options: [{ ht: '__start__', fr: '__start__', en: '__start__' }, { ht: '__init__', fr: '__init__', en: '__init__' }, { ht: '__create__', fr: '__create__', en: '__create__' }],
+        correctAnswer: 1,
+        explanation: { ht: '__init__ se metòd konstruktè pou inisyalize objè yo', fr: '__init__ est la méthode constructeur pour initialiser les objets', en: '__init__ is the constructor method to initialize objects' }
+      }
+    ],
+    homework: { ht: 'Kreye yon klas Student ak metòd jesyon nòt', fr: 'Créez une classe Student avec méthodes de gestion des notes', en: 'Create a Student class with grade management methods' },
+    nextWeekPreview: { ht: 'Semèn k ap vini an: Travay ak Done Ekstèn', fr: 'Semaine prochaine : Travail avec Données Externes', en: 'Next week: Working with External Data' }
+  },
+
+  // Week 14: Working with External Data
+  {
+    id: 'python-week-14',
+    order: 14,
+    weekNumber: 14,
+    titleHt: 'Travay ak Done Ekstèn - JSON ak API',
+    titleFr: 'Travail avec Données Externes - JSON et API',
+    titleEn: 'Working with External Data - JSON & APIs',
+    duration: 90,
+    objectives: {
+      ht: ['Li ak ekri JSON', 'Fè demann API yo', 'Kreye yon aplikasyon meteo'],
+      fr: ['Lire et écrire JSON', 'Faire des requêtes API', 'Créer une application météo'],
+      en: ['Read and write JSON', 'Make API requests', 'Create a weather app']
+    },
+    keyConceptsCode: [
+      {
+        concept: 'JSON Handling',
+        codeExample: 'import json\n\n# Working with JSON\ndata = {\n    "name": "Alice",\n    "age": 25,\n    "city": "Port-au-Prince"\n}\n\n# Convert to JSON string\njson_string = json.dumps(data)\nprint(json_string)\n\n# Convert back to Python dict\nparsed_data = json.loads(json_string)\nprint(parsed_data["name"])',
+        explanation: {
+          ht: 'JSON se yon fòma pou stock ak echanje done yo ant pwogram yo',
+          fr: 'JSON est un format pour stocker et échanger des données entre programmes',
+          en: 'JSON is a format for storing and exchanging data between programs'
+        }
+      }
+    ],
+    practiceExercises: [
+      {
+        title: { ht: 'Analizè JSON', fr: 'Analyseur JSON', en: 'JSON Parser' },
+        instruction: { ht: 'Li ak analize done JSON', fr: 'Lire et analyser des données JSON', en: 'Read and parse JSON data' },
+        expectedOutput: 'Name: Alice, Age: 25',
+        solution: 'import json\n\njson_data = \'{"name": "Alice", "age": 25}\'\ndata = json.loads(json_data)\nprint(f"Name: {data[\\"name\\"]}, Age: {data[\\"age\\"]}")'
+      }
+    ],
+    miniProject: {
+      title: { ht: 'Aplikasyon Meteo', fr: 'Application Météo', en: 'Weather App' },
+      description: { ht: 'Kreye yon aplikasyon ki jwenn enfòmasyon meteo ak API', fr: 'Créez une application qui récupère des informations météo via API', en: 'Create an app that fetches weather information via API' },
+      requirements: { ht: ['Konekte ak API meteo', 'Montre done meteo', 'Jesyone erè koneksyon'], fr: ['Se connecter à une API météo', 'Afficher données météo', 'Gérer erreurs de connexion'], en: ['Connect to weather API', 'Display weather data', 'Handle connection errors'] },
+      starterCode: '# Weather App\nimport json\nimport requests  # Note: would need to install\n\ndef get_weather(city):\n    # TODO: Make API request\n    pass\n\ndef main():\n    print("Weather App")\n    # TODO: Implement weather fetching',
+      sampleSolution: '# Weather App (Simplified - using mock data)\nimport json\n\n# Mock weather data (in real app, would come from API)\nmock_weather_data = {\n    "Port-au-Prince": {"temp": 28, "condition": "Sunny", "humidity": 65},\n    "Cap-Haitien": {"temp": 26, "condition": "Cloudy", "humidity": 70},\n    "Gonaives": {"temp": 30, "condition": "Partly Cloudy", "humidity": 60}\n}\n\ndef get_weather(city):\n    """Get weather data for a city"""\n    city_formatted = city.title()\n    \n    if city_formatted in mock_weather_data:\n        return mock_weather_data[city_formatted]\n    else:\n        return None\n\ndef display_weather(city, weather_data):\n    """Display weather information"""\n    if weather_data:\n        print(f"\\n🌤️  Weather for {city}:")\n        print(f"Temperature: {weather_data[\\"temp\\\"]}°C")\n        print(f"Condition: {weather_data[\\"condition\\"]}")\n        print(f"Humidity: {weather_data[\\"humidity\\"]}%")\n    else:\n        print(f"❌ Weather data not available for {city}")\n\ndef save_weather_data(city, weather_data):\n    """Save weather data to JSON file"""\n    if weather_data:\n        data = {\n            "city": city,\n            "weather": weather_data,\n            "timestamp": "2024-01-15 10:30:00"  # Would use real timestamp\n        }\n        \n        try:\n            with open(f"weather_{city.lower().replace(\\" \\", \\"_\\")}.json", "w") as file:\n                json.dump(data, file, indent=2)\n            print(f"✅ Weather data saved for {city}")\n        except Exception as e:\n            print(f"❌ Error saving data: {e}")\n\ndef main():\n    print("🌤️  WEATHER APP / APP METEO")\n    print("="*40)\n    \n    while True:\n        print("\\n📍 Available cities:")\n        for city in mock_weather_data.keys():\n            print(f"  - {city}")\n        \n        print("\\n1. 🌡️  Check Weather")\n        print("2. 💾 Save Weather Data")\n        print("3. 🚪 Exit")\n        \n        choice = input("\\nChoose option: ")\n        \n        if choice == "1":\n            city = input("\\nEnter city name: ").strip()\n            weather_data = get_weather(city)\n            display_weather(city, weather_data)\n        \n        elif choice == "2":\n            city = input("\\nEnter city to save data for: ").strip()\n            weather_data = get_weather(city)\n            if weather_data:\n                save_weather_data(city, weather_data)\n            else:\n                print(f"❌ No weather data available for {city}")\n        \n        elif choice == "3":\n            print("👋 Goodbye! / Orevwa!")\n            break\n        \n        else:\n            print("❌ Invalid choice")\n\nif __name__ == "__main__":\n    main()'
+    },
+    quiz: [
+      {
+        question: { ht: 'Ki fonksyon nou itilize pou konvèti yon string JSON nan yon objè Python?', fr: 'Quelle fonction utilise-t-on pour convertir une chaîne JSON en objet Python?', en: 'What function is used to convert a JSON string to a Python object?' },
+        options: [{ ht: 'json.dumps()', fr: 'json.dumps()', en: 'json.dumps()' }, { ht: 'json.loads()', fr: 'json.loads()', en: 'json.loads()' }, { ht: 'json.parse()', fr: 'json.parse()', en: 'json.parse()' }],
+        correctAnswer: 1,
+        explanation: { ht: 'json.loads() konvèti yon string JSON nan yon objè Python', fr: 'json.loads() convertit une chaîne JSON en objet Python', en: 'json.loads() converts a JSON string to a Python object' }
+      }
+    ],
+    homework: { ht: 'Amelyore aplikasyon meteo ak plis fonksyon ak jesyon erè', fr: 'Améliorez l\'application météo avec plus de fonctions et gestion d\'erreurs', en: 'Improve the weather app with more features and error handling' },
+    nextWeekPreview: { ht: 'Semèn k ap vini an: Pwojè Final - Asistan Pèsonèl CLI', fr: 'Semaine prochaine : Projet Final - Assistant Personnel CLI', en: 'Next week: Final Project - Personal Assistant CLI' }
+  },
+
+  // Week 15: Final Project
+  {
+    id: 'python-week-15',
+    order: 15,
+    weekNumber: 15,
+    titleHt: 'Pwojè Final - Asistan Pèsonèl CLI',
+    titleFr: 'Projet Final - Assistant Personnel CLI',
+    titleEn: 'Final Project - Personal Assistant CLI App',
+    duration: 120,
+    objectives: {
+      ht: ['Konbine tout konpetans yo ki aprann nan 14 semèn yo', 'Kreye yon aplikasyon asistan konplè', 'Demontre metriz nan pwogram Python'],
+      fr: ['Combiner toutes les compétences apprises en 14 semaines', 'Créer une application assistant complète', 'Démontrer maîtrise en programmation Python'],
+      en: ['Combine all skills learned over 14 weeks', 'Create a complete assistant application', 'Demonstrate mastery in Python programming']
+    },
+    keyConceptsCode: [
+      {
+        concept: 'Project Architecture',
+        codeExample: '# Personal Assistant CLI App Structure\n\nclass PersonalAssistant:\n    def __init__(self):\n        self.contacts = {}  # Week 9: Dictionaries\n        self.notes = []     # Week 10: File handling\n        self.tasks = []     # Week 4: Lists\n        self.settings = {}  # Week 8: Data management\n    \n    def run(self):\n        """Main application loop combining all features"""\n        while True:\n            self.show_menu()\n            choice = self.get_user_choice()  # Week 11: Error handling\n            self.handle_choice(choice)       # Week 7: Functions\n\n# This project combines:\n# - Variables & Data Types (Week 2)\n# - String Operations (Week 3)\n# - Lists & Dictionaries (Week 4, 9)\n# - Conditionals & Loops (Week 5, 6)\n# - Functions & Classes (Week 7, 13)\n# - File Handling & JSON (Week 10, 14)\n# - Error Handling (Week 11)\n# - Modules & Packages (Week 12)',
+        explanation: {
+          ht: 'Pwojè final la konbine tout konsèp yo nan yon aplikasyon itil ak konplè',
+          fr: 'Le projet final combine tous les concepts dans une application utile et complète',
+          en: 'The final project combines all concepts into a useful and complete application'
+        }
+      }
+    ],
+    practiceExercises: [
+      {
+        title: { ht: 'Òganizè Modil yo', fr: 'Organiser les Modules', en: 'Organize Modules' },
+        instruction: { ht: 'Separe aplikasyon an nan plizyè modil ak fichye', fr: 'Séparez l\'application en plusieurs modules et fichiers', en: 'Separate the application into multiple modules and files' },
+        expectedOutput: 'Successfully imported all modules',
+        solution: '# assistant.py\nfrom contacts import ContactManager\nfrom notes import NoteManager\nfrom tasks import TaskManager\n\nclass PersonalAssistant:\n    def __init__(self):\n        self.contacts = ContactManager()\n        self.notes = NoteManager()\n        self.tasks = TaskManager()\n\n# contacts.py\nclass ContactManager:\n    def __init__(self):\n        self.contacts = {}\n\n# notes.py  \nclass NoteManager:\n    def __init__(self):\n        self.notes = []'
+      }
+    ],
+    miniProject: {
+      title: { ht: 'Asistan Pèsonèl CLI Konplè', fr: 'Assistant Personnel CLI Complet', en: 'Complete Personal Assistant CLI' },
+      description: { ht: 'Devlope yon aplikasyon asistan konplè ki konbine jesyon kontak, nòt, travay, ak plis fonksyon ak tout konpetans yo ki aprann', fr: 'Développez une application assistant complète qui combine gestion de contacts, notes, tâches, et plus de fonctions avec toutes les compétences apprises', en: 'Develop a complete assistant application that combines contact management, notes, tasks, and more features using all learned skills' },
+      requirements: {
+        ht: [
+          'Jesyon kontak ak rechèch ak kategori',
+          'Sistèm nòt ak timestamp ak rechèch',
+          'Jesyon travay ak priyorite ak echeyans',
+          'Kalkile ak konvètè inite',
+          'Sistèm paramèt ak preferans',
+          'Backup ak restore done yo nan JSON',
+          'Jesyon erè ak validasyon robust',
+          'Interface itilizatè intuitif ak pi bon eksperyans',
+          'Sistèm òd ak otokomplèt',
+          'Rapò ak estatistik yo',
+          'Sistèm ede ak dokimantasyon',
+          'Logging ak debugging'
+        ],
+        fr: [
+          'Gestion de contacts avec recherche et catégories',
+          'Système de notes avec horodatage et recherche',
+          'Gestion de tâches avec priorités et échéances',
+          'Calculatrice et convertisseur d\'unités',
+          'Système de paramètres et préférences',
+          'Sauvegarde et restauration des données en JSON',
+          'Gestion d\'erreurs et validation robuste',
+          'Interface utilisateur intuitive avec expérience optimale',
+          'Système de commandes et auto-complétion',
+          'Rapports et statistiques',
+          'Système d\'aide et documentation',
+          'Journalisation et débogage'
+        ],
+        en: [
+          'Contact management with search and categories',
+          'Note system with timestamps and search',
+          'Task management with priorities and deadlines',
+          'Calculator and unit converter',
+          'Settings and preferences system',
+          'Data backup and restore in JSON',
+          'Robust error handling and validation',
+          'Intuitive user interface with optimal experience',
+          'Command system and auto-completion',
+          'Reports and statistics',
+          'Help system and documentation',
+          'Logging and debugging'
+        ]
+      },
+      starterCode: '# Personal Assistant CLI App - Final Project Starter\n\nimport json\nimport datetime\nimport os\nfrom typing import Dict, List, Any\n\nclass PersonalAssistant:\n    def __init__(self):\n        self.data_file = "assistant_data.json"\n        self.contacts = {}\n        self.notes = []\n        self.tasks = []\n        self.settings = {\n            "language": "en",\n            "theme": "default",\n            "auto_save": True\n        }\n        self.load_data()\n    \n    def main_menu(self):\n        """Display main menu and handle user input"""\n        # TODO: Implement comprehensive menu system\n        pass\n    \n    def contact_manager(self):\n        """Handle contact management features"""\n        # TODO: Implement contact functions\n        pass\n    \n    def note_manager(self):\n        """Handle note management features"""\n        # TODO: Implement note functions\n        pass\n    \n    def task_manager(self):\n        """Handle task management features"""\n        # TODO: Implement task functions\n        pass\n    \n    def calculator(self):\n        """Handle calculator and unit conversion"""\n        # TODO: Implement calculator features\n        pass\n    \n    def settings_manager(self):\n        """Handle application settings"""\n        # TODO: Implement settings functions\n        pass\n    \n    def save_data(self):\n        """Save all data to JSON file"""\n        # TODO: Implement data saving\n        pass\n    \n    def load_data(self):\n        """Load data from JSON file"""\n        # TODO: Implement data loading\n        pass\n    \n    def run(self):\n        """Start the application"""\n        print("🤖 Personal Assistant CLI")\n        print("Welcome! / Byenvni! / Bienvenue!")\n        self.main_menu()\n\nif __name__ == "__main__":\n    assistant = PersonalAssistant()\n    assistant.run()',
+      sampleSolution: '# Complete Personal Assistant CLI App - Final Project\n\nimport json\nimport datetime\nimport os\nimport math\nimport re\nfrom typing import Dict, List, Any, Optional\n\nclass PersonalAssistant:\n    def __init__(self):\n        self.data_file = "assistant_data.json"\n        self.contacts = {}\n        self.notes = []\n        self.tasks = []\n        self.settings = {\n            "language": "en",\n            "theme": "default",\n            "auto_save": True,\n            "date_format": "%Y-%m-%d %H:%M:%S"\n        }\n        self.load_data()\n        print("🤖 Personal Assistant CLI initialized successfully!")\n    \n    def get_timestamp(self) -> str:\n        """Get current timestamp"""\n        return datetime.datetime.now().strftime(self.settings["date_format"])\n    \n    def validate_email(self, email: str) -> bool:\n        """Validate email format"""\n        pattern = r"^[\\w\\.-]+@[\\w\\.-]+\\.\\w+$"\n        return bool(re.match(pattern, email))\n    \n    def validate_phone(self, phone: str) -> bool:\n        """Validate phone format"""\n        # Simple phone validation - can be expanded\n        pattern = r"^[\\d\\-\\+\\(\\)\\s]+$"\n        return bool(re.match(pattern, phone)) and len(phone.replace(" ", "").replace("-", "").replace("(", "").replace(")", "").replace("+", "")) >= 10\n    \n    def main_menu(self):\n        """Display main menu and handle user input"""\n        while True:\n            print("\\n" + "="*60)\n            print("🤖 PERSONAL ASSISTANT CLI / ASISTAN PÈSONÈL CLI")\n            print("="*60)\n            print("1. 👥 Contact Manager / Jesyonè Kontak")\n            print("2. 📝 Note Manager / Jesyonè Nòt")\n            print("3. ✅ Task Manager / Jesyonè Travay")\n            print("4. 🧮 Calculator & Converter / Kalkile ak Konvètè")\n            print("5. ⚙️  Settings / Paramèt")\n            print("6. 📊 Statistics / Estatistik")\n            print("7. 💾 Backup Data / Backup Done yo")\n            print("8. ❓ Help / Ede")\n            print("9. 🚪 Exit / Sòti")\n            print("="*60)\n            \n            try:\n                choice = input("\\nChoose option / Chwazi: ").strip()\n                \n                if choice == "1":\n                    self.contact_manager()\n                elif choice == "2":\n                    self.note_manager()\n                elif choice == "3":\n                    self.task_manager()\n                elif choice == "4":\n                    self.calculator()\n                elif choice == "5":\n                    self.settings_manager()\n                elif choice == "6":\n                    self.show_statistics()\n                elif choice == "7":\n                    self.backup_data()\n                elif choice == "8":\n                    self.show_help()\n                elif choice == "9":\n                    self.save_data()\n                    print("\\n👋 Thank you for using Personal Assistant!")\n                    print("Mèsi pou itilize Asistan Pèsonèl la!")\n                    break\n                else:\n                    print("❌ Invalid choice. Please try again.")\n            \n            except KeyboardInterrupt:\n                print("\\n\\n👋 Goodbye!")\n                self.save_data()\n                break\n            except Exception as e:\n                print(f"❌ An error occurred: {e}")\n    \n    def contact_manager(self):\n        """Handle contact management features"""\n        while True:\n            print("\\n👥 CONTACT MANAGER")\n            print("-" * 30)\n            print("1. ➕ Add Contact")\n            print("2. 🔍 Search Contacts")\n            print("3. 📋 View All Contacts")\n            print("4. ✏️  Edit Contact")\n            print("5. 🗑️  Delete Contact")\n            print("6. 📊 Contact Statistics")\n            print("7. ⬅️  Back to Main Menu")\n            \n            choice = input("\\nChoose option: ").strip()\n            \n            if choice == "1":\n                self.add_contact()\n            elif choice == "2":\n                self.search_contacts()\n            elif choice == "3":\n                self.view_all_contacts()\n            elif choice == "4":\n                self.edit_contact()\n            elif choice == "5":\n                self.delete_contact()\n            elif choice == "6":\n                self.contact_statistics()\n            elif choice == "7":\n                break\n            else:\n                print("❌ Invalid choice")\n    \n    def add_contact(self):\n        """Add a new contact"""\n        print("\\n➕ ADD NEW CONTACT")\n        \n        name = input("Full name: ").strip().title()\n        if not name:\n            print("❌ Name cannot be empty")\n            return\n        \n        if name in self.contacts:\n            print(f"❌ Contact {name} already exists")\n            return\n        \n        phone = input("Phone number: ").strip()\n        if phone and not self.validate_phone(phone):\n            print("❌ Invalid phone format")\n            return\n        \n        email = input("Email: ").strip().lower()\n        if email and not self.validate_email(email):\n            print("❌ Invalid email format")\n            return\n        \n        address = input("Address: ").strip()\n        category = input("Category (family/friends/work/other): ").strip().lower() or "other"\n        notes = input("Notes: ").strip()\n        \n        self.contacts[name] = {\n            "phone": phone,\n            "email": email,\n            "address": address,\n            "category": category,\n            "notes": notes,\n            "created": self.get_timestamp(),\n            "updated": self.get_timestamp()\n        }\n        \n        if self.settings["auto_save"]:\n            self.save_data()\n        \n        print(f"✅ Contact {name} added successfully!")\n    \n    def note_manager(self):\n        """Handle note management features"""\n        while True:\n            print("\\n📝 NOTE MANAGER")\n            print("-" * 30)\n            print("1. ➕ Add Note")\n            print("2. 📋 View All Notes")\n            print("3. 🔍 Search Notes")\n            print("4. ✏️  Edit Note")\n            print("5. 🗑️  Delete Note")\n            print("6. 📊 Note Statistics")\n            print("7. ⬅️  Back to Main Menu")\n            \n            choice = input("\\nChoose option: ").strip()\n            \n            if choice == "1":\n                self.add_note()\n            elif choice == "2":\n                self.view_all_notes()\n            elif choice == "3":\n                self.search_notes()\n            elif choice == "4":\n                self.edit_note()\n            elif choice == "5":\n                self.delete_note()\n            elif choice == "6":\n                self.note_statistics()\n            elif choice == "7":\n                break\n            else:\n                print("❌ Invalid choice")\n    \n    def add_note(self):\n        """Add a new note"""\n        print("\\n➕ ADD NEW NOTE")\n        \n        title = input("Note title: ").strip()\n        if not title:\n            print("❌ Title cannot be empty")\n            return\n        \n        content = input("Note content: ").strip()\n        if not content:\n            print("❌ Content cannot be empty")\n            return\n        \n        category = input("Category (personal/work/study/other): ").strip().lower() or "other"\n        priority = input("Priority (high/medium/low): ").strip().lower() or "medium"\n        \n        note = {\n            "id": len(self.notes) + 1,\n            "title": title,\n            "content": content,\n            "category": category,\n            "priority": priority,\n            "created": self.get_timestamp(),\n            "updated": self.get_timestamp()\n        }\n        \n        self.notes.append(note)\n        \n        if self.settings["auto_save"]:\n            self.save_data()\n        \n        print(f"✅ Note \\"{title}\\" added successfully!")\n    \n    def calculator(self):\n        """Handle calculator and unit conversion"""\n        while True:\n            print("\\n🧮 CALCULATOR & CONVERTER")\n            print("-" * 30)\n            print("1. ➕ Basic Calculator")\n            print("2. 🌡️  Temperature Converter")\n            print("3. 📏 Length Converter")\n            print("4. ⚖️  Weight Converter")\n            print("5. 💱 Currency Info")\n            print("6. ⬅️  Back to Main Menu")\n            \n            choice = input("\\nChoose option: ").strip()\n            \n            if choice == "1":\n                self.basic_calculator()\n            elif choice == "2":\n                self.temperature_converter()\n            elif choice == "3":\n                self.length_converter()\n            elif choice == "4":\n                self.weight_converter()\n            elif choice == "5":\n                self.currency_info()\n            elif choice == "6":\n                break\n            else:\n                print("❌ Invalid choice")\n    \n    def basic_calculator(self):\n        """Basic calculator functionality"""\n        print("\\n➕ BASIC CALCULATOR")\n        print("Enter expressions like: 5 + 3, 10 - 2, 8 * 4, 15 / 3")\n        print("Advanced: sqrt(16), pow(2,3), sin(0), cos(0)")\n        print("Type \\"quit\\" to exit")\n        \n        while True:\n            try:\n                expression = input("\\n📝 Enter expression: ").strip()\n                \n                if expression.lower() == "quit":\n                    break\n                \n                # Safe evaluation with limited functions\n                safe_dict = {\n                    "__builtins__": {},\n                    "sqrt": math.sqrt,\n                    "pow": math.pow,\n                    "sin": math.sin,\n                    "cos": math.cos,\n                    "tan": math.tan,\n                    "log": math.log,\n                    "pi": math.pi,\n                    "e": math.e\n                }\n                \n                result = eval(expression, safe_dict)\n                print(f"📊 Result: {result}")\n            \n            except Exception as e:\n                print(f"❌ Error: {e}")\n    \n    def show_statistics(self):\n        """Display overall statistics"""\n        print("\\n📊 PERSONAL ASSISTANT STATISTICS")\n        print("="*40)\n        print(f"👥 Total Contacts: {len(self.contacts)}")\n        print(f"📝 Total Notes: {len(self.notes)}")\n        print(f"✅ Total Tasks: {len(self.tasks)}")\n        \n        if self.contacts:\n            categories = {}\n            for contact in self.contacts.values():\n                cat = contact.get("category", "other")\n                categories[cat] = categories.get(cat, 0) + 1\n            \n            print("\\n👥 Contacts by Category:")\n            for category, count in categories.items():\n                print(f"   {category.title()}: {count}")\n        \n        if self.notes:\n            note_categories = {}\n            for note in self.notes:\n                cat = note.get("category", "other")\n                note_categories[cat] = note_categories.get(cat, 0) + 1\n            \n            print("\\n📝 Notes by Category:")\n            for category, count in note_categories.items():\n                print(f"   {category.title()}: {count}")\n    \n    def save_data(self):\n        """Save all data to JSON file"""\n        try:\n            data = {\n                "contacts": self.contacts,\n                "notes": self.notes,\n                "tasks": self.tasks,\n                "settings": self.settings,\n                "last_saved": self.get_timestamp()\n            }\n            \n            with open(self.data_file, "w", encoding="utf-8") as file:\n                json.dump(data, file, indent=2, ensure_ascii=False)\n            \n            print("💾 Data saved successfully!")\n        \n        except Exception as e:\n            print(f"❌ Error saving data: {e}")\n    \n    def load_data(self):\n        """Load data from JSON file"""\n        try:\n            if os.path.exists(self.data_file):\n                with open(self.data_file, "r", encoding="utf-8") as file:\n                    data = json.load(file)\n                \n                self.contacts = data.get("contacts", {})\n                self.notes = data.get("notes", [])\n                self.tasks = data.get("tasks", [])\n                self.settings.update(data.get("settings", {}))\n                \n                print(f"📂 Data loaded successfully!")\n                print(f"Loaded: {len(self.contacts)} contacts, {len(self.notes)} notes, {len(self.tasks)} tasks")\n        \n        except Exception as e:\n            print(f"❌ Error loading data: {e}")\n            print("Starting with empty data...")\n    \n    def backup_data(self):\n        """Create a backup of all data"""\n        try:\n            timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")\n            backup_file = f"assistant_backup_{timestamp}.json"\n            \n            data = {\n                "contacts": self.contacts,\n                "notes": self.notes,\n                "tasks": self.tasks,\n                "settings": self.settings,\n                "backup_created": self.get_timestamp()\n            }\n            \n            with open(backup_file, "w", encoding="utf-8") as file:\n                json.dump(data, file, indent=2, ensure_ascii=False)\n            \n            print(f"✅ Backup created successfully: {backup_file}")\n        \n        except Exception as e:\n            print(f"❌ Error creating backup: {e}")\n    \n    def show_help(self):\n        """Display help information"""\n        print("\\n❓ PERSONAL ASSISTANT HELP")\n        print("="*40)\n        print("📱 This Personal Assistant CLI provides:")\n        print("\\n👥 Contact Management:")\n        print("   - Add, edit, delete, and search contacts")\n        print("   - Organize contacts by categories")\n        print("   - Email and phone validation")\n        print("\\n📝 Note Management:")\n        print("   - Create and organize notes with timestamps")\n        print("   - Search notes by content or title")\n        print("   - Categorize notes by type")\n        print("\\n✅ Task Management:")\n        print("   - Create tasks with priorities and deadlines")\n        print("   - Mark tasks as complete")\n        print("   - View pending and completed tasks")\n        print("\\n🧮 Calculator & Converters:")\n        print("   - Basic mathematical calculations")\n        print("   - Temperature, length, and weight conversions")\n        print("   - Advanced math functions (sqrt, sin, cos, etc.)")\n        print("\\n💾 Data Management:")\n        print("   - Automatic saving and loading")\n        print("   - Data backup and restore")\n        print("   - Statistics and reporting")\n        print("\\n🔧 Tips:")\n        print("   - All data is saved automatically")\n        print("   - Use Ctrl+C to exit anytime")\n        print("   - Email and phone formats are validated")\n        print("   - Backup your data regularly")\n    \n    def run(self):\n        """Start the application"""\n        print("\\n🤖 PERSONAL ASSISTANT CLI")\n        print("="*50)\n        print("Welcome! Your personal productivity companion.")\n        print("Byenvni! Konpanyon pwodiktivite pèsonèl ou.")\n        print("Bienvenue! Votre compagnon de productivité personnelle.")\n        print("="*50)\n        \n        try:\n            self.main_menu()\n        except KeyboardInterrupt:\n            print("\\n\\n👋 Goodbye! Thanks for using Personal Assistant!")\n            self.save_data()\n        except Exception as e:\n            print(f"\\n❌ Critical error: {e}")\n            print("Saving data before exit...")\n            self.save_data()\n\ndef main():\n    """Main function to run the Personal Assistant"""\n    try:\n        assistant = PersonalAssistant()\n        assistant.run()\n    except Exception as e:\n        print(f"❌ Failed to start Personal Assistant: {e}")\n\nif __name__ == "__main__":\n    main()'
+    },
+    quiz: [
+      {
+        question: { ht: 'Ki konsèp yo ki pi enpòtan nan pwojè final la?', fr: 'Quels sont les concepts les plus importants dans le projet final?', en: 'What are the most important concepts in the final project?' },
+        options: [{ ht: 'Sèlman klas yo', fr: 'Seulement les classes', en: 'Only classes' }, { ht: 'Konbinezon tout konsèp yo ki aprann', fr: 'Combinaison de tous les concepts appris', en: 'Combination of all learned concepts' }, { ht: 'Sèlman fichye yo', fr: 'Seulement les fichiers', en: 'Only files' }],
+        correctAnswer: 1,
+        explanation: { ht: 'Pwojè final la demontre metriz yo nan tout konsèp yo: varyab, fonksyon, klas, fichye, erè, elatriye', fr: 'Le projet final démontre la maîtrise de tous les concepts: variables, fonctions, classes, fichiers, erreurs, etc.', en: 'The final project demonstrates mastery of all concepts: variables, functions, classes, files, errors, etc.' }
+      }
+    ],
+    homework: { ht: 'Prezante ak demontre pwojè final ou ak eksplike ki konsèp yo ki itilize ak kijan', fr: 'Présentez et démontrez votre projet final en expliquant quels concepts sont utilisés et comment', en: 'Present and demonstrate your final project explaining which concepts are used and how' },
+    nextWeekPreview: { ht: 'Félisitasyon! Ou fini kou Python pou Kòmansè yo! 🎉', fr: 'Félicitations! Vous avez terminé le cours Python pour Débutants! 🎉', en: 'Congratulations! You completed the Python for Beginners course! 🎉' }
   }
 ];
 

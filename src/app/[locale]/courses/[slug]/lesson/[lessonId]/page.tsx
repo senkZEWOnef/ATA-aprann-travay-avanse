@@ -4,6 +4,8 @@ import { useParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 import { useLocale } from '@/components/LocaleProvider';
+import PythonCardLessonPlayer from '@/components/PythonCardLessonPlayer';
+import PythonMiniProject from '@/components/PythonMiniProject';
 
 export default function LessonPage() {
   const params = useParams();
@@ -93,6 +95,11 @@ export default function LessonPage() {
     console.log('Progress:', progress);
   };
 
+  // Check if this is a Python course lesson
+  const isPythonCourse = course?.slug === 'python-pou-komanse-yo';
+  const pythonWeekNumber = isPythonCourse ? lesson?.order : null;
+  const isPythonCardLesson = isPythonCourse && pythonWeekNumber && pythonWeekNumber <= 8;
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
       {/* Header */}
@@ -145,55 +152,81 @@ export default function LessonPage() {
         </div>
       </div>
 
-      {/* Debug Info */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div className="bg-yellow-100 p-4 rounded mb-4 text-sm">
-          <strong>Debug:</strong><br/>
-          Slug: {String(slug)}<br/>
-          LessonId: {String(lessonId)}<br/>
-          Course loaded: {course ? 'Yes' : 'No'}<br/>
-          Lesson loaded: {lesson ? 'Yes' : 'No'}<br/>
-          Loading: {loading ? 'Yes' : 'No'}
-        </div>
-      </div>
-
       {/* Lesson Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-lg shadow-lg p-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-6">
-            {lesson ? (locale === 'ht' ? lesson.titleHt : lesson.titleFr) : 'Loading...'}
-          </h1>
-          
-          <div className="prose prose-lg max-w-none">
-            {lesson && (locale === 'ht' ? lesson.contentHt : lesson.contentFr || lesson.contentHt) ? (
-              <div className="lesson-content whitespace-pre-wrap">
-                {(locale === 'ht' ? lesson.contentHt : lesson.contentFr || lesson.contentHt).substring(0, 500)}...
-              </div>
-            ) : (
-              <div className="text-gray-500">Loading content...</div>
-            )}
-          </div>
-          
-          <div className="mt-8 flex justify-between">
-            {lesson && lesson.order > 1 && (
-              <a
-                href={`/${locale}/courses/${slug}/lesson/${course.lessons.find(l => l.order === lesson.order - 1)?.id}`}
-                className="btn-outline"
-              >
-                ← {locale === 'ht' ? 'Leson Anvan' : 'Leçon Précédente'}
-              </a>
-            )}
+        {isPythonCardLesson ? (
+          // Use card-based lesson player for Python lessons (Weeks 1-2)
+          <div className="space-y-8">
+            <PythonCardLessonPlayer 
+              weekNumber={pythonWeekNumber!}
+              onComplete={handleLessonComplete}
+              onProgress={handleProgress}
+            />
             
-            {lesson && lesson.order < course.lessons.length && (
-              <a
-                href={`/${locale}/courses/${slug}/lesson/${course.lessons.find(l => l.order === lesson.order + 1)?.id}`}
-                className="btn-primary ml-auto"
-              >
-                {locale === 'ht' ? 'Leson Pwochen' : 'Leçon Suivante'} →
-              </a>
-            )}
+            <PythonMiniProject 
+              weekNumber={pythonWeekNumber!}
+              onComplete={handleLessonComplete}
+            />
+            
+            {/* Navigation */}
+            <div className="flex justify-between mt-8">
+              {lesson && lesson.order > 1 && (
+                <a
+                  href={`/${locale}/courses/${slug}/lesson/${course.lessons.find(l => l.order === lesson.order - 1)?.id}`}
+                  className="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex items-center gap-2"
+                >
+                  ← {locale === 'ht' ? 'Leson Anvan' : 'Leçon Précédente'}
+                </a>
+              )}
+              
+              {lesson && lesson.order < course.lessons.length && (
+                <a
+                  href={`/${locale}/courses/${slug}/lesson/${course.lessons.find(l => l.order === lesson.order + 1)?.id}`}
+                  className="px-6 py-3 bg-purple-500 text-white rounded-lg hover:bg-purple-600 flex items-center gap-2 ml-auto"
+                >
+                  {locale === 'ht' ? 'Leson Pwochen' : 'Leçon Suivante'} →
+                </a>
+              )}
+            </div>
           </div>
-        </div>
+        ) : (
+          // Default lesson display for other lessons
+          <div className="bg-white rounded-lg shadow-lg p-8">
+            <h1 className="text-3xl font-bold text-gray-900 mb-6">
+              {lesson ? (locale === 'ht' ? lesson.titleHt : lesson.titleFr) : 'Loading...'}
+            </h1>
+            
+            <div className="prose prose-lg max-w-none">
+              {lesson && (locale === 'ht' ? lesson.contentHt : lesson.contentFr || lesson.contentHt) ? (
+                <div className="lesson-content whitespace-pre-wrap">
+                  {(locale === 'ht' ? lesson.contentHt : lesson.contentFr || lesson.contentHt).substring(0, 500)}...
+                </div>
+              ) : (
+                <div className="text-gray-500">Loading content...</div>
+              )}
+            </div>
+            
+            <div className="mt-8 flex justify-between">
+              {lesson && lesson.order > 1 && (
+                <a
+                  href={`/${locale}/courses/${slug}/lesson/${course.lessons.find(l => l.order === lesson.order - 1)?.id}`}
+                  className="btn-outline"
+                >
+                  ← {locale === 'ht' ? 'Leson Anvan' : 'Leçon Précédente'}
+                </a>
+              )}
+              
+              {lesson && lesson.order < course.lessons.length && (
+                <a
+                  href={`/${locale}/courses/${slug}/lesson/${course.lessons.find(l => l.order === lesson.order + 1)?.id}`}
+                  className="btn-primary ml-auto"
+                >
+                  {locale === 'ht' ? 'Leson Pwochen' : 'Leçon Suivante'} →
+                </a>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

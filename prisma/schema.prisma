@@ -60,6 +60,8 @@ model User {
   forumComments   ForumComment[]
   forumLikes      ForumLike[]
   lessonProgress  LessonProgress[]
+  examResults     ExamResult[]
+  userProgress    UserProgress[]
   
   @@map("users")
 }
@@ -112,10 +114,12 @@ model Course {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  lessons     Lesson[]
-  enrollments Enrollment[]
-  badges      Badge[]
-  forumPosts  ForumPost[]
+  lessons      Lesson[]
+  enrollments  Enrollment[]
+  badges       Badge[]
+  forumPosts   ForumPost[]
+  examResults  ExamResult[]
+  userProgress UserProgress[]
 }
 
 model Lesson {
@@ -193,6 +197,41 @@ model Enrollment {
   user   User   @relation(fields: [userId], references: [id])
   course Course @relation(fields: [courseId], references: [id])
 
+  @@unique([userId, courseId])
+}
+
+model ExamResult {
+  id          String   @id @default(cuid())
+  userId      String
+  courseId    String
+  examType    String   // MIDTERM, FINAL, QUIZ, etc.
+  score       Int
+  totalPoints Int
+  percentage  Int
+  passed      Boolean
+  timeSpent   Int      // in minutes
+  answers     Json?    // detailed answers for review
+  createdAt   DateTime @default(now())
+  
+  user   User   @relation(fields: [userId], references: [id])
+  course Course @relation(fields: [courseId], references: [id])
+}
+
+model UserProgress {
+  id               String   @id @default(cuid())
+  userId           String
+  courseId         String
+  lessonsCompleted Int      @default(0)
+  midtermCompleted Boolean  @default(false)
+  midtermScore     Int?
+  finalCompleted   Boolean  @default(false)
+  finalScore       Int?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  
+  user   User   @relation(fields: [userId], references: [id])
+  course Course @relation(fields: [courseId], references: [id])
+  
   @@unique([userId, courseId])
 }
 

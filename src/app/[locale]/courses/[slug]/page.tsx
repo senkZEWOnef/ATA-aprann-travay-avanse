@@ -291,10 +291,71 @@ export default function CourseDetailPage() {
               <div className="space-y-3">
                 {course.lessons
                   .sort((a, b) => a.order - b.order)
-                  .map((lesson, index) => {
+                  .reduce((acc, lesson, index) => {
+                    // Add the lesson
+                    acc.push({ type: 'lesson', lesson, index });
+                    
+                    // Add midterm exam after lesson 8 for Python course
+                    if (lesson.order === 8 && course.slug === 'python-pou-komanse-yo') {
+                      acc.push({ type: 'midterm-exam', lesson: null, index: -1 });
+                    }
+                    
+                    return acc;
+                  }, [] as Array<{type: string, lesson: any, index: number}>)
+                  .map(({ type, lesson, index }) => {
+                    if (type === 'midterm-exam') {
+                      const MidtermComponent = isEnrolled ? 'a' : 'div';
+                      const midtermProps = isEnrolled 
+                        ? { href: `/${locale}/courses/${course.slug}/midterm-exam` }
+                        : {};
+                      
+                      return (
+                        <MidtermComponent
+                          key="midterm-exam"
+                          {...midtermProps}
+                          className={`flex items-center p-4 border-2 border-dashed border-orange-300 bg-orange-50 rounded-lg transition-colors ${
+                            isEnrolled 
+                              ? 'hover:border-orange-400 hover:bg-orange-100 cursor-pointer' 
+                              : 'hover:border-orange-400'
+                          }`}
+                        >
+                          <div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-semibold text-sm mr-4">
+                            🎓
+                          </div>
+                          <div className="flex-1">
+                            <h4 className="font-medium text-orange-900">
+                              {locale === 'ht' ? 'Egzamen Midterm' : locale === 'fr' ? 'Examen de Mi-Session' : 'Midterm Exam'}
+                            </h4>
+                            <p className="text-sm text-orange-700 mt-1">
+                              {locale === 'ht' ? '60 minit • 30 kesyon • 100 pwen' : 
+                               locale === 'fr' ? '60 minutes • 30 questions • 100 points' :
+                               '60 minutes • 30 questions • 100 points'}
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            {isEnrolled ? (
+                              <div className="flex items-center gap-2">
+                                <svg className="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <svg className="w-4 h-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
+                              </div>
+                            ) : (
+                              <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                              </svg>
+                            )}
+                          </div>
+                        </MidtermComponent>
+                      );
+                    }
+                    
+                    // Regular lesson
                     const LessonComponent = isEnrolled ? 'a' : 'div';
                     const lessonProps = isEnrolled 
-                      ? { href: `/${locale}/courses/${course.slug}/lesson/${lesson.order}` }
+                      ? { href: `/${locale}/courses/${course.slug}/lesson/${lesson.id}` }
                       : {};
                     
                     return (
@@ -308,7 +369,7 @@ export default function CourseDetailPage() {
                         }`}
                       >
                         <div className="w-8 h-8 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center font-semibold text-sm mr-4">
-                          {index + 1}
+                          {lesson.order}
                         </div>
                         <div className="flex-1">
                           <h4 className="font-medium text-gray-900">
