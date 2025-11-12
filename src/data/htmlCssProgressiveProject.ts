@@ -1238,7 +1238,862 @@ h1, h2, h3 {
       'Tester votre layout sur différentes tailles d\'écran',
       'Gap est meilleur que margin pour espace entre flex items'
     ]
+  },
+  {
+    week: 7,
+    titleHt: 'Responsive Design ak Media Queries - Mobile-First ak Adaptive Layouts',
+    titleFr: 'Responsive Design et Media Queries - Mobile-First et Layouts Adaptatifs',
+    objectiveHt: 'Transform portfolio ou an ak responsive design, mobile-first approach ak media queries pou w kreye layouts ki adapte ak tout aparèy yo.',
+    objectiveFr: 'Transformer votre portfolio avec responsive design, approche mobile-first et media queries pour créer des layouts qui s\'adaptent à tous les appareils.',
+    instructionsHt: [
+      'Implement mobile-first approach ak default styles pou mobile',
+      'Ajoute media queries pou tablet (768px) ak desktop (1024px)',
+      'Transform navigation ak responsive behavior - vètikèl sou mobile, òizontèl sou desktop',
+      'Make typography responsive ak fluid font sizes ak line heights',
+      'Kreye responsive project grid - 1 column mobile, 2 tablet, 3 desktop',
+      'Optimize images ak media pou responsive behavior',
+      'Test ak DevTools pou different viewports ak device sizes',
+      'Ensure proper spacing ak touch targets sou mobile devices'
+    ],
+    instructionsFr: [
+      'Implémenter approche mobile-first avec styles par défaut pour mobile',
+      'Ajouter media queries pour tablette (768px) et desktop (1024px)',
+      'Transformer navigation avec responsive behavior - verticale sur mobile, horizontale sur desktop',
+      'Rendre typography responsive avec tailles fluides et line heights',
+      'Créer grille projets responsive - 1 colonne mobile, 2 tablette, 3 desktop',
+      'Optimiser images et média pour comportement responsive',
+      'Tester avec DevTools pour différents viewports et tailles d\'appareils',
+      'Assurer espacement approprié et touch targets sur appareils mobiles'
+    ],
+    starterHtml: `<!DOCTYPE html>
+<html lang="ht">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pòtrè Mwen - Responsive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Mobile-First Responsive Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Portfolio Mwen</div>
+                <nav class="nav-menu">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#work">Work</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Responsive Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Byenveni nan Portfolio Mwen</h1>
+                <p class="hero-text">Mwen se yon développeur web ki gen pasyon pou kreye eksperyans dijital yo ki gen sans ak ki bèl. Depi kèk ane mwen ap travay sou pwojè yo ki gen enpòtans.</p>
+                <div class="cta-buttons">
+                    <a href="#work" class="btn btn-primary">Gade Travay Mwen</a>
+                    <a href="#contact" class="btn btn-secondary">Kontak Mwen</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Responsive Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Responsive About Section -->
+            <section id="about" class="about-section">
+                <h2>Sou Mwen</h2>
+                <div class="about-content">
+                    <img src="profile.jpg" alt="Foto Pwofil Mwen" class="profile-photo">
+                    <div class="about-text">
+                        <p>Bonjou! Mwen rele [Ou an]. Mwen gen pasyon pou teknoloji ak development web. Depi kèk ane mwen ap aprann ak kreye pwojè yo ki gen enpòtans.</p>
+                        <p>Nan eksperyans mwen an, mwen aprann HTML, CSS, ak JavaScript. Mwen renmen rezoud pwoblèm yo ak bay solisyon kreyatè yo ki travay byen sou tout aparèy yo.</p>
+                        <p>Kounye a mwen ap konsantre sou responsive design ak mobile-first development pou w kreye eksperyans ki aksesibl ak efikas sou tout platfòm yo.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Responsive Featured Work Grid -->
+            <section id="featured-work" class="work-section">
+                <h2>Travay ki Enpòtan</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="project1.jpg" alt="Custom Closet Design" />
+                        </div>
+                        <div class="project-content">
+                            <h3>Custom Closet Design</h3>
+                            <p>Responsive web app pou custom closet ak hidden drawers ak mirror sliding doors. Optimized pou mobile ak tablet usage.</p>
+                            <div class="project-tech">HTML • CSS • JavaScript • Responsive</div>
+                            <a href="#" class="project-link">Gade Pwojè</a>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="project2.jpg" alt="Solar Dashboard" />
+                        </div>
+                        <div class="project-content">
+                            <h3>Solar Dashboard</h3>
+                            <p>Mobile-first dashboard pou surveille solar energy output ak real-time data ak analytics accessible sou tout aparèy yo.</p>
+                            <div class="project-tech">React • CSS Grid • API • PWA</div>
+                            <a href="#" class="project-link">Gade Pwojè</a>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="project3.jpg" alt="Poetry Website" />
+                        </div>
+                        <div class="project-content">
+                            <h3>Poetry Website</h3>
+                            <p>Responsive platform pou showcase original poems ak reflections ak minimal layout ki fokus sou lisibilité ak beauty.</p>
+                            <div class="project-tech">HTML • CSS • Typography • Responsive</div>
+                            <a href="#" class="project-link">Gade Pwojè</a>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="project4.jpg" alt="E-commerce Layout" />
+                        </div>
+                        <div class="project-content">
+                            <h3>E-commerce Mobile App</h3>
+                            <p>Modern responsive e-commerce layout ak mobile-first design, shopping cart functionality ak touch-optimized interface.</p>
+                            <div class="project-tech">CSS Grid • Flexbox • JS • Mobile-First</div>
+                            <a href="#" class="project-link">Gade Pwojè</a>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="project5.jpg" alt="Restaurant Website" />
+                        </div>
+                        <div class="project-content">
+                            <h3>Restaurant Website</h3>
+                            <p>Fully responsive restaurant site ak online menu, reservations system ak optimized pou mobile ordering experience.</p>
+                            <div class="project-tech">HTML • CSS • JS • Media Queries</div>
+                            <a href="#" class="project-link">Gade Pwojè</a>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="project6.jpg" alt="Portfolio Template" />
+                        </div>
+                        <div class="project-content">
+                            <h3>Portfolio Template</h3>
+                            <p>Responsive portfolio template ak dark/light themes, smooth animations ak cross-device compatibility pou developers.</p>
+                            <div class="project-tech">CSS Variables • Flexbox • Responsive • Animations</div>
+                            <a href="#" class="project-link">Gade Pwojè</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <!-- Responsive Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>Portfolio Mwen</h3>
+                    <p>Responsive web developer ki dedye ak mobile-first approach ak cross-device experiences.</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#" class="social-link">GitHub</a>
+                    <a href="#" class="social-link">LinkedIn</a>
+                    <a href="#" class="social-link">Twitter</a>
+                    <a href="#" class="social-link">Email</a>
+                </div>
+                <div class="footer-copy">
+                    <p>&copy; 2024 Portfolio Mwen. Responsive ak Mobile-Optimized.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>`,
+    starterCss: `/* Semèn 7 - Responsive Design ak Media Queries */
+
+/* ===== MOBILE-FIRST BASE STYLES ===== */
+/* Default styles pou mobile devices (320px - 767px) */
+
+/* CSS Reset ak Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: #222;
+    background-color: #fdfdfd;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+/* Container responsive */
+.container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Typography - Mobile First */
+h1, h2, h3 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #111;
+    line-height: 1.3;
+}
+
+h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 1rem;
+}
+
+/* ===== RESPONSIVE HEADER ===== */
+.header {
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 1rem 0;
+}
+
+.header-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+}
+
+.logo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Mobile Navigation - Vertical */
+.nav-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.nav-menu a {
+    color: #666;
+    text-decoration: none;
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #eee;
+}
+
+.nav-menu a:hover {
+    background: #f0f0f0;
+    color: #333;
+    border-color: #007bff;
+}
+
+/* ===== RESPONSIVE HERO SECTION ===== */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-align: center;
+    padding: 3rem 0;
+}
+
+.hero-content {
+    max-width: 600px;
+}
+
+.hero h1 {
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.hero-text {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    color: #f0f0f0;
+}
+
+/* Mobile CTA Buttons */
+.cta-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    text-align: center;
+    transition: all 0.3s ease;
+    min-height: 44px;
+    min-width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid transparent;
+}
+
+.btn-primary {
+    background: #ffd43b;
+    color: #333;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: white;
+    border-color: white;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* ===== RESPONSIVE MAIN CONTENT ===== */
+.main-content {
+    padding: 3rem 0;
+}
+
+/* About Section - Mobile */
+.about-section {
+    margin-bottom: 3rem;
+}
+
+.about-section h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.6rem;
+}
+
+.about-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+}
+
+/* Responsive Profile Photo */
+.profile-photo {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 4px solid #007bff;
+    object-fit: cover;
+    margin: 0 auto;
+    display: block;
+}
+
+.about-text p {
+    max-width: 100%;
+}
+
+/* ===== RESPONSIVE PROJECT GRID ===== */
+.work-section {
+    background: #f8f9fa;
+    padding: 3rem 1rem;
+    margin: 2rem -1rem 0;
+}
+
+.work-section h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.6rem;
+}
+
+/* Mobile: 1 Column Grid */
+.projects-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.project-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    border: 1px solid #e0e0e0;
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    border-color: #007bff;
+}
+
+/* Responsive Project Images */
+.project-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-image img {
+    transform: scale(1.05);
+}
+
+.project-content {
+    padding: 1.5rem;
+}
+
+.project-content h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+    color: #333;
+}
+
+.project-content p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.project-tech {
+    font-size: 0.8rem;
+    color: #007bff;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 1rem;
+}
+
+.project-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.project-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* ===== RESPONSIVE FOOTER ===== */
+.footer {
+    background: #222;
+    color: white;
+    padding: 2rem 0;
+    margin-top: 3rem;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+}
+
+.footer-info h3 {
+    color: #ffd43b;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.footer-info p {
+    color: #ccc;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.social-link {
+    color: #ccc;
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    border: 1px solid #444;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+}
+
+.social-link:hover {
+    background: #333;
+    color: #ffd43b;
+    border-color: #ffd43b;
+}
+
+.footer-copy {
+    border-top: 1px solid #444;
+    padding-top: 1rem;
+}
+
+.footer-copy p {
+    font-size: 0.8rem;
+    color: #999;
+    margin: 0;
+}
+
+/* ===== TABLET STYLES (768px ak pi gwo) ===== */
+@media (min-width: 768px) {
+    /* Container ak Typography adjustments */
+    .container {
+        padding: 0 2rem;
+    }
+    
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    h2 {
+        font-size: 1.8rem;
+    }
+    
+    h3 {
+        font-size: 1.3rem;
+    }
+    
+    p {
+        font-size: 1.1rem;
+        line-height: 1.7;
+    }
+    
+    /* Header ak Navigation */
+    .header-content {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+    }
+    
+    .logo {
+        font-size: 1.5rem;
+    }
+    
+    /* Tablet Navigation - Horizontal */
+    .nav-menu {
+        flex-direction: row;
+        gap: 1rem;
+    }
+    
+    .nav-menu a {
+        padding: 0.5rem 1rem;
+        border: none;
+        background: transparent;
+    }
+    
+    .nav-menu a:hover {
+        background: #f0f0f0;
+    }
+    
+    /* Hero Section */
+    .hero {
+        min-height: 80vh;
+        padding: 4rem 0;
+    }
+    
+    .hero h1 {
+        font-size: 2.8rem;
+    }
+    
+    .hero-text {
+        font-size: 1.2rem;
+    }
+    
+    /* CTA Buttons - Horizontal */
+    .cta-buttons {
+        flex-direction: row;
+        gap: 1.5rem;
+        justify-content: center;
+    }
+    
+    /* About Section */
+    .about-content {
+        flex-direction: row;
+        gap: 2rem;
+        align-items: center;
+        text-align: left;
+    }
+    
+    .profile-photo {
+        width: 250px;
+        height: 250px;
+        flex-shrink: 0;
+    }
+    
+    .about-text {
+        flex: 1;
+    }
+    
+    /* Projects Grid - 2 Columns */
+    .projects-grid {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        max-width: 900px;
+        justify-content: center;
+    }
+    
+    .project-card {
+        flex: 1 1 calc(50% - 0.75rem);
+        max-width: calc(50% - 0.75rem);
+    }
+    
+    .project-image {
+        height: 220px;
+    }
+    
+    /* Footer */
+    .footer-content {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+        flex-wrap: wrap;
+    }
+    
+    .footer-links {
+        gap: 1.5rem;
+    }
+}
+
+/* ===== DESKTOP STYLES (1024px ak pi gwo) ===== */
+@media (min-width: 1024px) {
+    /* Container ak Typography */
+    .container {
+        padding: 0 3rem;
+    }
+    
+    h1 {
+        font-size: 3.2rem;
+    }
+    
+    h2 {
+        font-size: 2.2rem;
+    }
+    
+    p {
+        font-size: 1.2rem;
+        line-height: 1.8;
+    }
+    
+    /* Header ak Navigation */
+    .nav-menu {
+        gap: 2rem;
+    }
+    
+    .nav-menu a {
+        font-size: 1rem;
+        padding: 0.75rem 1.25rem;
+    }
+    
+    /* Hero Section */
+    .hero {
+        min-height: 85vh;
+        padding: 5rem 0;
+    }
+    
+    .hero h1 {
+        font-size: 3.5rem;
+    }
+    
+    .hero-text {
+        font-size: 1.3rem;
+    }
+    
+    /* CTA Buttons */
+    .cta-buttons {
+        gap: 2rem;
+    }
+    
+    .btn {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+    }
+    
+    /* About Section */
+    .about-content {
+        gap: 3rem;
+    }
+    
+    .profile-photo {
+        width: 300px;
+        height: 300px;
+    }
+    
+    /* Projects Grid - 3 Columns */
+    .projects-grid {
+        gap: 2rem;
+        max-width: 1200px;
+    }
+    
+    .project-card {
+        flex: 1 1 calc(33.333% - 1.33rem);
+        max-width: calc(33.333% - 1.33rem);
+    }
+    
+    .project-image {
+        height: 240px;
+    }
+    
+    .project-content {
+        padding: 2rem;
+    }
+    
+    .project-content h3 {
+        font-size: 1.3rem;
+    }
+    
+    .project-content p {
+        font-size: 1rem;
+    }
+    
+    /* Footer */
+    .footer {
+        padding: 3rem 0;
+    }
+    
+    .footer-links {
+        gap: 2rem;
+    }
+    
+    .social-link {
+        font-size: 1rem;
+        padding: 1rem 1.5rem;
+    }
+}
+
+/* ===== LARGE DESKTOP STYLES (1440px ak pi gwo) ===== */
+@media (min-width: 1440px) {
+    .container {
+        max-width: 1400px;
+    }
+    
+    .hero h1 {
+        font-size: 4rem;
+    }
+    
+    .projects-grid {
+        max-width: 1400px;
+    }
+    
+    .project-card {
+        max-width: 400px;
+    }
+}
+
+/* ===== UTILITY CLASSES ===== */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Print Styles */
+@media print {
+    .header, .footer, .cta-buttons {
+        display: none;
+    }
+    
+    body {
+        font-size: 12pt;
+        line-height: 1.4;
+    }
+    
+    h1, h2, h3 {
+        page-break-after: avoid;
+    }
+}`,
+    expectedResultHt: 'Yon portfolio ki konplètman responsive ak mobile-first approach, ak layouts ki adapte ak smooth ant telefòn, tablet ak desktop, ak typography ak navigation optimized pou chak aparèy.',
+    expectedResultFr: 'Un portfolio complètement responsive avec approche mobile-first, avec layouts qui s\'adaptent en douceur entre téléphone, tablette et desktop, avec typography et navigation optimisées pour chaque appareil.',
+    completionMessageHt: '🎉 Félicitations! Portfolio ou an kounye a konplètman responsive ak mobile-optimized! Semèn kap vini an nou pral fè midterm project la kote nou pral combine tou 7 semèn yo nan yon pwojè konplè ak pwofesyonèl.',
+    completionMessageFr: '🎉 Félicitations! Votre portfolio est maintenant complètement responsive et mobile-optimized! La semaine prochaine nous ferons le projet midterm où nous combinerons toutes les 7 semaines en un projet complet et professionnel.',
+    tipsHt: [
+      'Teste sou DevTools ak aparèy reyèl yo pou w asire w responsive behavior bon',
+      'Mobile-first toujou pi bon - kòmanse ak pi ti ekran an',
+      'Touch targets yo dwe omwen 44px pou mobile usability',
+      'Itilize fluid typography ak clamp() pou smooth scaling'
+    ],
+    tipsFr: [
+      'Tester sur DevTools et vrais appareils pour assurer bon comportement responsive',
+      'Mobile-first toujours meilleur - commencer par plus petit écran',
+      'Touch targets doivent être au moins 44px pour usabilité mobile',
+      'Utiliser typography fluide avec clamp() pour scaling en douceur'
+    ]
   }
 ];
 
-// Weeks 7-15 will continue the progressive project...
+// Weeks 8-15 will continue the progressive project...

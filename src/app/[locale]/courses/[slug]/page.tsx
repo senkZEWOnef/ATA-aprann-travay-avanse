@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 import Navigation from '../../../../components/Navigation';
 import Footer from '../../../../components/Footer';
 import { useTranslations, useLocale } from '../../../../components/LocaleProvider';
@@ -183,9 +184,9 @@ export default function CourseDetailPage() {
                 : 'Ce cours a peut-être été supprimé ou n\'existe pas'
               }
             </p>
-            <a href={`/${locale}/courses`} className="btn-primary">
+            <Link href={`/${locale}/courses`} className="btn-primary">
               {locale === 'ht' ? 'Retounen nan kou yo' : 'Retour aux cours'}
-            </a>
+            </Link>
           </div>
         </div>
         <Footer />
@@ -264,12 +265,12 @@ export default function CourseDetailPage() {
 
                 <div className="flex flex-col sm:flex-row gap-3">
                   {isEnrolled ? (
-                    <a 
+                    <Link 
                       href={`/${locale}/courses/${course.slug}/learn`}
                       className="flex-1 btn-primary text-center text-lg py-4"
                     >
                       {locale === 'ht' ? 'Kontinye Aprann' : 'Continuer l\'Apprentissage'}
-                    </a>
+                    </Link>
                   ) : (
                     <button
                       onClick={() => setShowEnrollModal(true)}
@@ -309,6 +310,11 @@ export default function CourseDetailPage() {
                     // Add the lesson
                     acc.push({ type: 'lesson', lesson, index });
                     
+                    // Add midterm exam after lesson 7 for HTML/CSS course
+                    if (lesson.order === 7 && course.slug === 'html-css-pou-komanse-yo') {
+                      acc.push({ type: 'htmlcss-midterm-exam', lesson: null, index: -1 });
+                    }
+                    
                     // Add midterm exam after lesson 8 for Python course
                     if (lesson.order === 8 && course.slug === 'python-pou-komanse-yo') {
                       acc.push({ type: 'midterm-exam', lesson: null, index: -1 });
@@ -322,22 +328,82 @@ export default function CourseDetailPage() {
                     return acc;
                   }, [] as Array<{type: string, lesson: any, index: number}>)
                   .map(({ type, lesson, index }) => {
+                    if (type === 'htmlcss-midterm-exam') {
+                      if (isEnrolled) {
+                        return (
+                          <Link
+                            key="htmlcss-midterm-exam"
+                            href={`/${locale}/courses/${course.slug}/midterm-exam`}
+                            className="flex items-center p-4 border-2 border-dashed border-blue-300 bg-blue-50 rounded-lg transition-colors hover:border-blue-400 hover:bg-blue-100 cursor-pointer"
+                          >
+                          <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-semibold text-sm mr-4">
+                            🎓
+                          </div>
+                          <div className="flex-1">
+                            <h4 className="font-medium text-blue-900">
+                              {locale === 'ht' ? 'Egzamen Midterm HTML & CSS' : locale === 'fr' ? 'Examen de Mi-Session HTML & CSS' : 'HTML & CSS Midterm Exam'}
+                            </h4>
+                            <p className="text-sm text-blue-700 mt-1">
+                              {locale === 'ht' ? '60 minit • 30 kesyon • 30 pwen' : 
+                               locale === 'fr' ? '60 minutes • 30 questions • 30 points' :
+                               '60 minutes • 30 questions • 30 points'}
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            {isEnrolled ? (
+                              <div className="flex items-center gap-2">
+                                <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
+                              </div>
+                            ) : (
+                              <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                              </svg>
+                            )}
+                          </div>
+                          </Link>
+                        );
+                      } else {
+                        return (
+                          <div
+                            key="htmlcss-midterm-exam"
+                            className="flex items-center p-4 border-2 border-dashed border-blue-300 bg-blue-50 rounded-lg transition-colors hover:border-blue-400"
+                          >
+                            <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-semibold text-sm mr-4">
+                              🎓
+                            </div>
+                            <div className="flex-1">
+                              <h4 className="font-medium text-blue-900">
+                                {locale === 'ht' ? 'Egzamen Midterm HTML & CSS' : locale === 'fr' ? 'Examen de Mi-Session HTML & CSS' : 'HTML & CSS Midterm Exam'}
+                              </h4>
+                              <p className="text-sm text-blue-700 mt-1">
+                                {locale === 'ht' ? '60 minit • 30 kesyon • 30 pwen' : 
+                                 locale === 'fr' ? '60 minutes • 30 questions • 30 points' :
+                                 '60 minutes • 30 questions • 30 points'}
+                              </p>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                              </svg>
+                            </div>
+                          </div>
+                        );
+                      }
+                    }
+                    
                     if (type === 'midterm-exam') {
-                      const MidtermComponent = isEnrolled ? 'a' : 'div';
-                      const midtermProps = isEnrolled 
-                        ? { href: `/${locale}/courses/${course.slug}/midterm-exam` }
-                        : {};
-                      
-                      return (
-                        <MidtermComponent
-                          key="midterm-exam"
-                          {...midtermProps}
-                          className={`flex items-center p-4 border-2 border-dashed border-orange-300 bg-orange-50 rounded-lg transition-colors ${
-                            isEnrolled 
-                              ? 'hover:border-orange-400 hover:bg-orange-100 cursor-pointer' 
-                              : 'hover:border-orange-400'
-                          }`}
-                        >
+                      if (isEnrolled) {
+                        return (
+                          <Link
+                            key="midterm-exam"
+                            href={`/${locale}/courses/${course.slug}/midterm-exam`}
+                            className="flex items-center p-4 border-2 border-dashed border-orange-300 bg-orange-50 rounded-lg transition-colors hover:border-orange-400 hover:bg-orange-100 cursor-pointer"
+                          >
                           <div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-semibold text-sm mr-4">
                             🎓
                           </div>
@@ -367,26 +433,45 @@ export default function CourseDetailPage() {
                               </svg>
                             )}
                           </div>
-                        </MidtermComponent>
-                      );
+                          </Link>
+                        );
+                      } else {
+                        return (
+                          <div
+                            key="midterm-exam"
+                            className="flex items-center p-4 border-2 border-dashed border-orange-300 bg-orange-50 rounded-lg transition-colors hover:border-orange-400"
+                          >
+                            <div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-semibold text-sm mr-4">
+                              🎓
+                            </div>
+                            <div className="flex-1">
+                              <h4 className="font-medium text-orange-900">
+                                {locale === 'ht' ? 'Egzamen Midterm' : locale === 'fr' ? 'Examen de Mi-Session' : 'Midterm Exam'}
+                              </h4>
+                              <p className="text-sm text-orange-700 mt-1">
+                                {locale === 'ht' ? '60 minit • 30 kesyon • 100 pwen' : 
+                                 locale === 'fr' ? '60 minutes • 30 questions • 100 points' :
+                                 '60 minutes • 30 questions • 100 points'}
+                              </p>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                              </svg>
+                            </div>
+                          </div>
+                        );
+                      }
                     }
                     
                     if (type === 'final-exam') {
-                      const FinalComponent = isEnrolled ? 'a' : 'div';
-                      const finalProps = isEnrolled 
-                        ? { href: `/${locale}/courses/${course.slug}/final-exam` }
-                        : {};
-                      
-                      return (
-                        <FinalComponent
-                          key="final-exam"
-                          {...finalProps}
-                          className={`flex items-center p-4 border-2 border-dashed border-purple-300 bg-purple-50 rounded-lg transition-colors ${
-                            isEnrolled 
-                              ? 'hover:border-purple-400 hover:bg-purple-100 cursor-pointer' 
-                              : 'opacity-60'
-                          }`}
-                        >
+                      if (isEnrolled) {
+                        return (
+                          <Link
+                            key="final-exam"
+                            href={`/${locale}/courses/${course.slug}/final-exam`}
+                            className="flex items-center p-4 border-2 border-dashed border-purple-300 bg-purple-50 rounded-lg transition-colors hover:border-purple-400 hover:bg-purple-100 cursor-pointer"
+                          >
                           <div className="flex items-center justify-center w-12 h-12 bg-purple-500 text-white rounded-lg mr-4">
                             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -413,26 +498,47 @@ export default function CourseDetailPage() {
                               </svg>
                             )}
                           </div>
-                        </FinalComponent>
-                      );
+                          </Link>
+                        );
+                      } else {
+                        return (
+                          <div
+                            key="final-exam"
+                            className="flex items-center p-4 border-2 border-dashed border-purple-300 bg-purple-50 rounded-lg transition-colors opacity-60"
+                          >
+                            <div className="flex items-center justify-center w-12 h-12 bg-purple-500 text-white rounded-lg mr-4">
+                              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                            </div>
+                            <div className="flex-1">
+                              <h4 className="font-semibold text-purple-800 text-lg">
+                                🎓 {locale === 'ht' ? 'Egzamen Final' : locale === 'fr' ? 'Examen Final' : 'Final Exam'}
+                              </h4>
+                              <p className="text-sm text-purple-700 mt-1">
+                                {locale === 'ht' ? '90 minit • 35 kesyon • 150 pwen' : 
+                                 locale === 'fr' ? '90 minutes • 35 questions • 150 points' :
+                                 '90 minutes • 35 questions • 150 points'}
+                              </p>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                              </svg>
+                            </div>
+                          </div>
+                        );
+                      }
                     }
                     
                     // Regular lesson
-                    const LessonComponent = isEnrolled ? 'a' : 'div';
-                    const lessonProps = isEnrolled 
-                      ? { href: `/${locale}/courses/${course.slug}/lesson/${lesson.id}` }
-                      : {};
-                    
-                    return (
-                      <LessonComponent 
-                        key={lesson.id} 
-                        {...lessonProps}
-                        className={`flex items-center p-4 border border-gray-200 rounded-lg transition-colors ${
-                          isEnrolled 
-                            ? 'hover:border-primary-300 hover:bg-primary-50 cursor-pointer' 
-                            : 'hover:border-gray-300'
-                        }`}
-                      >
+                    if (isEnrolled) {
+                      return (
+                        <Link 
+                          key={lesson.id}
+                          href={`/${locale}/courses/${course.slug}/lesson/${lesson.id}`}
+                          className="flex items-center p-4 border border-gray-200 rounded-lg transition-colors hover:border-primary-300 hover:bg-primary-50 cursor-pointer"
+                        >
                         <div className="w-8 h-8 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center font-semibold text-sm mr-4">
                           {lesson.order}
                         </div>
@@ -463,8 +569,35 @@ export default function CourseDetailPage() {
                             </svg>
                           )}
                         </div>
-                      </LessonComponent>
-                    );
+                        </Link>
+                      );
+                    } else {
+                      return (
+                        <div 
+                          key={lesson.id}
+                          className="flex items-center p-4 border border-gray-200 rounded-lg transition-colors hover:border-gray-300"
+                        >
+                          <div className="w-8 h-8 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center font-semibold text-sm mr-4">
+                            {lesson.order}
+                          </div>
+                          <div className="flex-1">
+                            <h4 className="font-medium text-gray-900">
+                              {getLessonTitle(lesson)}
+                            </h4>
+                            {lesson.duration && (
+                              <p className="text-sm text-gray-500 mt-1">
+                                {formatDuration(lesson.duration)}
+                              </p>
+                            )}
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                          </div>
+                        </div>
+                      );
+                    }
                   })}
               </div>
             </div>
@@ -481,12 +614,12 @@ export default function CourseDetailPage() {
                     : 'Partagez vos expériences avec d\'autres étudiants et posez vos questions'
                   }
                 </p>
-                <a 
+                <Link 
                   href={`/${locale}/courses/${course.slug}/forum`}
                   className="btn-secondary"
                 >
                   {locale === 'ht' ? 'Ale nan Fowòm' : 'Aller au Forum'}
-                </a>
+                </Link>
               </div>
             )}
           </div>

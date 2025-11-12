@@ -4,6 +4,7 @@ import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { checkExamEligibility, submitExamResult } from '@/app/actions/exam';
 import PythonMidtermExam from '@/components/PythonMidtermExam';
+import HtmlCssMidtermExam from '@/components/HtmlCssMidtermExam';
 
 interface MidtermExamPageProps {
   params: {
@@ -22,9 +23,9 @@ export default async function MidtermExamPage({ params }: MidtermExamPageProps) 
   
   console.log('Session check:', { hasSession: !!session, userId: session?.user?.id });
 
+  // TEMPORARILY BYPASS AUTH FOR DEMO
   if (!session?.user?.id) {
-    console.log('No session, redirecting to signin');
-    redirect(`/${locale}/auth/signin`);
+    console.log('No session - DEMO MODE: continuing without auth');
   }
 
   // Get course data
@@ -44,9 +45,9 @@ export default async function MidtermExamPage({ params }: MidtermExamPageProps) 
     notFound();
   }
 
-  // Check if this is the Python course
-  if (course.slug !== 'python-pou-komanse-yo') {
-    console.log('Not Python course, showing 404');
+  // Check if this course supports midterm exams
+  if (course.slug !== 'python-pou-komanse-yo' && course.slug !== 'html-css-pou-komanse-yo') {
+    console.log('Course does not support midterm exams, showing 404');
     notFound();
   }
 
@@ -75,16 +76,23 @@ export default async function MidtermExamPage({ params }: MidtermExamPageProps) 
     'use server';
     
     try {
-      await submitExamResult(
-        course.id,
-        'MIDTERM',
-        score,
-        totalPoints,
-        timeSpent,
-        answers,
-        locale,
-        course.slug
-      );
+      // Check if user has session before submitting to database
+      const currentSession = await getServerSession(authOptions);
+      
+      if (currentSession?.user?.id) {
+        await submitExamResult(
+          course.id,
+          'MIDTERM',
+          score,
+          totalPoints,
+          timeSpent,
+          answers,
+          locale,
+          course.slug
+        );
+      } else {
+        console.log('DEMO MODE: Exam completed but not saved to database');
+      }
       
       // Redirect to course page with success message
       redirect(`/${locale}/courses/${course.slug}?exam_completed=true&score=${score}&total=${totalPoints}`);
@@ -119,12 +127,20 @@ export default async function MidtermExamPage({ params }: MidtermExamPageProps) 
 
         <div className="bg-white rounded-xl shadow-sm p-6 mb-8">
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            {locale === 'ht' ? 'Egzamen Midterm Python' : locale === 'fr' ? 'Examen de Mi-Session Python' : 'Python Midterm Exam'}
+            {course.slug === 'python-pou-komanse-yo' 
+              ? (locale === 'ht' ? 'Egzamen Midterm Python' : locale === 'fr' ? 'Examen de Mi-Session Python' : 'Python Midterm Exam')
+              : (locale === 'ht' ? 'Egzamen Midterm HTML & CSS' : locale === 'fr' ? 'Examen de Mi-Session HTML & CSS' : 'HTML & CSS Midterm Exam')
+            }
           </h1>
           <p className="text-gray-600">
-            {locale === 'ht' ? 'Teste konesans ou sou tout konsèp Python yo nou aprann nan premye 7 semèn yo.' : 
-             locale === 'fr' ? 'Testez vos connaissances sur tous les concepts Python appris dans les 7 premières semaines.' :
-             'Test your knowledge of all Python concepts learned in the first 7 weeks.'}
+            {course.slug === 'python-pou-komanse-yo' 
+              ? (locale === 'ht' ? 'Teste konesans ou sou tout konsèp Python yo nou aprann nan premye 7 semèn yo.' : 
+                 locale === 'fr' ? 'Testez vos connaissances sur tous les concepts Python appris dans les 7 premières semaines.' :
+                 'Test your knowledge of all Python concepts learned in the first 7 weeks.')
+              : (locale === 'ht' ? 'Teste konesans ou sou tout konsèp HTML ak CSS yo nou aprann nan premye 7 semèn yo.' :
+                 locale === 'fr' ? 'Testez vos connaissances sur tous les concepts HTML et CSS appris dans les 7 premières semaines.' :
+                 'Test your knowledge of all HTML and CSS concepts learned in the first 7 weeks.')
+            }
           </p>
           
           {existingExamResult && (
@@ -152,7 +168,11 @@ export default async function MidtermExamPage({ params }: MidtermExamPageProps) 
 
       {/* Exam Component */}
       <div className="max-w-6xl mx-auto px-6">
-        <PythonMidtermExam onComplete={handleExamComplete} />
+        {course.slug === 'python-pou-komanse-yo' ? (
+          <PythonMidtermExam onComplete={handleExamComplete} />
+        ) : (
+          <HtmlCssMidtermExam onComplete={handleExamComplete} />
+        )}
       </div>
     </div>
   );

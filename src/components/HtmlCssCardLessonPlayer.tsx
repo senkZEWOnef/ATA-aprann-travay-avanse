@@ -8,6 +8,7 @@ import htmlCssWeek3Cards from '@/data/htmlCssWeek3Cards';
 import htmlCssWeek4Cards from '@/data/htmlCssWeek4Cards';
 import htmlCssWeek5Cards from '@/data/htmlCssWeek5Cards';
 import htmlCssWeek6Cards from '@/data/htmlCssWeek6Cards';
+import htmlCssWeek7Cards from '@/data/htmlCssWeek7Cards';
 
 interface HtmlCssCardLessonPlayerProps {
   weekNumber: number;
@@ -29,6 +30,7 @@ export default function HtmlCssCardLessonPlayer({
       case 4: return htmlCssWeek4Cards;
       case 5: return htmlCssWeek5Cards;
       case 6: return htmlCssWeek6Cards;
+      case 7: return htmlCssWeek7Cards;
       default: return [];
     }
   };

@@ -115,9 +115,14 @@ export async function checkExamEligibility(courseId: string, courseSlug: string,
   
   console.log('Session:', { userId: session?.user?.id, email: session?.user?.email });
   
+  // TEMPORARILY BYPASS AUTH FOR DEMO
   if (!session?.user?.id) {
-    console.log('No session or user ID');
-    return { eligible: false, reason: 'not_authenticated' };
+    console.log('No session - DEMO MODE: allowing access');
+    return { 
+      eligible: true, 
+      existingResult: null,
+      demoMode: true 
+    };
   }
 
   // Check if enrolled
