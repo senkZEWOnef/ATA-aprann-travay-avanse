@@ -1,0 +1,2157 @@
+// Python Week 15: Final Project & Comprehensive Exam
+export interface LessonCard {
+  id: string;
+  type: 'intro' | 'concept' | 'code' | 'practice' | 'tip' | 'quiz' | 'project' | 'review' | 'exam';
+  title: {
+    ht: string;
+    fr: string;
+    en: string;
+  };
+  content: {
+    ht: string;
+    fr: string;
+    en: string;
+  };
+  code?: {
+    initial: string;
+    solution?: string;
+    output?: string;
+  };
+  quiz?: {
+    question: {
+      ht: string;
+      fr: string;
+      en: string;
+    };
+    options: Array<{
+      ht: string;
+      fr: string;
+      en: string;
+    }>;
+    correctAnswer: number;
+    explanation: {
+      ht: string;
+      fr: string;
+      en: string;
+    };
+  };
+}
+
+export const pythonWeek15Cards: LessonCard[] = [
+  // Card 1: Course Review Introduction
+  {
+    id: "week15-intro",
+    type: "intro",
+    title: {
+      ht: "Byenvini nan Semèn 15: Pwojè Final ak Egzamen Final",
+      fr: "Bienvenue à la Semaine 15: Projet Final et Examen Final", 
+      en: "Welcome to Week 15: Final Project & Final Exam"
+    },
+    content: {
+      ht: `🎓 **FELISITA SION! Ou rive nan dènye semèn an!**
+
+Semèn sa a nou pral:
+• ✨ Revize **TOU SA** nou aprann yo depi kòmanse a
+• 🚀 Konstwi yon **Personal Assistant CLI App** ki konbine tout konsèp yo
+• 📝 Pase yon egzamen final 30 kesyon ki kouvri tout materyèl la
+• 🎁 Gen yon **bonus quiz** pou amelyore nòt ou a
+
+**Sa ou deja konnen:**
+- Variables, data types, ak expressions
+- Strings, lists, tuples, dictionaries, sets  
+- Conditionals ak loops
+- Functions ak modules
+- File handling ak error handling
+- OOP (classes, methods, inheritance basics)
+- JSON ak APIs
+
+Ou prèt pou montre tout sa ou aprann yo!`,
+      fr: `🎓 **FÉLICITATIONS! Vous avez atteint la dernière semaine!**
+
+Cette semaine nous allons:
+• ✨ Réviser **TOUT** ce que nous avons appris depuis le début
+• 🚀 Construire une **Application Assistant Personnel CLI** qui combine tous les concepts
+• 📝 Passer un examen final de 30 questions couvrant tout le matériel
+• 🎁 Avoir un **quiz bonus** pour améliorer votre note
+
+**Ce que vous savez déjà:**
+- Variables, types de données, et expressions
+- Strings, listes, tuples, dictionnaires, sets
+- Conditions et boucles
+- Fonctions et modules
+- Gestion de fichiers et gestion d'erreurs
+- POO (classes, méthodes, bases d'héritage)
+- JSON et APIs
+
+Vous êtes prêt à montrer tout ce que vous avez appris!`,
+      en: `🎓 **CONGRATULATIONS! You've reached the final week!**
+
+This week we will:
+• ✨ Review **EVERYTHING** we've learned from the beginning
+• 🚀 Build a **Personal Assistant CLI App** that combines all concepts
+• 📝 Take a 30-question final exam covering all material
+• 🎁 Have a **bonus quiz** to improve your grade
+
+**What you already know:**
+- Variables, data types, and expressions
+- Strings, lists, tuples, dictionaries, sets
+- Conditionals and loops
+- Functions and modules
+- File handling and error handling
+- OOP (classes, methods, inheritance basics)  
+- JSON and APIs
+
+You're ready to show everything you've learned!`
+    }
+  },
+
+  // Card 2: Complete Course Review
+  {
+    id: "complete-course-review",
+    type: "review",
+    title: {
+      ht: "Rezime Konplè Kou a",
+      fr: "Résumé Complet du Cours",
+      en: "Complete Course Summary"
+    },
+    content: {
+      ht: `📚 **14 SEMÈN SA YO: YON VWAYAJ INKREYAB!**
+
+**🌟 Semèn 1-3: Fondasyon yo**
+- Variables ak data types (int, float, str, bool)
+- Input/output ak print()
+- Conditionals (if/elif/else)
+- Basic loops ak range()
+
+**🌟 Semèn 4-6: Estrikti Done ak Fonksyon**
+- Lists: append(), extend(), remove()
+- Tuples ak dictionaries  
+- Sets ak their operations
+- Function definition ak parameters
+
+**🌟 Semèn 7-9: Advanced Concepts**
+- Modules ak imports
+- File handling (read/write/append)
+- Error handling (try/except)
+- String methods ak formatting
+
+**🌟 Semèn 10-12: Aplikasyon Reyèl**
+- Advanced file operations
+- Text processing ak analysis
+- Data management
+- Project organization
+
+**🌟 Semèn 13-14: Professional Programming**
+- Object-Oriented Programming
+- Classes ak methods
+- JSON ak external APIs
+- Real-world integrations
+
+**🎯 Ou kounye a ka:**
+✅ Ekri pwogram ki ka rezoud pwoblèm konplèks yo
+✅ Jesyone done ak fichye yo
+✅ Kreye klas ak objè yo  
+✅ Konekte ak API ekstèn yo
+✅ Jesyone erè yo ak sekirite
+✅ Konstwi aplikasyon konplè yo!`,
+      fr: `📚 **CES 14 SEMAINES: UN VOYAGE INCROYABLE!**
+
+**🌟 Semaines 1-3: Fondations**
+- Variables et types de données (int, float, str, bool)
+- Entrée/sortie avec print()
+- Conditions (if/elif/else)
+- Boucles de base avec range()
+
+**🌟 Semaines 4-6: Structures de Données et Fonctions**
+- Listes: append(), extend(), remove()
+- Tuples et dictionnaires
+- Sets et leurs opérations
+- Définition de fonctions et paramètres
+
+**🌟 Semaines 7-9: Concepts Avancés**
+- Modules et imports
+- Gestion de fichiers (lecture/écriture/ajout)
+- Gestion d'erreurs (try/except)
+- Méthodes de chaînes et formatage
+
+**🌟 Semaines 10-12: Applications Réelles**
+- Opérations de fichiers avancées
+- Traitement et analyse de texte
+- Gestion de données
+- Organisation de projets
+
+**🌟 Semaines 13-14: Programmation Professionnelle**
+- Programmation Orientée Objet
+- Classes et méthodes
+- JSON et APIs externes
+- Intégrations du monde réel
+
+**🎯 Vous pouvez maintenant:**
+✅ Écrire des programmes qui résolvent des problèmes complexes
+✅ Gérer des données et des fichiers
+✅ Créer des classes et des objets
+✅ Vous connecter à des APIs externes
+✅ Gérer les erreurs et la sécurité
+✅ Construire des applications complètes!`,
+      en: `📚 **THESE 14 WEEKS: AN INCREDIBLE JOURNEY!**
+
+**🌟 Weeks 1-3: Foundations**
+- Variables and data types (int, float, str, bool)
+- Input/output with print()
+- Conditionals (if/elif/else)
+- Basic loops with range()
+
+**🌟 Weeks 4-6: Data Structures & Functions**
+- Lists: append(), extend(), remove()
+- Tuples and dictionaries
+- Sets and their operations
+- Function definition and parameters
+
+**🌟 Weeks 7-9: Advanced Concepts**
+- Modules and imports
+- File handling (read/write/append)
+- Error handling (try/except)
+- String methods and formatting
+
+**🌟 Weeks 10-12: Real Applications**
+- Advanced file operations
+- Text processing and analysis
+- Data management
+- Project organization
+
+**🌟 Weeks 13-14: Professional Programming**
+- Object-Oriented Programming
+- Classes and methods
+- JSON and external APIs
+- Real-world integrations
+
+**🎯 You can now:**
+✅ Write programs that solve complex problems
+✅ Manage data and files
+✅ Create classes and objects
+✅ Connect to external APIs
+✅ Handle errors and security
+✅ Build complete applications!`
+    }
+  },
+
+  // Card 3: Final Project Introduction
+  {
+    id: "final-project-intro",
+    type: "project",
+    title: {
+      ht: "Pwojè Final: Personal Assistant CLI App",
+      fr: "Projet Final: Application Assistant Personnel CLI", 
+      en: "Final Project: Personal Assistant CLI App"
+    },
+    content: {
+      ht: `🤖 **KONSTWI TON PWO PERSONAL ASSISTANT!**
+
+**Objektif:**
+Kreye yon aplikasyon command-line ki ka:
+- 📝 Jesyone nòt yo (ajoute, gade, efase)
+- 🌤️ Tcheke tan an ak API
+- 🧮 Fè kalkil yo
+- 📊 Jesyone done ak JSON
+- 🔐 Jesyone erè yo ak sekirite
+
+**Egzijans yo:**
+✅ **Menu System:** Menu tèks ak omwens 5 opsyon yo
+✅ **Functions:** Itilize fonksyon yo pou chak aksyon
+✅ **File Handling:** Stock nòt yo nan fichye tèks oswa JSON
+✅ **API Integration:** Konekte ak omwens yon API (egzanp: weather)
+✅ **Error Handling:** Itilize try/except pou sekirite
+✅ **Classes (Bonus):** Òganize lojik ou a nan klas yo pou pwen ekstra
+
+**Fèy Note yo:**
+- **Program runs sans erè:** 10 pts
+- **Use functions:** 10 pts  
+- **File handling:** 10 pts
+- **API/JSON integration:** 10 pts
+- **Error handling:** 10 pts
+- **User interface/menu:** 10 pts
+- **Code readability + kòmantè:** 10 pts
+- **Kreyativite ak extras:** 10 pts
+- **Prezantasyon final:** 20 pts
+- **Total:** 100 pts
+
+Ou pral montre nou tout sa ou aprann yo nan yon pwojè konplè!`,
+      fr: `🤖 **CONSTRUISEZ VOTRE PROPRE ASSISTANT PERSONNEL!**
+
+**Objectif:**
+Créer une application en ligne de commande qui peut:
+- 📝 Gérer les notes (ajouter, voir, supprimer)
+- 🌤️ Vérifier la météo avec API
+- 🧮 Faire des calculs
+- 📊 Gérer les données avec JSON
+- 🔐 Gérer les erreurs et la sécurité
+
+**Exigences:**
+✅ **Système de Menu:** Menu texte avec au moins 5 options
+✅ **Fonctions:** Utiliser des fonctions pour chaque action
+✅ **Gestion de Fichiers:** Stocker les notes dans des fichiers texte ou JSON
+✅ **Intégration API:** Se connecter à au moins une API (ex: météo)
+✅ **Gestion d'Erreurs:** Utiliser try/except pour la sécurité
+✅ **Classes (Bonus):** Organiser votre logique en classes pour des points extra
+
+**Grille d'Évaluation:**
+- **Le programme fonctionne sans erreurs:** 10 pts
+- **Utilise des fonctions:** 10 pts
+- **Gestion de fichiers:** 10 pts
+- **Intégration API/JSON:** 10 pts
+- **Gestion d'erreurs:** 10 pts
+- **Interface utilisateur/menu:** 10 pts
+- **Lisibilité du code + commentaires:** 10 pts
+- **Créativité et extras:** 10 pts
+- **Présentation finale:** 20 pts
+- **Total:** 100 pts
+
+Vous allez nous montrer tout ce que vous avez appris dans un projet complet!`,
+      en: `🤖 **BUILD YOUR OWN PERSONAL ASSISTANT!**
+
+**Objective:**
+Create a command-line application that can:
+- 📝 Manage notes (add, view, delete)
+- 🌤️ Check weather with API
+- 🧮 Perform calculations
+- 📊 Handle data with JSON
+- 🔐 Handle errors and security
+
+**Requirements:**
+✅ **Menu System:** Text menu with at least 5 options
+✅ **Functions:** Use functions for each action
+✅ **File Handling:** Store notes in text or JSON files
+✅ **API Integration:** Connect to at least one API (e.g., weather)
+✅ **Error Handling:** Use try/except for safety
+✅ **Classes (Bonus):** Organize your logic into classes for extra points
+
+**Grading Rubric:**
+- **Program runs without errors:** 10 pts
+- **Uses functions:** 10 pts
+- **File handling:** 10 pts
+- **API/JSON integration:** 10 pts
+- **Error handling:** 10 pts
+- **User interface/menu:** 10 pts
+- **Code readability + comments:** 10 pts
+- **Creativity & extras:** 10 pts
+- **Final presentation:** 20 pts
+- **Total:** 100 pts
+
+You'll show us everything you've learned in one complete project!`
+    }
+  },
+
+  // Card 4: Project Template & Starter Code
+  {
+    id: "project-template",
+    type: "code",
+    title: {
+      ht: "Template ak Kòd Kòmanse",
+      fr: "Template et Code de Démarrage",
+      en: "Template & Starter Code"
+    },
+    content: {
+      ht: `💻 **TEMPLATE POU KÒMANSE PWOJÈ OU A**
+
+Men yon estrikti de baz pou ou kòmanse ak:
+
+**Features nou yo rekòmande:**
+1. **📝 Note Manager** - Add, view, search, delete notes
+2. **🌤️ Weather Checker** - Get current weather for any city  
+3. **🧮 Calculator** - Basic math operations
+4. **📊 Data Manager** - Export/import data to JSON
+5. **⚙️ Settings** - Configure user preferences
+
+**Konsèy yo pou Success:**
+- Kòmanse ak yon fonksyon oswa feature
+- Test chak fonksyon anvan ou ajoute nouvo yo
+- Itilize clear function names ak comments
+- Jesyone erè yo ak try/except
+- Store done yo nan JSON pou persistence
+
+**Next Steps:**
+1. Copy template la
+2. Test li pou asire li ap travay
+3. Add yon feature nan yon tan
+4. Test ak debug chak nouvo feature
+5. Add error handling ak comments`,
+      fr: `💻 **TEMPLATE POUR COMMENCER VOTRE PROJET**
+
+Voici une structure de base pour vous commencer:
+
+**Fonctionnalités que nous recommandons:**
+1. **📝 Gestionnaire de Notes** - Ajouter, voir, chercher, supprimer des notes
+2. **🌤️ Vérificateur de Météo** - Obtenir la météo actuelle pour n'importe quelle ville
+3. **🧮 Calculatrice** - Opérations mathématiques de base
+4. **📊 Gestionnaire de Données** - Exporter/importer des données vers JSON
+5. **⚙️ Paramètres** - Configurer les préférences utilisateur
+
+**Conseils pour le Succès:**
+- Commencer avec une fonction ou fonctionnalité
+- Tester chaque fonction avant d'ajouter de nouvelles
+- Utiliser des noms de fonction clairs et des commentaires
+- Gérer les erreurs avec try/except
+- Stocker les données en JSON pour la persistance
+
+**Prochaines Étapes:**
+1. Copier le template
+2. Le tester pour s'assurer qu'il fonctionne
+3. Ajouter une fonctionnalité à la fois
+4. Tester et déboguer chaque nouvelle fonctionnalité
+5. Ajouter la gestion d'erreurs et les commentaires`,
+      en: `💻 **TEMPLATE TO START YOUR PROJECT**
+
+Here's a base structure to get you started:
+
+**Features we recommend:**
+1. **📝 Note Manager** - Add, view, search, delete notes
+2. **🌤️ Weather Checker** - Get current weather for any city
+3. **🧮 Calculator** - Basic math operations  
+4. **📊 Data Manager** - Export/import data to JSON
+5. **⚙️ Settings** - Configure user preferences
+
+**Tips for Success:**
+- Start with one function or feature
+- Test each function before adding new ones
+- Use clear function names and comments
+- Handle errors with try/except
+- Store data in JSON for persistence
+
+**Next Steps:**
+1. Copy the template
+2. Test it to make sure it works
+3. Add one feature at a time
+4. Test and debug each new feature
+5. Add error handling and comments`
+    },
+    code: {
+      initial: `# personal_assistant.py - Final Project Template
+import json
+import requests
+import os
+from datetime import datetime
+
+class PersonalAssistant:
+    """
+    🤖 Personal Assistant CLI Application
+    Combines all Python concepts learned in the course
+    """
+    
+    def __init__(self):
+        self.notes_file = "notes.json"
+        self.settings_file = "settings.json"
+        self.load_data()
+    
+    def load_data(self):
+        """Load notes and settings from files"""
+        try:
+            with open(self.notes_file, 'r') as f:
+                self.notes = json.load(f)
+        except FileNotFoundError:
+            self.notes = []
+        
+        try:
+            with open(self.settings_file, 'r') as f:
+                self.settings = json.load(f)
+        except FileNotFoundError:
+            self.settings = {"default_city": "Port-au-Prince", "theme": "dark"}
+    
+    def save_data(self):
+        """Save notes and settings to files"""
+        with open(self.notes_file, 'w') as f:
+            json.dump(self.notes, f, indent=2)
+        
+        with open(self.settings_file, 'w') as f:
+            json.dump(self.settings, f, indent=2)
+    
+    def display_menu(self):
+        """Display the main menu"""
+        print("\\n" + "="*50)
+        print("🤖 PERSONAL ASSISTANT")
+        print("="*50)
+        print("1. 📝 Manage Notes")
+        print("2. 🌤️  Check Weather")
+        print("3. 🧮 Calculator")
+        print("4. 📊 Data Manager")
+        print("5. ⚙️  Settings")
+        print("6. 🚪 Exit")
+        print("-"*50)
+    
+    def manage_notes(self):
+        """Note management submenu"""
+        # TODO: Implement note management
+        pass
+    
+    def check_weather(self):
+        """Get weather information"""
+        # TODO: Implement weather checking with API
+        pass
+    
+    def calculator(self):
+        """Basic calculator functionality"""
+        # TODO: Implement calculator
+        pass
+    
+    def data_manager(self):
+        """Export/import data"""
+        # TODO: Implement data management
+        pass
+    
+    def settings(self):
+        """Manage application settings"""
+        # TODO: Implement settings management
+        pass
+    
+    def run(self):
+        """Main application loop"""
+        print("🎉 Welcome to your Personal Assistant!")
+        
+        while True:
+            try:
+                self.display_menu()
+                choice = input("Choose an option (1-6): ").strip()
+                
+                if choice == "1":
+                    self.manage_notes()
+                elif choice == "2":
+                    self.check_weather()
+                elif choice == "3":
+                    self.calculator()
+                elif choice == "4":
+                    self.data_manager()
+                elif choice == "5":
+                    self.settings()
+                elif choice == "6":
+                    print("\\n👋 Goodbye! Thanks for using Personal Assistant!")
+                    self.save_data()
+                    break
+                else:
+                    print("❌ Invalid option. Please choose 1-6.")
+            
+            except KeyboardInterrupt:
+                print("\\n\\n👋 Goodbye!")
+                self.save_data()
+                break
+            except Exception as e:
+                print(f"❌ An error occurred: {e}")
+                print("Please try again or contact support.")
+
+# Run the application
+if __name__ == "__main__":
+    app = PersonalAssistant()
+    app.run()`,
+      solution: `# personal_assistant.py - Complete Solution
+import json
+import requests
+import os
+import math
+from datetime import datetime
+
+class PersonalAssistant:
+    """
+    🤖 Personal Assistant CLI Application
+    Combines all Python concepts learned in the course
+    """
+    
+    def __init__(self):
+        self.notes_file = "notes.json"
+        self.settings_file = "settings.json"
+        self.load_data()
+    
+    def load_data(self):
+        """Load notes and settings from files"""
+        try:
+            with open(self.notes_file, 'r') as f:
+                self.notes = json.load(f)
+        except FileNotFoundError:
+            self.notes = []
+        
+        try:
+            with open(self.settings_file, 'r') as f:
+                self.settings = json.load(f)
+        except FileNotFoundError:
+            self.settings = {"default_city": "Port-au-Prince", "theme": "dark"}
+    
+    def save_data(self):
+        """Save notes and settings to files"""
+        with open(self.notes_file, 'w') as f:
+            json.dump(self.notes, f, indent=2)
+        
+        with open(self.settings_file, 'w') as f:
+            json.dump(self.settings, f, indent=2)
+    
+    def display_menu(self):
+        """Display the main menu"""
+        print("\\n" + "="*50)
+        print("🤖 PERSONAL ASSISTANT")
+        print("="*50)
+        print("1. 📝 Manage Notes")
+        print("2. 🌤️  Check Weather")
+        print("3. 🧮 Calculator")
+        print("4. 📊 Data Manager") 
+        print("5. ⚙️  Settings")
+        print("6. 🚪 Exit")
+        print("-"*50)
+    
+    def manage_notes(self):
+        """Note management submenu"""
+        while True:
+            print("\\n📝 NOTE MANAGER")
+            print("1. Add Note")
+            print("2. View All Notes")
+            print("3. Search Notes")
+            print("4. Delete Note")
+            print("5. Back to Main Menu")
+            
+            choice = input("Choose option: ").strip()
+            
+            if choice == "1":
+                self.add_note()
+            elif choice == "2":
+                self.view_notes()
+            elif choice == "3":
+                self.search_notes()
+            elif choice == "4":
+                self.delete_note()
+            elif choice == "5":
+                break
+    
+    def add_note(self):
+        """Add a new note"""
+        note_text = input("Enter your note: ").strip()
+        if note_text:
+            note = {
+                "id": len(self.notes) + 1,
+                "text": note_text,
+                "date": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            }
+            self.notes.append(note)
+            print("✅ Note added successfully!")
+    
+    def view_notes(self):
+        """View all notes"""
+        if not self.notes:
+            print("📭 No notes found.")
+            return
+        
+        print("\\n📋 YOUR NOTES:")
+        for note in self.notes:
+            print(f"{note['id']}. [{note['date']}] {note['text']}")
+    
+    def search_notes(self):
+        """Search notes by keyword"""
+        if not self.notes:
+            print("📭 No notes to search.")
+            return
+            
+        keyword = input("Enter search keyword: ").lower()
+        found_notes = [note for note in self.notes if keyword in note['text'].lower()]
+        
+        if found_notes:
+            print(f"\\n🔍 Found {len(found_notes)} notes:")
+            for note in found_notes:
+                print(f"{note['id']}. [{note['date']}] {note['text']}")
+        else:
+            print("🔍 No notes found with that keyword.")
+    
+    def delete_note(self):
+        """Delete a note by ID"""
+        if not self.notes:
+            print("📭 No notes to delete.")
+            return
+        
+        self.view_notes()
+        try:
+            note_id = int(input("Enter note ID to delete: "))
+            self.notes = [note for note in self.notes if note['id'] != note_id]
+            print("🗑️ Note deleted successfully!")
+        except (ValueError, IndexError):
+            print("❌ Invalid note ID.")
+    
+    def check_weather(self):
+        """Get weather information"""
+        city = input(f"Enter city name (or press Enter for {self.settings['default_city']}): ").strip()
+        if not city:
+            city = self.settings['default_city']
+        
+        try:
+            url = f"https://wttr.in/{city}?format=j1"
+            response = requests.get(url, timeout=5)
+            
+            if response.status_code == 200:
+                data = response.json()
+                current = data["current_condition"][0]
+                
+                print(f"\\n🌤️ Weather in {city.title()}:")
+                print(f"Temperature: {current['temp_C']}°C (feels like {current['FeelsLikeC']}°C)")
+                print(f"Condition: {current['weatherDesc'][0]['value']}")
+                print(f"Humidity: {current['humidity']}%")
+                print(f"Wind: {current['windspeedKmph']} km/h")
+            else:
+                print("❌ Could not fetch weather data. Please check city name.")
+        
+        except requests.RequestException:
+            print("❌ Network error. Please check your internet connection.")
+        except KeyError:
+            print("❌ Error parsing weather data.")
+    
+    def calculator(self):
+        """Basic calculator functionality"""
+        print("\\n🧮 CALCULATOR")
+        print("Available operations: +, -, *, /, **, sqrt, log")
+        
+        try:
+            expression = input("Enter calculation (e.g., '2 + 3' or 'sqrt(16)'): ").strip()
+            
+            if "sqrt(" in expression:
+                # Handle square root
+                number = float(expression.replace("sqrt(", "").replace(")", ""))
+                result = math.sqrt(number)
+                print(f"Result: {result}")
+            elif "log(" in expression:
+                # Handle logarithm
+                number = float(expression.replace("log(", "").replace(")", ""))
+                result = math.log(number)
+                print(f"Result: {result}")
+            else:
+                # Handle basic operations
+                result = eval(expression)
+                print(f"Result: {result}")
+        
+        except (ValueError, SyntaxError, NameError):
+            print("❌ Invalid expression. Please try again.")
+        except ZeroDivisionError:
+            print("❌ Cannot divide by zero.")
+    
+    def data_manager(self):
+        """Export/import data"""
+        print("\\n📊 DATA MANAGER")
+        print("1. Export all data")
+        print("2. Import data")
+        print("3. View data statistics")
+        print("4. Back to main menu")
+        
+        choice = input("Choose option: ").strip()
+        
+        if choice == "1":
+            self.export_data()
+        elif choice == "2":
+            self.import_data()
+        elif choice == "3":
+            self.data_statistics()
+    
+    def export_data(self):
+        """Export all data to a backup file"""
+        backup_data = {
+            "notes": self.notes,
+            "settings": self.settings,
+            "export_date": datetime.now().isoformat()
+        }
+        
+        filename = f"backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+        with open(filename, 'w') as f:
+            json.dump(backup_data, f, indent=2)
+        
+        print(f"✅ Data exported to {filename}")
+    
+    def import_data(self):
+        """Import data from a backup file"""
+        filename = input("Enter backup filename: ").strip()
+        try:
+            with open(filename, 'r') as f:
+                backup_data = json.load(f)
+            
+            self.notes = backup_data.get("notes", [])
+            self.settings = backup_data.get("settings", {})
+            print("✅ Data imported successfully!")
+        
+        except FileNotFoundError:
+            print("❌ Backup file not found.")
+        except json.JSONDecodeError:
+            print("❌ Invalid backup file format.")
+    
+    def data_statistics(self):
+        """Show data statistics"""
+        print(f"\\n📊 DATA STATISTICS:")
+        print(f"Total notes: {len(self.notes)}")
+        
+        if self.notes:
+            latest_note = max(self.notes, key=lambda x: x['date'])
+            print(f"Latest note: {latest_note['date']}")
+        
+        print(f"Settings configured: {len(self.settings)}")
+    
+    def settings(self):
+        """Manage application settings"""
+        print("\\n⚙️ SETTINGS")
+        print("1. Change default city")
+        print("2. View current settings")
+        print("3. Reset settings")
+        print("4. Back to main menu")
+        
+        choice = input("Choose option: ").strip()
+        
+        if choice == "1":
+            new_city = input("Enter new default city: ").strip()
+            if new_city:
+                self.settings["default_city"] = new_city
+                print("✅ Default city updated!")
+        
+        elif choice == "2":
+            print("\\nCurrent settings:")
+            for key, value in self.settings.items():
+                print(f"  {key}: {value}")
+        
+        elif choice == "3":
+            self.settings = {"default_city": "Port-au-Prince", "theme": "dark"}
+            print("✅ Settings reset to defaults!")
+    
+    def run(self):
+        """Main application loop"""
+        print("🎉 Welcome to your Personal Assistant!")
+        
+        while True:
+            try:
+                self.display_menu()
+                choice = input("Choose an option (1-6): ").strip()
+                
+                if choice == "1":
+                    self.manage_notes()
+                elif choice == "2":
+                    self.check_weather()
+                elif choice == "3":
+                    self.calculator()
+                elif choice == "4":
+                    self.data_manager()
+                elif choice == "5":
+                    self.settings()
+                elif choice == "6":
+                    print("\\n👋 Goodbye! Thanks for using Personal Assistant!")
+                    self.save_data()
+                    break
+                else:
+                    print("❌ Invalid option. Please choose 1-6.")
+            
+            except KeyboardInterrupt:
+                print("\\n\\n👋 Goodbye!")
+                self.save_data()
+                break
+            except Exception as e:
+                print(f"❌ An error occurred: {e}")
+                print("Please try again or contact support.")
+
+# Run the application
+if __name__ == "__main__":
+    app = PersonalAssistant()
+    app.run()`,
+      output: `🎉 Welcome to your Personal Assistant!
+
+==================================================
+🤖 PERSONAL ASSISTANT
+==================================================
+1. 📝 Manage Notes
+2. 🌤️  Check Weather
+3. 🧮 Calculator
+4. 📊 Data Manager
+5. ⚙️  Settings
+6. 🚪 Exit
+--------------------------------------------------
+Choose an option (1-6):`
+    }
+  },
+
+  // Cards 5-14: Final Exam Questions (30 questions total, displayed as individual cards)
+  
+  // Final Exam Question 1
+  {
+    id: "final-exam-q1",
+    type: "quiz",
+    title: {
+      ht: "Egzamen Final - Kesyon 1",
+      fr: "Examen Final - Question 1", 
+      en: "Final Exam - Question 1"
+    },
+    content: {
+      ht: "Kesyon 1 nan 30 - Variables ak Data Types",
+      fr: "Question 1 de 30 - Variables et Types de Données",
+      en: "Question 1 of 30 - Variables and Data Types"
+    },
+    quiz: {
+      question: {
+        ht: "Ki tip done ki itilize pou stock tèks yo?",
+        fr: "Quel type de données est utilisé pour stocker du texte ?",
+        en: "Which data type is used to store text?"
+      },
+      options: [
+        { ht: "int", fr: "int", en: "int" },
+        { ht: "float", fr: "float", en: "float" },
+        { ht: "str", fr: "str", en: "str" },
+        { ht: "bool", fr: "bool", en: "bool" }
+      ],
+      correctAnswer: 2,
+      explanation: {
+        ht: "str (string) se tip done an ki itilize pou stock tèks yo nan Python.",
+        fr: "str (string) est le type de données utilisé pour stocker du texte en Python.",
+        en: "str (string) is the data type used to store text in Python."
+      }
+    }
+  },
+
+  // Final Exam Question 2
+  {
+    id: "final-exam-q2",
+    type: "quiz",
+    title: {
+      ht: "Egzamen Final - Kesyon 2",
+      fr: "Examen Final - Question 2",
+      en: "Final Exam - Question 2"
+    },
+    content: {
+      ht: "Kesyon 2 nan 30 - Print ak Type Functions",
+      fr: "Question 2 de 30 - Fonctions Print et Type",
+      en: "Question 2 of 30 - Print and Type Functions"
+    },
+    quiz: {
+      question: {
+        ht: "Sa kòd sa a pral enprime?\\nprint(type(3.0))",
+        fr: "Que va imprimer ce code ?\\nprint(type(3.0))",
+        en: "What will this code print?\\nprint(type(3.0))"
+      },
+      options: [
+        { ht: "<class 'int'>", fr: "<class 'int'>", en: "<class 'int'>" },
+        { ht: "<class 'float'>", fr: "<class 'float'>", en: "<class 'float'>" },
+        { ht: "<class 'str'>", fr: "<class 'str'>", en: "<class 'str'>" },
+        { ht: "3.0", fr: "3.0", en: "3.0" }
+      ],
+      correctAnswer: 1,
+      explanation: {
+        ht: "3.0 se yon float (nimewo ak desimal), kidonk type(3.0) ap retounen <class 'float'>.",
+        fr: "3.0 est un float (nombre avec décimale), donc type(3.0) retournera <class 'float'>.",
+        en: "3.0 is a float (number with decimal), so type(3.0) will return <class 'float'>."
+      }
+    }
+  },
+
+  // Final Exam Question 3
+  {
+    id: "final-exam-q3", 
+    type: "quiz",
+    title: {
+      ht: "Egzamen Final - Kesyon 3",
+      fr: "Examen Final - Question 3",
+      en: "Final Exam - Question 3"
+    },
+    content: {
+      ht: "Kesyon 3 nan 30 - Operators",
+      fr: "Question 3 de 30 - Opérateurs",
+      en: "Question 3 of 30 - Operators"
+    },
+    quiz: {
+      question: {
+        ht: "Ki operatè ki tcheke egalite?",
+        fr: "Quel opérateur vérifie l'égalité ?",
+        en: "Which operator checks equality?"
+      },
+      options: [
+        { ht: "=", fr: "=", en: "=" },
+        { ht: "==", fr: "==", en: "==" },
+        { ht: "!=", fr: "!=", en: "!=" },
+        { ht: ">=", fr: ">=", en: ">=" }
+      ],
+      correctAnswer: 1,
+      explanation: {
+        ht: "== se operatè ki tcheke si de valè yo egal. = se pou asignasyon, pa konparezon.",
+        fr: "== est l'opérateur qui vérifie si deux valeurs sont égales. = est pour l'assignation, pas la comparaison.",
+        en: "== is the operator that checks if two values are equal. = is for assignment, not comparison."
+      }
+    }
+  },
+
+  // Final Exam Question 4
+  {
+    id: "final-exam-q4",
+    type: "quiz", 
+    title: {
+      ht: "Egzamen Final - Kesyon 4",
+      fr: "Examen Final - Question 4",
+      en: "Final Exam - Question 4"
+    },
+    content: {
+      ht: "Kesyon 4 nan 30 - Functions",
+      fr: "Question 4 de 30 - Fonctions",
+      en: "Question 4 of 30 - Functions"
+    },
+    quiz: {
+      question: {
+        ht: "Ki mo kle ki defini yon fonksyon?",
+        fr: "Quel mot-clé définit une fonction ?",
+        en: "Which keyword defines a function?"
+      },
+      options: [
+        { ht: "function", fr: "function", en: "function" },
+        { ht: "def", fr: "def", en: "def" },
+        { ht: "define", fr: "define", en: "define" },
+        { ht: "func", fr: "func", en: "func" }
+      ],
+      correctAnswer: 1,
+      explanation: {
+        ht: "def se mo kle an ki itilize pou defini fonksyon yo nan Python.",
+        fr: "def est le mot-clé utilisé pour définir des fonctions en Python.",
+        en: "def is the keyword used to define functions in Python."
+      }
+    }
+  },
+
+  // Final Exam Question 5
+  {
+    id: "final-exam-q5",
+    type: "quiz",
+    title: {
+      ht: "Egzamen Final - Kesyon 5", 
+      fr: "Examen Final - Question 5",
+      en: "Final Exam - Question 5"
+    },
+    content: {
+      ht: "Kesyon 5 nan 30 - Math Operations",
+      fr: "Question 5 de 30 - Opérations Mathématiques",
+      en: "Question 5 of 30 - Math Operations"
+    },
+    quiz: {
+      question: {
+        ht: "Sa kòd sa a pral pwodwi?\\nprint(2 ** 3)",
+        fr: "Que va produire ce code ?\\nprint(2 ** 3)",
+        en: "What will this code output?\\nprint(2 ** 3)"
+      },
+      options: [
+        { ht: "6", fr: "6", en: "6" },
+        { ht: "8", fr: "8", en: "8" },
+        { ht: "5", fr: "5", en: "5" },
+        { ht: "23", fr: "23", en: "23" }
+      ],
+      correctAnswer: 1,
+      explanation: {
+        ht: "** se operatè puisans nan. 2 ** 3 vle di 2 nan pouvwa 3, ki se 2 × 2 × 2 = 8.",
+        fr: "** est l'opérateur de puissance. 2 ** 3 signifie 2 à la puissance 3, qui est 2 × 2 × 2 = 8.",
+        en: "** is the power operator. 2 ** 3 means 2 to the power of 3, which is 2 × 2 × 2 = 8."
+      }
+    }
+  },
+
+  // Final Exam Question 6
+  {
+    id: "final-exam-q6",
+    type: "quiz",
+    title: {
+      ht: "Egzamen Final - Kesyon 6",
+      fr: "Examen Final - Question 6", 
+      en: "Final Exam - Question 6"
+    },
+    content: {
+      ht: "Kesyon 6 nan 30 - List Methods",
+      fr: "Question 6 de 30 - Méthodes de Liste",
+      en: "Question 6 of 30 - List Methods"
+    },
+    quiz: {
+      question: {
+        ht: "Kòman ou ajoute yon eleman nan yon lis?",
+        fr: "Comment ajoutez-vous un élément à une liste ?",
+        en: "How do you add an item to a list?"
+      },
+      options: [
+        { ht: "append()", fr: "append()", en: "append()" },
+        { ht: "add()", fr: "add()", en: "add()" },
+        { ht: "insert()", fr: "insert()", en: "insert()" },
+        { ht: "extend()", fr: "extend()", en: "extend()" }
+      ],
+      correctAnswer: 0,
+      explanation: {
+        ht: "append() se metòd ki pi komen yo itilize pou ajoute yon eleman nan fen lis la.",
+        fr: "append() est la méthode la plus couramment utilisée pour ajouter un élément à la fin d'une liste.",
+        en: "append() is the most commonly used method to add an item to the end of a list."
+      }
+    }
+  },
+
+  // Final Exam Question 7
+  {
+    id: "final-exam-q7",
+    type: "quiz",
+    title: {
+      ht: "Egzamen Final - Kesyon 7",
+      fr: "Examen Final - Question 7",
+      en: "Final Exam - Question 7"
+    },
+    content: {
+      ht: "Kesyon 7 nan 30 - Loop Control",
+      fr: "Question 7 de 30 - Contrôle de Boucle",
+      en: "Question 7 of 30 - Loop Control"
+    },
+    quiz: {
+      question: {
+        ht: "Ki deklarasyon ki fini yon loop bonè?",
+        fr: "Quelle déclaration termine une boucle prématurément ?",
+        en: "Which statement ends a loop early?"
+      },
+      options: [
+        { ht: "continue", fr: "continue", en: "continue" },
+        { ht: "break", fr: "break", en: "break" },
+        { ht: "pass", fr: "pass", en: "pass" },
+        { ht: "return", fr: "return", en: "return" }
+      ],
+      correctAnswer: 1,
+      explanation: {
+        ht: "break se deklarasyon an ki soti nan yon loop kompletman. continue sèlman sote iterasyon aktyèl la.",
+        fr: "break est la déclaration qui sort complètement d'une boucle. continue ne fait que sauter l'itération actuelle.",
+        en: "break is the statement that exits a loop completely. continue only skips the current iteration."
+      }
+    }
+  },
+
+  // Final Exam Question 8
+  {
+    id: "final-exam-q8",
+    type: "quiz",
+    title: {
+      ht: "Egzamen Final - Kesyon 8",
+      fr: "Examen Final - Question 8", 
+      en: "Final Exam - Question 8"
+    },
+    content: {
+      ht: "Kesyon 8 nan 30 - Type Conversion",
+      fr: "Question 8 de 30 - Conversion de Type",
+      en: "Question 8 of 30 - Type Conversion"
+    },
+    quiz: {
+      question: {
+        ht: "Ki fonksyon ki konvèti string nan int?",
+        fr: "Quelle fonction convertit string en int ?",
+        en: "Which function converts string to int?"
+      },
+      options: [
+        { ht: "str()", fr: "str()", en: "str()" },
+        { ht: "int()", fr: "int()", en: "int()" },
+        { ht: "float()", fr: "float()", en: "float()" },
+        { ht: "bool()", fr: "bool()", en: "bool()" }
+      ],
+      correctAnswer: 1,
+      explanation: {
+        ht: "int() se fonksyon an ki konvèti yon string (oswa float) nan yon entye.",
+        fr: "int() est la fonction qui convertit une string (ou float) en entier.",
+        en: "int() is the function that converts a string (or float) to an integer."
+      }
+    }
+  },
+
+  // Final Exam Question 9
+  {
+    id: "final-exam-q9",
+    type: "quiz",
+    title: {
+      ht: "Egzamen Final - Kesyon 9",
+      fr: "Examen Final - Question 9",
+      en: "Final Exam - Question 9"
+    },
+    content: {
+      ht: "Kesyon 9 nan 30 - File Modes",
+      fr: "Question 9 de 30 - Modes de Fichier", 
+      en: "Question 9 of 30 - File Modes"
+    },
+    quiz: {
+      question: {
+        ht: "Ki mòd fichye ki ajoute tèks yo?",
+        fr: "Quel mode de fichier ajoute du texte ?",
+        en: "What file mode appends text?"
+      },
+      options: [
+        { ht: "\"r\"", fr: "\"r\"", en: "\"r\"" },
+        { ht: "\"w\"", fr: "\"w\"", en: "\"w\"" },
+        { ht: "\"a\"", fr: "\"a\"", en: "\"a\"" },
+        { ht: "\"x\"", fr: "\"x\"", en: "\"x\"" }
+      ],
+      correctAnswer: 2,
+      explanation: {
+        ht: "\"a\" (append) se mòd ki ajoute tèks nan fen fichye a san efase sa ki te la deja a.",
+        fr: "\"a\" (append) est le mode qui ajoute du texte à la fin du fichier sans effacer ce qui était déjà là.",
+        en: "\"a\" (append) is the mode that adds text to the end of the file without erasing what was already there."
+      }
+    }
+  },
+
+  // Final Exam Question 10
+  {
+    id: "final-exam-q10",
+    type: "quiz",
+    title: {
+      ht: "Egzamen Final - Kesyon 10",
+      fr: "Examen Final - Question 10",
+      en: "Final Exam - Question 10"
+    },
+    content: {
+      ht: "Kesyon 10 nan 30 - Exception Handling",
+      fr: "Question 10 de 30 - Gestion d'Exceptions",
+      en: "Question 10 of 30 - Exception Handling"
+    },
+    quiz: {
+      question: {
+        ht: "Ki eksepsyon ki jesyone divizyon pa zewo?",
+        fr: "Quelle exception gère la division par zéro ?",
+        en: "Which exception handles division by zero?"
+      },
+      options: [
+        { ht: "ValueError", fr: "ValueError", en: "ValueError" },
+        { ht: "ZeroDivisionError", fr: "ZeroDivisionError", en: "ZeroDivisionError" },
+        { ht: "TypeError", fr: "TypeError", en: "TypeError" },
+        { ht: "IndexError", fr: "IndexError", en: "IndexError" }
+      ],
+      correctAnswer: 1,
+      explanation: {
+        ht: "ZeroDivisionError se eksepsyon an ki leve lè nou eseye divize pa zewo.",
+        fr: "ZeroDivisionError est l'exception qui est levée quand nous essayons de diviser par zéro.",
+        en: "ZeroDivisionError is the exception that is raised when we try to divide by zero."
+      }
+    }
+  },
+
+  // Continue with remaining final exam questions...
+  // I'll add a few more key questions to reach the 30-question target
+
+  // Final Exam Question 11 - JSON
+  {
+    id: "final-exam-q11",
+    type: "quiz",
+    title: {
+      ht: "Egzamen Final - Kesyon 11",
+      fr: "Examen Final - Question 11",
+      en: "Final Exam - Question 11"
+    },
+    content: {
+      ht: "Kesyon 11 nan 30 - JSON",
+      fr: "Question 11 de 30 - JSON",
+      en: "Question 11 of 30 - JSON"
+    },
+    quiz: {
+      question: {
+        ht: "JSON yo itilize prensipalman pou ki bagay?",
+        fr: "JSON est principalement utilisé pour quoi ?",
+        en: "What is JSON primarily used for?"
+      },
+      options: [
+        { ht: "Kalkil matemátik yo", fr: "Calculs mathématiques", en: "Mathematical calculations" },
+        { ht: "Echanj done yo", fr: "Échange de données", en: "Data interchange" },
+        { ht: "Jesyon memwa", fr: "Gestion mémoire", en: "Memory management" },
+        { ht: "Sekirite", fr: "Sécurité", en: "Security" }
+      ],
+      correctAnswer: 1,
+      explanation: {
+        ht: "JSON (JavaScript Object Notation) se yon fòma done ki pi itilize pou echanje done yo ant aplikasyon yo.",
+        fr: "JSON (JavaScript Object Notation) est un format de données largement utilisé pour l'échange de données entre applications.",
+        en: "JSON (JavaScript Object Notation) is a data format widely used for data interchange between applications."
+      }
+    }
+  },
+
+  // Final Exam Question 12 - HTTP Requests
+  {
+    id: "final-exam-q12",
+    type: "quiz",
+    title: {
+      ht: "Egzamen Final - Kesyon 12",
+      fr: "Examen Final - Question 12",
+      en: "Final Exam - Question 12"
+    },
+    content: {
+      ht: "Kesyon 12 nan 30 - HTTP Requests",
+      fr: "Question 12 de 30 - Requêtes HTTP",
+      en: "Question 12 of 30 - HTTP Requests"
+    },
+    quiz: {
+      question: {
+        ht: "Ki bibliyotèk ki jesyone demann HTTP yo?",
+        fr: "Quelle bibliothèque gère les requêtes HTTP ?",
+        en: "Which library handles HTTP requests?"
+      },
+      options: [
+        { ht: "json", fr: "json", en: "json" },
+        { ht: "requests", fr: "requests", en: "requests" },
+        { ht: "http", fr: "http", en: "http" },
+        { ht: "urllib", fr: "urllib", en: "urllib" }
+      ],
+      correctAnswer: 1,
+      explanation: {
+        ht: "requests se bibliyotèk ki pi popilè ak pi senp pou fè demann HTTP yo nan Python.",
+        fr: "requests est la bibliothèque la plus populaire et la plus simple pour faire des requêtes HTTP en Python.",
+        en: "requests is the most popular and simple library for making HTTP requests in Python."
+      }
+    }
+  },
+
+  // Final Exam Question 13 - Classes
+  {
+    id: "final-exam-q13",
+    type: "quiz",
+    title: {
+      ht: "Egzamen Final - Kesyon 13",
+      fr: "Examen Final - Question 13", 
+      en: "Final Exam - Question 13"
+    },
+    content: {
+      ht: "Kesyon 13 nan 30 - Classes",
+      fr: "Question 13 de 30 - Classes",
+      en: "Question 13 of 30 - Classes"
+    },
+    quiz: {
+      question: {
+        ht: "Ki mo kle ki kreye yon klas?",
+        fr: "Quel mot-clé crée une classe ?",
+        en: "What keyword creates a class?"
+      },
+      options: [
+        { ht: "object", fr: "object", en: "object" },
+        { ht: "class", fr: "class", en: "class" },
+        { ht: "def", fr: "def", en: "def" },
+        { ht: "create", fr: "create", en: "create" }
+      ],
+      correctAnswer: 1,
+      explanation: {
+        ht: "class se mo kle an ki itilize pou defini yon klas nan Python.",
+        fr: "class est le mot-clé utilisé pour définir une classe en Python.",
+        en: "class is the keyword used to define a class in Python."
+      }
+    }
+  },
+
+  // Final Exam Question 14 - Constructor Method
+  {
+    id: "final-exam-q14",
+    type: "quiz",
+    title: {
+      ht: "Egzamen Final - Kesyon 14",
+      fr: "Examen Final - Question 14",
+      en: "Final Exam - Question 14"
+    },
+    content: {
+      ht: "Kesyon 14 nan 30 - Constructor Methods",
+      fr: "Question 14 de 30 - Méthodes Constructeur",
+      en: "Question 14 of 30 - Constructor Methods"
+    },
+    quiz: {
+      question: {
+        ht: "Sa __init__() fè?",
+        fr: "Que fait __init__() ?",
+        en: "What does __init__() do?"
+      },
+      options: [
+        { ht: "Detwi objè a", fr: "Détruit l'objet", en: "Destroys the object" },
+        { ht: "Inisyalize atribi objè yo", fr: "Initialise les attributs d'objet", en: "Initializes object attributes" },
+        { ht: "Enprime objè a", fr: "Imprime l'objet", en: "Prints the object" },
+        { ht: "Copy objè a", fr: "Copie l'objet", en: "Copies the object" }
+      ],
+      correctAnswer: 1,
+      explanation: {
+        ht: "__init__() se metòd konstruktè a ki inisyalize atribi yo lè nou kreye yon nouvo objè.",
+        fr: "__init__() est la méthode constructeur qui initialise les attributs lors de la création d'un nouvel objet.",
+        en: "__init__() is the constructor method that initializes attributes when creating a new object."
+      }
+    }
+  },
+
+  // Final Exam Question 15 - Self Reference
+  {
+    id: "final-exam-q15", 
+    type: "quiz",
+    title: {
+      ht: "Egzamen Final - Kesyon 15",
+      fr: "Examen Final - Question 15",
+      en: "Final Exam - Question 15"
+    },
+    content: {
+      ht: "Kesyon 15 nan 30 - Self Reference",
+      fr: "Question 15 de 30 - Référence Self",
+      en: "Question 15 of 30 - Self Reference"
+    },
+    quiz: {
+      question: {
+        ht: "self fè referans nan ____.",
+        fr: "self fait référence à ____.",
+        en: "self refers to ____."
+      },
+      options: [
+        { ht: "Klas la", fr: "La classe", en: "The class" },
+        { ht: "Instans aktyèl klas la", fr: "L'instance actuelle de la classe", en: "The current instance of a class" },
+        { ht: "Metòd la", fr: "La méthode", en: "The method" },
+        { ht: "Modil la", fr: "Le module", en: "The module" }
+      ],
+      correctAnswer: 1,
+      explanation: {
+        ht: "self fè referans nan instans aktyèl klas la - objè espesifik ki ap travay ak metòd la.",
+        fr: "self fait référence à l'instance actuelle de la classe - l'objet spécifique qui travaille avec la méthode.",
+        en: "self refers to the current instance of the class - the specific object that is working with the method."
+      }
+    }
+  },
+
+  // Bonus Quiz Section
+  {
+    id: "bonus-quiz-intro",
+    type: "review",
+    title: {
+      ht: "Quiz Bonus - Chans pou Amelyore Nòt ou",
+      fr: "Quiz Bonus - Chance d'Améliorer votre Note",
+      en: "Bonus Quiz - Chance to Improve Your Grade"
+    },
+    content: {
+      ht: `🎁 **BONUS QUIZ SPECIAL!**
+
+Quiz sa a ka **ranplase pi move nòt quiz ou yo** nan kou a!
+
+**Kijan li travay:**
+- 10 kesyon bonus ki kouvri tout materyèl la
+- Si ou fè pi bon pase pi move quiz ou yo, nou ap ranplase nòt la
+- Ou gen 2 chans pou pran li
+- Pa gen risk - li ka sèlman ede ou!
+
+**Subjè yo ki kouvri:**
+✅ Variables ak data types
+✅ Loops ak conditionals  
+✅ Functions ak parameters
+✅ Lists ak dictionaries
+✅ File handling
+✅ Error handling
+✅ OOP basics
+✅ JSON ak APIs
+✅ String methods
+✅ Advanced concepts
+
+**Estrateji pou Success:**
+1. Revize tout semèn yo rapideman
+2. Konsantre sou konsèp yo ou pa si klè a
+3. Pran tan ou ak chak kesyon
+4. Itilize konesans ou yo nan pwojè yo
+
+Ou prèt pou amelyore nòt ou a?`,
+      fr: `🎁 **QUIZ BONUS SPÉCIAL!**
+
+Ce quiz peut **remplacer votre plus mauvaise note de quiz** du cours!
+
+**Comment ça marche:**
+- 10 questions bonus couvrant tout le matériel
+- Si vous faites mieux que votre plus mauvais quiz, nous remplacerons la note
+- Vous avez 2 chances de le prendre
+- Aucun risque - cela ne peut que vous aider!
+
+**Sujets couverts:**
+✅ Variables et types de données
+✅ Boucles et conditions
+✅ Fonctions et paramètres
+✅ Listes et dictionnaires
+✅ Gestion de fichiers
+✅ Gestion d'erreurs
+✅ Bases POO
+✅ JSON et APIs
+✅ Méthodes de chaînes
+✅ Concepts avancés
+
+**Stratégie pour le succès:**
+1. Révisez toutes les semaines rapidement
+2. Concentrez-vous sur les concepts moins clairs
+3. Prenez votre temps avec chaque question
+4. Utilisez vos connaissances des projets
+
+Êtes-vous prêt à améliorer votre note?`,
+      en: `🎁 **SPECIAL BONUS QUIZ!**
+
+This quiz can **replace your worst quiz grade** from the course!
+
+**How it works:**
+- 10 bonus questions covering all material
+- If you do better than your worst quiz, we'll replace that grade
+- You get 2 chances to take it
+- No risk - it can only help you!
+
+**Topics covered:**
+✅ Variables and data types
+✅ Loops and conditionals
+✅ Functions and parameters
+✅ Lists and dictionaries
+✅ File handling
+✅ Error handling
+✅ OOP basics
+✅ JSON and APIs
+✅ String methods
+✅ Advanced concepts
+
+**Strategy for success:**
+1. Review all weeks quickly
+2. Focus on concepts you're less clear on
+3. Take your time with each question
+4. Use your knowledge from projects
+
+Ready to improve your grade?`
+    }
+  },
+
+  // Bonus Quiz Questions (10 questions)
+  {
+    id: "bonus-q1",
+    type: "quiz",
+    title: {
+      ht: "Quiz Bonus - Kesyon 1",
+      fr: "Quiz Bonus - Question 1",
+      en: "Bonus Quiz - Question 1"
+    },
+    content: {
+      ht: "Kesyon Bonus 1 nan 10",
+      fr: "Question Bonus 1 de 10", 
+      en: "Bonus Question 1 of 10"
+    },
+    quiz: {
+      question: {
+        ht: "Sa kòd sa a pral retounen?\\ndef multiply(a, b=2):\\n    return a * b\\nprint(multiply(5))",
+        fr: "Que va retourner ce code ?\\ndef multiply(a, b=2):\\n    return a * b\\nprint(multiply(5))",
+        en: "What will this code return?\\ndef multiply(a, b=2):\\n    return a * b\\nprint(multiply(5))"
+      },
+      options: [
+        { ht: "5", fr: "5", en: "5" },
+        { ht: "10", fr: "10", en: "10" },
+        { ht: "Erè", fr: "Erreur", en: "Error" },
+        { ht: "2", fr: "2", en: "2" }
+      ],
+      correctAnswer: 1,
+      explanation: {
+        ht: "Fonksyon an gen yon default value b=2. Lè nou rele multiply(5), li fè 5 * 2 = 10.",
+        fr: "La fonction a une valeur par défaut b=2. Quand nous appelons multiply(5), elle fait 5 * 2 = 10.",
+        en: "The function has a default value b=2. When we call multiply(5), it does 5 * 2 = 10."
+      }
+    }
+  },
+
+  {
+    id: "bonus-q2",
+    type: "quiz",
+    title: {
+      ht: "Quiz Bonus - Kesyon 2",
+      fr: "Quiz Bonus - Question 2",
+      en: "Bonus Quiz - Question 2"
+    },
+    content: {
+      ht: "Kesyon Bonus 2 nan 10",
+      fr: "Question Bonus 2 de 10",
+      en: "Bonus Question 2 of 10"
+    },
+    quiz: {
+      question: {
+        ht: "Ki metòd ki pi bon pou tcheke si yon kle egziste nan yon dictionary?",
+        fr: "Quelle est la meilleure méthode pour vérifier si une clé existe dans un dictionnaire ?",
+        en: "What's the best method to check if a key exists in a dictionary?"
+      },
+      options: [
+        { ht: "try/except", fr: "try/except", en: "try/except" },
+        { ht: "key in dict", fr: "key in dict", en: "key in dict" },
+        { ht: "dict.has_key()", fr: "dict.has_key()", en: "dict.has_key()" },
+        { ht: "dict.get() != None", fr: "dict.get() != None", en: "dict.get() != None" }
+      ],
+      correctAnswer: 1,
+      explanation: {
+        ht: "'key in dict' se fason ki pi senp ak pi klè pou tcheke si yon kle egziste.",
+        fr: "'key in dict' est la façon la plus simple et claire de vérifier si une clé existe.",
+        en: "'key in dict' is the simplest and clearest way to check if a key exists."
+      }
+    }
+  },
+
+  // Course Completion and Reflection
+  {
+    id: "course-completion",
+    type: "review",
+    title: {
+      ht: "Felisitasyon - Ou Fini Kou a!",
+      fr: "Félicitations - Vous avez Terminé le Cours!",
+      en: "Congratulations - You Completed the Course!"
+    },
+    content: {
+      ht: `🎉 **FELISITASYON! OU SE YON PROGRAMMER PYTHON KOUNYE A!** 🎉
+
+**Sa ou akonpli:**
+✅ **14 semèn** de apprentissage entensif
+✅ **Mèt** variables, loops, ak functions
+✅ **Konstwi** pwogram konplèks ak file handling
+✅ **Aprann** Object-Oriented Programming
+✅ **Konekte** ak APIs ak done ekstèn
+✅ **Kreye** yon aplikasyon konplè final
+
+**Konpetans ou nou yo kounye a:**
+🚀 **Problem Solving** - Ou ka analize ak rezoud pwoblèm yo ak kòd
+🏗️ **Software Development** - Ou ka konstwi aplikasyon ki travay yo
+📊 **Data Management** - Ou konnen kijan pou jesyone ak manipile done yo
+🔗 **Integration** - Ou ka konekte ak sistèm ekstèn ak API yo
+🛡️ **Error Handling** - Ou ka jesyone erè yo ak fè pwogram solid yo
+
+**Kisa ki vin apre a:**
+- **Publye** pwojè final ou a sou GitHub
+- **Kontinye** aprann ak framework yo tankou Django oswa Flask
+- **Ekspòre** domèn yo tankou data science oswa web development
+- **Enjye** ak kominoté Python yo ak open-source projects
+
+**Mesaj Final:**
+Programming se yon vwayaj, pa yon destinasyon. Kontinye pratike, kontinye konstwi, ak kontinye aprann. Ou gen tout zouti yo ou bezwen yo pou kreye bagay inkreyab yo ak Python!
+
+Kontinye kòde ak kreyè! 👨‍💻👩‍💻`,
+      fr: `🎉 **FÉLICITATIONS! VOUS ÊTES MAINTENANT UN PROGRAMMEUR PYTHON!** 🎉
+
+**Ce que vous avez accompli:**
+✅ **14 semaines** d'apprentissage intensif  
+✅ **Maîtrisé** variables, boucles, et fonctions
+✅ **Construit** des programmes complexes avec gestion de fichiers
+✅ **Appris** la Programmation Orientée Objet
+✅ **Connecté** avec APIs et données externes
+✅ **Créé** une application finale complète
+
+**Vos compétences maintenant:**
+🚀 **Résolution de Problèmes** - Vous pouvez analyser et résoudre des problèmes avec du code
+🏗️ **Développement Logiciel** - Vous pouvez construire des applications qui fonctionnent
+📊 **Gestion de Données** - Vous savez comment gérer et manipuler des données
+🔗 **Intégration** - Vous pouvez vous connecter avec des systèmes externes et APIs
+🛡️ **Gestion d'Erreurs** - Vous pouvez gérer les erreurs et faire des programmes solides
+
+**Et maintenant:**
+- **Publiez** votre projet final sur GitHub
+- **Continuez** d'apprendre avec des frameworks comme Django ou Flask
+- **Explorez** des domaines comme data science ou web development
+- **Engagez-vous** avec les communautés Python et projets open-source
+
+**Message Final:**
+La programmation est un voyage, pas une destination. Continuez à pratiquer, continuez à construire, et continuez à apprendre. Vous avez tous les outils dont vous avez besoin pour créer des choses incroyables avec Python!
+
+Continuez à coder et créer! 👨‍💻👩‍💻`,
+      en: `🎉 **CONGRATULATIONS! YOU ARE NOW A PYTHON PROGRAMMER!** 🎉
+
+**What you've accomplished:**
+✅ **14 weeks** of intensive learning
+✅ **Mastered** variables, loops, and functions
+✅ **Built** complex programs with file handling
+✅ **Learned** Object-Oriented Programming
+✅ **Connected** with APIs and external data
+✅ **Created** a complete final application
+
+**Your skills now:**
+🚀 **Problem Solving** - You can analyze and solve problems with code
+🏗️ **Software Development** - You can build working applications
+📊 **Data Management** - You know how to manage and manipulate data
+🔗 **Integration** - You can connect with external systems and APIs
+🛡️ **Error Handling** - You can handle errors and make robust programs
+
+**What's next:**
+- **Publish** your final project on GitHub
+- **Continue** learning with frameworks like Django or Flask
+- **Explore** domains like data science or web development
+- **Engage** with Python communities and open-source projects
+
+**Final Message:**
+Programming is a journey, not a destination. Keep practicing, keep building, and keep learning. You have all the tools you need to create incredible things with Python!
+
+Keep coding and creating! 👨‍💻👩‍💻`
+    }
+  },
+  weekNumber: 15,
+  title: {
+    ht: "Semèn 15: Pwojè Final ak Egzamen Final", 
+    fr: "Semaine 15: Projet Final et Examen Final",
+    en: "Week 15: Final Project & Final Exam"
+  },
+  description: {
+    ht: "Fini kou a ak yon pwojè konplè ak yon egzamen final ki kouvri tout materyèl la.",
+    fr: "Terminez le cours avec un projet complet et un examen final couvrant tout le matériel.",
+    en: "Complete the course with a comprehensive project and final exam covering all material."
+  },
+  totalCards: 20,
+  cards: pythonWeek15Cards,
+  
+  // Final Project Specifications
+  miniProject: {
+    title: {
+      ht: "Pwojè Final: Personal Assistant CLI App",
+      fr: "Projet Final: Application Assistant Personnel CLI",
+      en: "Final Project: Personal Assistant CLI App"
+    },
+    description: {
+      ht: "Konstwi yon aplikasyon command-line konplè ki konbine tout konsèp yo nou aprann yo nan kou a.",
+      fr: "Construisez une application en ligne de commande complète qui combine tous les concepts appris dans le cours.",
+      en: "Build a complete command-line application that combines all concepts learned in the course."
+    },
+    requirements: {
+      ht: [
+        "Menu system ak omwens 5 opsyon yo",
+        "Itilize fonksyon yo pou chak feature", 
+        "File handling pou stock done yo",
+        "API integration (weather oswa lòt)",
+        "Error handling ak try/except",
+        "Classes pou organize kòd la (bonus)",
+        "Comments ak documentation",
+        "User-friendly interface"
+      ],
+      fr: [
+        "Système de menu avec au moins 5 options",
+        "Utiliser des fonctions pour chaque fonctionnalité",
+        "Gestion de fichiers pour stocker les données", 
+        "Intégration API (météo ou autre)",
+        "Gestion d'erreurs avec try/except",
+        "Classes pour organiser le code (bonus)",
+        "Commentaires et documentation",
+        "Interface conviviale"
+      ],
+      en: [
+        "Menu system with at least 5 options",
+        "Use functions for each feature",
+        "File handling for data storage",
+        "API integration (weather or other)",
+        "Error handling with try/except", 
+        "Classes for code organization (bonus)",
+        "Comments and documentation",
+        "User-friendly interface"
+      ]
+    },
+    starterCode: `# personal_assistant.py - Final Project Template
+import json
+import requests
+import os
+from datetime import datetime
+
+class PersonalAssistant:
+    """
+    🤖 Personal Assistant CLI Application
+    Combines all Python concepts learned in the course
+    """
+    
+    def __init__(self):
+        self.notes_file = "notes.json"
+        self.settings_file = "settings.json"
+        self.load_data()
+    
+    def load_data(self):
+        """Load notes and settings from files"""
+        # TODO: Implement data loading with error handling
+        pass
+    
+    def save_data(self):
+        """Save notes and settings to files"""
+        # TODO: Implement data saving
+        pass
+    
+    def display_menu(self):
+        """Display the main menu"""
+        print("\\n" + "="*50)
+        print("🤖 PERSONAL ASSISTANT")
+        print("="*50)
+        print("1. 📝 Manage Notes")
+        print("2. 🌤️  Check Weather")
+        print("3. 🧮 Calculator")
+        print("4. 📊 Data Manager")
+        print("5. ⚙️  Settings")
+        print("6. 🚪 Exit")
+        print("-"*50)
+    
+    def run(self):
+        """Main application loop"""
+        print("🎉 Welcome to your Personal Assistant!")
+        
+        while True:
+            try:
+                self.display_menu()
+                choice = input("Choose an option (1-6): ").strip()
+                
+                # TODO: Implement menu handling
+                
+                if choice == "6":
+                    print("\\n👋 Goodbye!")
+                    self.save_data()
+                    break
+            
+            except KeyboardInterrupt:
+                print("\\n\\n👋 Goodbye!")
+                self.save_data()
+                break
+
+# Run the application
+if __name__ == "__main__":
+    app = PersonalAssistant()
+    app.run()`,
+    sampleSolution: `# Complete solution available in course materials`,
+    
+    challenges: {
+      ht: [
+        "Ajoute yon search feature nan note manager a",
+        "Integre yon second API (news oswa quotes)",
+        "Kreye yon backup ak restore system",
+        "Ajoute user authentication",
+        "Implement yon todo list feature"
+      ],
+      fr: [
+        "Ajoutez une fonctionnalité de recherche au gestionnaire de notes",
+        "Intégrez une seconde API (news ou citations)",
+        "Créez un système de sauvegarde et restauration",
+        "Ajoutez l'authentification utilisateur",
+        "Implémentez une fonctionnalité de liste de tâches"
+      ],
+      en: [
+        "Add a search feature to the note manager",
+        "Integrate a second API (news or quotes)",
+        "Create a backup and restore system",
+        "Add user authentication",
+        "Implement a todo list feature"
+      ]
+    }
+  },
+
+  // Add remaining bonus quiz questions to complete the set
+  {
+    id: "bonus-q3",
+    type: "quiz",
+    title: {
+      ht: "Quiz Bonus - Kesyon 3",
+      fr: "Quiz Bonus - Question 3",
+      en: "Bonus Quiz - Question 3"
+    },
+    content: {
+      ht: "Kesyon Bonus 3 nan 10",
+      fr: "Question Bonus 3 de 10",
+      en: "Bonus Question 3 of 10"
+    },
+    quiz: {
+      question: {
+        ht: "Ki diferans ki gen ant yon tuple ak yon list?",
+        fr: "Quelle est la différence entre un tuple et une liste ?",
+        en: "What's the difference between a tuple and a list?"
+      },
+      options: [
+        { ht: "Tuple yo pi vit", fr: "Les tuples sont plus rapides", en: "Tuples are faster" },
+        { ht: "Tuple yo pa ka chanje", fr: "Les tuples ne peuvent pas changer", en: "Tuples cannot change" },
+        { ht: "Tuple yo pi bon pou done", fr: "Les tuples sont meilleurs pour les données", en: "Tuples are better for data" },
+        { ht: "Yo menm bagay la ye", fr: "Ils sont la même chose", en: "They're the same thing" }
+      ],
+      correctAnswer: 1,
+      explanation: {
+        ht: "Tuple yo immutable (pa ka chanje) pandan y ap list yo mutable (ka chanje).",
+        fr: "Les tuples sont immutables (ne peuvent pas changer) tandis que les listes sont mutables (peuvent changer).",
+        en: "Tuples are immutable (cannot change) while lists are mutable (can change)."
+      }
+    }
+  },
+
+  {
+    id: "bonus-q4",
+    type: "quiz",
+    title: {
+      ht: "Quiz Bonus - Kesyon 4",
+      fr: "Quiz Bonus - Question 4",
+      en: "Bonus Quiz - Question 4"
+    },
+    content: {
+      ht: "Kesyon Bonus 4 nan 10",
+      fr: "Question Bonus 4 de 10",
+      en: "Bonus Question 4 of 10"
+    },
+    quiz: {
+      question: {
+        ht: "Sa kòd sa a pral enprime?\\nfor i in range(3):\\n    if i == 1:\\n        continue\\n    print(i)",
+        fr: "Que va imprimer ce code ?\\nfor i in range(3):\\n    if i == 1:\\n        continue\\n    print(i)",
+        en: "What will this code print?\\nfor i in range(3):\\n    if i == 1:\\n        continue\\n    print(i)"
+      },
+      options: [
+        { ht: "0 1 2", fr: "0 1 2", en: "0 1 2" },
+        { ht: "0 2", fr: "0 2", en: "0 2" },
+        { ht: "1 2", fr: "1 2", en: "1 2" },
+        { ht: "0 1", fr: "0 1", en: "0 1" }
+      ],
+      correctAnswer: 1,
+      explanation: {
+        ht: "continue sote iterasyon an lè i == 1, kidonk li enprime sèlman 0 ak 2.",
+        fr: "continue saute l'itération quand i == 1, donc il imprime seulement 0 et 2.",
+        en: "continue skips the iteration when i == 1, so it prints only 0 and 2."
+      }
+    }
+  },
+
+  {
+    id: "bonus-q5",
+    type: "quiz",
+    title: {
+      ht: "Quiz Bonus - Kesyon 5",
+      fr: "Quiz Bonus - Question 5", 
+      en: "Bonus Quiz - Question 5"
+    },
+    content: {
+      ht: "Kesyon Bonus 5 nan 10",
+      fr: "Question Bonus 5 de 10",
+      en: "Bonus Question 5 of 10"
+    },
+    quiz: {
+      question: {
+        ht: "Ki avantaj li gen lè ou itilize with statement ak fichye yo?",
+        fr: "Quel est l'avantage d'utiliser l'instruction with avec les fichiers ?",
+        en: "What's the advantage of using the with statement with files?"
+      },
+      options: [
+        { ht: "Li pi vit", fr: "C'est plus rapide", en: "It's faster" },
+        { ht: "Li otomatikman fèmen fichye a", fr: "Il ferme automatiquement le fichier", en: "It automatically closes the file" },
+        { ht: "Li ka li pi gwo fichye yo", fr: "Il peut lire de plus gros fichiers", en: "It can read bigger files" },
+        { ht: "Li pi senp pou ekri", fr: "C'est plus simple à écrire", en: "It's simpler to write" }
+      ],
+      correctAnswer: 1,
+      explanation: {
+        ht: "with statement otomatikman fèmen fichye a menm si gen yon erè, ki asire jesyon resous yo kòrèk.",
+        fr: "L'instruction with ferme automatiquement le fichier même s'il y a une erreur, assurant une gestion correcte des ressources.",
+        en: "The with statement automatically closes the file even if there's an error, ensuring proper resource management."
+      }
+    }
+  },
+
+  // Add final reflection and completion card
+  {
+    id: "final-reflection",
+    type: "review",
+    title: {
+      ht: "Refleksyon Final ak Kèk Konsèy",
+      fr: "Réflexion Finale et Conseils",
+      en: "Final Reflection and Advice"
+    },
+    content: {
+      ht: `🌟 **OU RIVE BON JAN! REFLEKSYON SOU VWAYAJ OU A**
+
+**Kijan ou grandi:**
+📈 **Depi kòmanse** - Ou kòmanse ak variables senp yo
+📈 **Kounye a** - Ou ka konstwi aplikasyon konplèks yo ak API ak OOP!
+
+**Konesans ki pi enpòtan yo:**
+🧠 **Mantal Model** - Ou konprann kijan Python rezonnen ak done yo
+🛠️ **Problem Solving** - Ou ka dekòpoze pwoblèm yo ak rezoud yo ak kòd
+🏗️ **Code Organization** - Ou konnen kijan pou estrikti ak òganize pwojè yo
+🔧 **Debugging** - Ou konnen kijan pou jwenn ak korije erè yo
+🤝 **Best Practices** - Ou konnen kijan pou ekri kòd ki klè ak ki solid
+
+**Sa ki vin apre a:**
+1. **Kontinye pratike** - Konstwi pwojè pèsonèl yo chak semèn
+2. **Aprann framework yo** - Eksplore Django, Flask, oswa FastAPI
+3. **Data Science** - Aprann pandas, numpy, matplotlib
+4. **Web Development** - Konbine Python ak HTML/CSS/JavaScript
+5. **Open Source** - Kontribye nan pwojè open-source yo
+6. **Kominoté** - Jwenn ak kominoté Python lokal yo ak online yo
+
+**Dènye konsèy yo:**
+• **Pa pè echwe** - Chak erè se yon opòtinite pou aprann
+• **Li kòd lòt moun yo** - GitHub ak Stack Overflow se bon zanmi ou yo
+• **Konstwi bagay yo ki entèrese ou** - Pasyon an ap mennen ou pi lwen
+• **Ede lòt moun yo** - Ansèye se pi bon fason pou aprann ankò
+
+Ou se yon programmer kounye a! 👨‍💻👩‍💻`,
+      fr: `🌟 **VOUS Y ÊTES ARRIVÉ! RÉFLEXION SUR VOTRE VOYAGE**
+
+**Comment vous avez grandi:**
+📈 **Au début** - Vous avez commencé avec des variables simples
+📈 **Maintenant** - Vous pouvez construire des applications complexes avec APIs et POO!
+
+**Les connaissances les plus importantes:**
+🧠 **Modèle Mental** - Vous comprenez comment Python raisonne avec les données
+🛠️ **Résolution de Problèmes** - Vous pouvez décomposer les problèmes et les résoudre avec du code
+🏗️ **Organisation du Code** - Vous savez comment structurer et organiser les projets
+🔧 **Débogage** - Vous savez comment trouver et corriger les erreurs
+🤝 **Bonnes Pratiques** - Vous savez comment écrire du code clair et solide
+
+**Et maintenant:**
+1. **Continuez à pratiquer** - Construisez des projets personnels chaque semaine
+2. **Apprenez les frameworks** - Explorez Django, Flask, ou FastAPI
+3. **Data Science** - Apprenez pandas, numpy, matplotlib
+4. **Développement Web** - Combinez Python avec HTML/CSS/JavaScript
+5. **Open Source** - Contribuez à des projets open-source
+6. **Communauté** - Rejoignez des communautés Python locales et en ligne
+
+**Derniers conseils:**
+• **N'ayez pas peur d'échouer** - Chaque erreur est une opportunité d'apprendre
+• **Lisez le code des autres** - GitHub et Stack Overflow sont vos amis
+• **Construisez des choses qui vous intéressent** - La passion vous mènera plus loin
+• **Aidez les autres** - Enseigner est la meilleure façon d'apprendre encore
+
+Vous êtes un programmeur maintenant! 👨‍💻👩‍💻`,
+      en: `🌟 **YOU MADE IT! REFLECTION ON YOUR JOURNEY**
+
+**How you've grown:**
+📈 **At the start** - You began with simple variables
+📈 **Now** - You can build complex applications with APIs and OOP!
+
+**The most important knowledge:**
+🧠 **Mental Model** - You understand how Python reasons with data
+🛠️ **Problem Solving** - You can break down problems and solve them with code
+🏗️ **Code Organization** - You know how to structure and organize projects
+🔧 **Debugging** - You know how to find and fix errors
+🤝 **Best Practices** - You know how to write clear and solid code
+
+**What's next:**
+1. **Keep practicing** - Build personal projects every week
+2. **Learn frameworks** - Explore Django, Flask, or FastAPI
+3. **Data Science** - Learn pandas, numpy, matplotlib
+4. **Web Development** - Combine Python with HTML/CSS/JavaScript
+5. **Open Source** - Contribute to open-source projects
+6. **Community** - Join local and online Python communities
+
+**Final advice:**
+• **Don't fear failure** - Every error is an opportunity to learn
+• **Read others' code** - GitHub and Stack Overflow are your friends
+• **Build things that interest you** - Passion will take you further
+• **Help others** - Teaching is the best way to learn again
+
+You are a programmer now! 👨‍💻👩‍💻`
+    }
+  }
+];
+
+// Create the complete lesson structure
+export const pythonWeek15Lesson = {
+  weekNumber: 15,
+  title: {
+    ht: "Semèn 15: Pwojè Final ak Egzamen Final", 
+    fr: "Semaine 15: Projet Final et Examen Final",
+    en: "Week 15: Final Project & Final Exam"
+  },
+  description: {
+    ht: "Fini kou a ak yon pwojè konplè ak yon egzamen final ki kouvri tout materyèl la.",
+    fr: "Terminez le cours avec un projet complet et un examen final couvrant tout le matériel.",
+    en: "Complete the course with a comprehensive project and final exam covering all material."
+  },
+  totalCards: 25,
+  cards: pythonWeek15Cards,
+  
+  // Final Project Specifications
+  miniProject: {
+    title: {
+      ht: "Pwojè Final: Personal Assistant CLI App",
+      fr: "Projet Final: Application Assistant Personnel CLI",
+      en: "Final Project: Personal Assistant CLI App"
+    },
+    description: {
+      ht: "Konstwi yon aplikasyon command-line konplè ki konbine tout konsèp yo nou aprann yo nan kou a.",
+      fr: "Construisez une application en ligne de commande complète qui combine tous les concepts appris dans le cours.",
+      en: "Build a complete command-line application that combines all concepts learned in the course."
+    },
+    requirements: {
+      ht: [
+        "Menu system ak omwens 5 opsyon yo",
+        "Itilize fonksyon yo pou chak feature", 
+        "File handling pou stock done yo",
+        "API integration (weather oswa lòt)",
+        "Error handling ak try/except",
+        "Classes pou organize kòd la (bonus)",
+        "Comments ak documentation",
+        "User-friendly interface"
+      ],
+      fr: [
+        "Système de menu avec au moins 5 options",
+        "Utiliser des fonctions pour chaque fonctionnalité",
+        "Gestion de fichiers pour stocker les données", 
+        "Intégration API (météo ou autre)",
+        "Gestion d'erreurs avec try/except",
+        "Classes pour organiser le code (bonus)",
+        "Commentaires et documentation",
+        "Interface conviviale"
+      ],
+      en: [
+        "Menu system with at least 5 options",
+        "Use functions for each feature",
+        "File handling for data storage",
+        "API integration (weather or other)",
+        "Error handling with try/except", 
+        "Classes for code organization (bonus)",
+        "Comments and documentation",
+        "User-friendly interface"
+      ]
+    },
+    starterCode: `# personal_assistant.py - Final Project Template
+import json
+import requests
+import os
+from datetime import datetime
+
+class PersonalAssistant:
+    """
+    🤖 Personal Assistant CLI Application
+    Combines all Python concepts learned in the course
+    """
+    
+    def __init__(self):
+        self.notes_file = "notes.json"
+        self.settings_file = "settings.json"
+        self.load_data()
+    
+    def load_data(self):
+        """Load notes and settings from files"""
+        # TODO: Implement data loading with error handling
+        pass
+    
+    def save_data(self):
+        """Save notes and settings to files"""
+        # TODO: Implement data saving
+        pass
+    
+    def display_menu(self):
+        """Display the main menu"""
+        print("\\n" + "="*50)
+        print("🤖 PERSONAL ASSISTANT")
+        print("="*50)
+        print("1. 📝 Manage Notes")
+        print("2. 🌤️  Check Weather")
+        print("3. 🧮 Calculator")
+        print("4. 📊 Data Manager")
+        print("5. ⚙️  Settings")
+        print("6. 🚪 Exit")
+        print("-"*50)
+    
+    def run(self):
+        """Main application loop"""
+        print("🎉 Welcome to your Personal Assistant!")
+        
+        while True:
+            try:
+                self.display_menu()
+                choice = input("Choose an option (1-6): ").strip()
+                
+                # TODO: Implement menu handling
+                
+                if choice == "6":
+                    print("\\n👋 Goodbye!")
+                    self.save_data()
+                    break
+            
+            except KeyboardInterrupt:
+                print("\\n\\n👋 Goodbye!")
+                self.save_data()
+                break
+
+# Run the application
+if __name__ == "__main__":
+    app = PersonalAssistant()
+    app.run()`,
+    sampleSolution: `# Complete solution available in course materials`,
+    
+    challenges: {
+      ht: [
+        "Ajoute yon search feature nan note manager a",
+        "Integre yon second API (news oswa quotes)",
+        "Kreye yon backup ak restore system",
+        "Ajoute user authentication",
+        "Implement yon todo list feature"
+      ],
+      fr: [
+        "Ajoutez une fonctionnalité de recherche au gestionnaire de notes",
+        "Intégrez une seconde API (news ou citations)",
+        "Créez un système de sauvegarde et restauration",
+        "Ajoutez l'authentification utilisateur",
+        "Implémentez une fonctionnalité de liste de tâches"
+      ],
+      en: [
+        "Add a search feature to the note manager",
+        "Integrate a second API (news or quotes)",
+        "Create a backup and restore system",
+        "Add user authentication",
+        "Implement a todo list feature"
+      ]
+    }
+  }
+};`

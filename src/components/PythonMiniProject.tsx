@@ -9,6 +9,13 @@ import { pythonWeek5Lesson } from '@/data/pythonWeek5Cards';
 import { pythonWeek6Lesson } from '@/data/pythonWeek6Cards';
 import { pythonWeek7Lesson } from '@/data/pythonWeek7Cards';
 import { pythonWeek8Lesson } from '@/data/pythonWeek8Cards';
+import { pythonWeek9Lesson } from '@/data/pythonWeek9Cards';
+import { pythonWeek10Lesson } from '@/data/pythonWeek10Cards';
+import { pythonWeek11Lesson } from '@/data/pythonWeek11Cards';
+import { pythonWeek12Lesson } from '@/data/pythonWeek12Cards';
+import { pythonWeek13Lesson } from '@/data/pythonWeek13Cards';
+import { pythonWeek14Lesson } from '@/data/pythonWeek14Cards';
+import { pythonWeek15Lesson } from '@/data/pythonWeek15Cards';
 import { PlayIcon, CheckCircleIcon, LightBulbIcon, ClipboardDocumentIcon } from '@heroicons/react/24/outline';
 import { CodeBracketIcon, RocketLaunchIcon } from '@heroicons/react/24/solid';
 import Editor from '@monaco-editor/react';
@@ -49,12 +56,31 @@ export default function PythonMiniProject({ weekNumber, onComplete }: PythonMini
         return pythonWeek7Lesson.miniProject;
       case 8:
         return pythonWeek8Lesson.miniProject;
+      case 9:
+        return pythonWeek9Lesson.miniProject;
+      case 10:
+        return pythonWeek10Lesson.miniProject;
+      case 11:
+        return pythonWeek11Lesson.miniProject;
+      case 12:
+        return pythonWeek12Lesson.miniProject;
+      case 13:
+        return pythonWeek13Lesson.miniProject;
+      case 14:
+        return pythonWeek14Lesson.miniProject;
+      case 15:
+        return pythonWeek15Lesson.miniProject;
       default:
         return pythonWeek1Lesson.miniProject;
     }
   };
 
   const projectData = getProjectData(weekNumber);
+
+  // If no project data found, don't render the component
+  if (!projectData) {
+    return null;
+  }
 
   const getLocalizedText = (textObj: { ht: string; fr: string; en: string }) => {
     if (locale === 'ht') return textObj.ht;
@@ -106,14 +132,16 @@ export default function PythonMiniProject({ weekNumber, onComplete }: PythonMini
   });
 
   // Store executor reference and update ready status
-  pythonExecutorRef.current = pythonExecutor;
+  if (pythonExecutor) {
+    pythonExecutorRef.current = pythonExecutor;
+  }
   
   // Use effect to update ready status when executor state changes
   useEffect(() => {
-    if (pythonExecutor.isInitialized !== isExecutorReady) {
+    if (pythonExecutor && pythonExecutor.isInitialized !== isExecutorReady) {
       setIsExecutorReady(pythonExecutor.isInitialized);
     }
-  }, [pythonExecutor.isInitialized, isExecutorReady]);
+  }, [pythonExecutor?.isInitialized, isExecutorReady]);
 
   return (
     <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">

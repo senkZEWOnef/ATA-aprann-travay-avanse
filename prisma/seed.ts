@@ -17,8 +17,9 @@ async function createPythonCourse() {
       category: 'programming',
       level: 'beginner',
       duration: 1350, // 90 minutes × 15 weeks
-      price: 1500,
+      price: 0,
       currency: 'HTG',
+      thumbnail: '/python.jpg',
       isPublished: true,
     }
   });
@@ -193,6 +194,208 @@ ${lesson.homework.fr}
   console.log('✅ Python course created successfully');
 }
 
+async function createHtmlCssCourse() {
+  // Create HTML/CSS for Beginners course
+  const htmlCssCourse = await prisma.course.upsert({
+    where: { slug: 'html-css-pou-komanse-yo' },
+    update: {},
+    create: {
+      slug: 'html-css-pou-komanse-yo',
+      titleHt: 'HTML ak CSS pou Kòmansè yo - 15 Semèn',
+      titleFr: 'HTML et CSS pour Débutants - 15 Semaines',
+      descriptionHt: 'Yon kou konplè pou aprann HTML ak CSS soti nan debaz yo rive nan depo avanse yo. Chak semèn gen leson pratik ak pwojè mini yo.',
+      descriptionFr: 'Un cours complet pour apprendre HTML et CSS des bases aux projets avancés. Chaque semaine comprend des leçons pratiques et des mini-projets.',
+      category: 'programming',
+      level: 'beginner',
+      duration: 1350, // 90 minutes × 15 weeks
+      price: 0,
+      currency: 'HTG',
+      thumbnail: '/html-css.jpg',
+      isPublished: true,
+    }
+  });
+
+  // Delete existing lessons for this course if any
+  await prisma.lesson.deleteMany({
+    where: { courseId: htmlCssCourse.id }
+  });
+
+  // Create HTML/CSS course lessons based on 15-week curriculum
+  const htmlCssLessonsData = [
+    {
+      courseId: htmlCssCourse.id,
+      order: 1,
+      titleHt: 'Web ak HTML Debaz yo',
+      titleFr: 'Bases Web et HTML',
+      contentHt: '## Objektif yo:\n• Konprann kijan entènèt la fonksyone\n• Aprann itilize VS Code ak Live Server\n• Kreye premye HTML boilerplate ou a\n• Itilize headings ak paragraphs\n\n## Mini-Pwojè:\n"Hello, Web" profil paj',
+      contentFr: '## Objectifs:\n• Comprendre le fonctionnement du web\n• Apprendre VS Code et Live Server\n• Créer votre premier HTML boilerplate\n• Utiliser headings et paragraphes\n\n## Mini-Projet:\nPage de profil "Hello, Web"',
+      duration: 90,
+      isPublished: true,
+    },
+    {
+      courseId: htmlCssCourse.id,
+      order: 2,
+      titleHt: 'Links, Imaj ak Lis yo',
+      titleFr: 'Liens, Images et Listes',
+      contentHt: '## Objektif yo:\n• Aprann itilize <a>, <img>, <ul>/<ol>\n• Konprann captions/alt text\n• Entwodiksyon nan semantic HTML\n\n## Mini-Pwojè:\nPaj biyografi ak links, galri imaj, lis entèrè',
+      contentFr: '## Objectifs:\n• Apprendre <a>, <img>, <ul>/<ol>\n• Comprendre captions/alt text\n• Introduction au HTML sémantique\n\n## Mini-Projet:\nPage bio avec liens, galerie d\'images, liste d\'intérêts',
+      duration: 90,
+      isPublished: true,
+    },
+    {
+      courseId: htmlCssCourse.id,
+      order: 3,
+      titleHt: 'CSS Fondamental yo',
+      titleFr: 'Fondamentaux CSS',
+      contentHt: '## Objektif yo:\n• Konprann selectors, properties, units (px, %, rem)\n• Aprann koulè yo\n\n## Mini-Pwojè:\nStylesheet kòmanse pou tipografi ak koulè',
+      contentFr: '## Objectifs:\n• Comprendre selectors, propriétés, unités (px, %, rem)\n• Apprendre les couleurs\n\n## Mini-Projet:\nStylesheet de départ pour typographie et couleurs',
+      duration: 90,
+      isPublished: true,
+    },
+    {
+      courseId: htmlCssCourse.id,
+      order: 4,
+      titleHt: 'Box Model',
+      titleFr: 'Modèle de Boîte',
+      contentHt: '## Objektif yo:\n• Konprann width/height, padding, border, margin\n• Aprann box-sizing\n\n## Mini-Pwojè:\nCard component (kòntni nan bwat)',
+      contentFr: '## Objectifs:\n• Comprendre width/height, padding, border, margin\n• Apprendre box-sizing\n\n## Mini-Projet:\nComposant carte (contenu en boîte)',
+      duration: 90,
+      isPublished: true,
+    },
+    {
+      courseId: htmlCssCourse.id,
+      order: 5,
+      titleHt: 'Tipografi',
+      titleFr: 'Typographie',
+      contentHt: '## Objektif yo:\n• Aprann web-safe fonts, Google Fonts\n• Konprann line-height, letter-spacing\n\n## Mini-Pwojè:\nPaj blog senp',
+      contentFr: '## Objectifs:\n• Apprendre web-safe fonts, Google Fonts\n• Comprendre line-height, letter-spacing\n\n## Mini-Projet:\nPage de blog simple',
+      duration: 90,
+      isPublished: true,
+    },
+    {
+      courseId: htmlCssCourse.id,
+      order: 6,
+      titleHt: 'Flexbox',
+      titleFr: 'Flexbox',
+      contentHt: '## Objektif yo:\n• Konprann main axis, cross axis, alignment\n• Aprann gap, wrapping\n\n## Mini-Pwojè:\nResponsive navbar ak feature strip',
+      contentFr: '## Objectifs:\n• Comprendre main axis, cross axis, alignement\n• Apprendre gap, wrapping\n\n## Mini-Projet:\nNavbar responsive + bande de fonctionnalités',
+      duration: 90,
+      isPublished: true,
+    },
+    {
+      courseId: htmlCssCourse.id,
+      order: 7,
+      titleHt: 'Responsive Design',
+      titleFr: 'Design Réactif',
+      contentHt: '## Objektif yo:\n• Konprann mobile-first, media queries\n• Aprann fluid images, viewport\n\n## Mini-Pwojè:\nDe-kolòn → sengle-kolòn layout',
+      contentFr: '## Objectifs:\n• Comprendre mobile-first, media queries\n• Apprendre images fluides, viewport\n\n## Mini-Projet:\nLayout deux-colonnes → une-colonne',
+      duration: 90,
+      isPublished: true,
+    },
+    {
+      courseId: htmlCssCourse.id,
+      order: 8,
+      titleHt: 'Pwojè nan Mitan an ak Revizyon',
+      titleFr: 'Projet Midterm et Révision',
+      contentHt: '## Objektif yo:\n• Konsolidation: semantic HTML ak base CSS\n\n## Mini-Pwojè:\nYon-paj landing site (hero, features, footer)',
+      contentFr: '## Objectifs:\n• Consolidation: HTML sémantique + CSS de base\n\n## Mini-Projet:\nSite landing une-page (hero, fonctionnalités, footer)',
+      duration: 90,
+      isPublished: true,
+    },
+    {
+      courseId: htmlCssCourse.id,
+      order: 9,
+      titleHt: 'Positioning ak Backgrounds',
+      titleFr: 'Positionnement et Arrière-plans',
+      contentHt: '## Objektif yo:\n• Aprann position, z-index\n• Konprann backgrounds, gradients\n\n## Mini-Pwojè:\nHero header ak overlay text',
+      contentFr: '## Objectifs:\n• Apprendre position, z-index\n• Comprendre backgrounds, dégradés\n\n## Mini-Projet:\nEn-tête hero avec texte en superposition',
+      duration: 90,
+      isPublished: true,
+    },
+    {
+      courseId: htmlCssCourse.id,
+      order: 10,
+      titleHt: 'Forms yo',
+      titleFr: 'Formulaires',
+      contentHt: '## Objektif yo:\n• Aprann inputs, labels, accessibility\n• Konprann basic validation styles\n\n## Mini-Pwojè:\nContact/sign-up form',
+      contentFr: '## Objectifs:\n• Apprendre inputs, labels, accessibilité\n• Comprendre styles de validation de base\n\n## Mini-Projet:\nFormulaire contact/inscription',
+      duration: 90,
+      isPublished: true,
+    },
+    {
+      courseId: htmlCssCourse.id,
+      order: 11,
+      titleHt: 'CSS Grid',
+      titleFr: 'CSS Grid',
+      contentHt: '## Objektif yo:\n• Konprann grid tracks, areas\n• Aprann auto-fit, minmax\n\n## Mini-Pwojè:\nMagazine/grid gallery layout',
+      contentFr: '## Objectifs:\n• Comprendre pistes de grille, zones\n• Apprendre auto-fit, minmax\n\n## Mini-Projet:\nLayout magazine/galerie en grille',
+      duration: 90,
+      isPublished: true,
+    },
+    {
+      courseId: htmlCssCourse.id,
+      order: 12,
+      titleHt: 'Components yo',
+      titleFr: 'Composants',
+      contentHt: '## Objektif yo:\n• Kreye buttons, badges, cards\n• Aprann variables (:root), utility classes\n\n## Mini-Pwojè:\nReusable components sheet',
+      contentFr: '## Objectifs:\n• Créer boutons, badges, cartes\n• Apprendre variables (:root), classes utilitaires\n\n## Mini-Projet:\nFeuille de composants réutilisables',
+      duration: 90,
+      isPublished: true,
+    },
+    {
+      courseId: htmlCssCourse.id,
+      order: 13,
+      titleHt: 'Accessibility (a11y)',
+      titleFr: 'Accessibilité (a11y)',
+      contentHt: '## Objektif yo:\n• Konprann semantic landmarks, alt text\n• Aprann focus states, contrast\n\n## Mini-Pwojè:\nAccessibility pass sou paj yo ki te fèt yo',
+      contentFr: '## Objectifs:\n• Comprendre repères sémantiques, alt text\n• Apprendre états focus, contraste\n\n## Mini-Projet:\nPassage accessibilité sur pages précédentes',
+      duration: 90,
+      isPublished: true,
+    },
+    {
+      courseId: htmlCssCourse.id,
+      order: 14,
+      titleHt: 'Transitions ak Animations yo',
+      titleFr: 'Transitions et Animations',
+      contentHt: '## Objektif yo:\n• Aprann transition, transform, keyframes\n\n## Mini-Pwojè:\nInteractive cards/CTA hover states',
+      contentFr: '## Objectifs:\n• Apprendre transition, transform, keyframes\n\n## Mini-Projet:\nCartes interactives/états hover CTA',
+      duration: 90,
+      isPublished: true,
+    },
+    {
+      courseId: htmlCssCourse.id,
+      order: 15,
+      titleHt: 'Pwojè Final ak Egzamen',
+      titleFr: 'Projet Final et Examen',
+      contentHt: '## Objektif yo:\n• Multi-page site ak 30-Q egzamen\n\n## Mini-Pwojè:\nTi mak site (Home/About/Contact)',
+      contentFr: '## Objectifs:\n• Site multi-pages + examen 30 questions\n\n## Mini-Projet:\nPetit site de marque (Accueil/À propos/Contact)',
+      duration: 90,
+      isPublished: true,
+    }
+  ];
+
+  await prisma.lesson.createMany({
+    data: htmlCssLessonsData
+  });
+
+  // Create HTML/CSS badge
+  await prisma.badge.upsert({
+    where: { code: 'HTML_CSS_BEGINNER' },
+    update: {},
+    create: {
+      code: 'HTML_CSS_BEGINNER',
+      nameHt: 'Devlopè Web HTML/CSS Kòmansè',
+      nameFr: 'Développeur Web HTML/CSS Débutant',
+      descriptionHt: 'Fini kou HTML ak CSS pou kòmansè yo ak 15 semèn',
+      descriptionFr: 'Terminé le cours HTML et CSS pour débutants de 15 semaines',
+      icon: '🌐',
+      courseId: htmlCssCourse.id,
+    }
+  });
+
+  console.log('✅ HTML/CSS course created successfully');
+}
+
 async function main() {
   console.log('🌱 Seeding database...');
   
@@ -208,6 +411,7 @@ async function main() {
     
     console.log('🐍 Updating Python course with comprehensive content...');
     await createPythonCourse();
+    await createHtmlCssCourse();
     
     return;
   }
@@ -306,8 +510,9 @@ async function main() {
       category: 'programming',
       level: 'beginner',
       duration: 1350, // 90 minutes × 15 weeks
-      price: 1500,
+      price: 0,
       currency: 'HTG',
+      thumbnail: '/python.jpg',
       isPublished: true,
     }
   });

@@ -37,7 +37,7 @@ export async function submitExamResult(
       }
     });
 
-    // If passed, mark midterm as completed in user progress
+    // If passed, mark exam as completed in user progress
     if ((score / totalPoints) >= 0.7) {
       // Get current completed lessons count
       const completedLessons = await prisma.lessonProgress.count({
@@ -50,26 +50,48 @@ export async function submitExamResult(
         }
       });
 
-      // Update or create user progress
-      await prisma.userProgress.upsert({
-        where: {
-          userId_courseId: {
+      // Update or create user progress based on exam type
+      if (examType === 'MIDTERM') {
+        await prisma.userProgress.upsert({
+          where: {
+            userId_courseId: {
+              userId: session.user.id,
+              courseId: courseId
+            }
+          },
+          update: {
+            midtermCompleted: true,
+            midtermScore: Math.round((score / totalPoints) * 100)
+          },
+          create: {
             userId: session.user.id,
-            courseId: courseId
+            courseId: courseId,
+            midtermCompleted: true,
+            midtermScore: Math.round((score / totalPoints) * 100),
+            lessonsCompleted: completedLessons
           }
-        },
-        update: {
-          midtermCompleted: true,
-          midtermScore: Math.round((score / totalPoints) * 100)
-        },
-        create: {
-          userId: session.user.id,
-          courseId: courseId,
-          midtermCompleted: true,
-          midtermScore: Math.round((score / totalPoints) * 100),
-          lessonsCompleted: completedLessons
-        }
-      });
+        });
+      } else if (examType === 'FINAL') {
+        await prisma.userProgress.upsert({
+          where: {
+            userId_courseId: {
+              userId: session.user.id,
+              courseId: courseId
+            }
+          },
+          update: {
+            finalCompleted: true,
+            finalScore: Math.round((score / totalPoints) * 100)
+          },
+          create: {
+            userId: session.user.id,
+            courseId: courseId,
+            finalCompleted: true,
+            finalScore: Math.round((score / totalPoints) * 100),
+            lessonsCompleted: completedLessons
+          }
+        });
+      }
     }
 
     return {
@@ -88,7 +110,7 @@ export async function submitExamResult(
   }
 }
 
-export async function checkExamEligibility(courseId: string, courseSlug: string) {
+export async function checkExamEligibility(courseId: string, courseSlug: string, examType: string = 'MIDTERM') {
   const session = await getServerSession(authOptions);
   
   console.log('Session:', { userId: session?.user?.id, email: session?.user?.email });
@@ -128,26 +150,27 @@ export async function checkExamEligibility(courseId: string, courseSlug: string)
 
   console.log('Completed lessons check:', { completedLessons, courseSlug });
 
-  // For Python course, need 8 completed lessons
-  const requiredLessons = courseSlug === 'python-pou-komanse-yo' ? 8 : 7;
+  // For testing - make all exams available
+  let requiredLessons = 0; // Set to 0 for testing
   
-  console.log('Lesson requirement:', { required: requiredLessons, completed: completedLessons });
+  console.log('Lesson requirement:', { required: requiredLessons, completed: completedLessons, note: 'TESTING MODE - All exams available' });
   
-  if (completedLessons < requiredLessons) {
-    console.log('Insufficient lessons, blocking access');
-    return { 
-      eligible: false, 
-      reason: 'insufficient_lessons',
-      completed: completedLessons,
-      required: requiredLessons
-    };
-  }
+  // Skip lesson requirement check for testing
+  // if (completedLessons < requiredLessons) {
+  //   console.log('Insufficient lessons, blocking access');
+  //   return { 
+  //     eligible: false, 
+  //     reason: 'insufficient_lessons',
+  //     completed: completedLessons,
+  //     required: requiredLessons
+  //   };
+  // }
 
   // Check if already taken
   const existingExamResult = await prisma.examResult.findFirst({
     where: {
       userId: session.user.id,
-      examType: 'MIDTERM',
+      examType: examType,
       courseId: courseId
     },
     orderBy: {

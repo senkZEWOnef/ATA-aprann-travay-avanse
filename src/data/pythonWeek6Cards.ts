@@ -1097,12 +1097,12 @@ Final total: 15`
       }
     },
     {
-      id: "quiz",
-      type: "quiz",
+      id: "w6-quiz-loops",
+      type: "quiz", 
       title: {
-        ht: "Quiz: Tès Konesans ou",
-        fr: "Quiz: Testez vos Connaissances",
-        en: "Quiz: Test Your Knowledge"
+        ht: "Quiz: Loop yo ak Repetisyon",
+        fr: "Quiz: Boucles et Répétition",
+        en: "Quiz: Loops and Repetition"
       },
       content: {
         ht: `# 🧠 Quiz: Loop yo ak Repetisyon
@@ -1252,6 +1252,41 @@ for i in range(5):
 \`\`\`
 
 **Answer:** 0, 1, 2, 4 (it skips 3)`
+      },
+      quiz: {
+        question: {
+          ht: "Ki fonksyon yo itilize souvan pou kreye yon seri nimewo nan yon for loop?",
+          fr: "Quelle fonction est couramment utilisée pour générer une séquence de nombres dans une boucle for?",
+          en: "What function is commonly used to generate a sequence of numbers in a for loop?"
+        },
+        options: [
+          {
+            ht: "print()",
+            fr: "print()",
+            en: "print()"
+          },
+          {
+            ht: "range()",
+            fr: "range()",
+            en: "range()"
+          },
+          {
+            ht: "input()",
+            fr: "input()",
+            en: "input()"
+          },
+          {
+            ht: "len()",
+            fr: "len()",
+            en: "len()"
+          }
+        ],
+        correctAnswer: 1,
+        explanation: {
+          ht: "range() se fonksyon ki pi souvan yo itilize pou kreye yon seri nimewo nan for loop yo. Li ka gen 1, 2, oswa 3 paramèt.",
+          fr: "range() est la fonction la plus couramment utilisée pour générer une séquence de nombres dans les boucles for. Elle peut prendre 1, 2 ou 3 paramètres.",
+          en: "range() is the most commonly used function to generate a sequence of numbers in for loops. It can take 1, 2, or 3 parameters."
+        }
       }
     }
   ],

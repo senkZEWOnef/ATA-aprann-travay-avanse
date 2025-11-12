@@ -247,13 +247,27 @@ export default function CoursesPage() {
           {filteredCourses.map(course => (
             <div key={course.id} className="card overflow-hidden group">
               {/* Course Thumbnail */}
-              <div className="h-48 bg-gradient-to-br from-primary-400 via-purple-500 to-accent-500 relative overflow-hidden">
-                <div className="absolute inset-0 bg-black bg-opacity-20"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-6xl opacity-80">
-                    {getCategoryIcon(course.category)}
-                  </span>
-                </div>
+              <div className="h-48 relative overflow-hidden">
+                {course.thumbnail ? (
+                  <>
+                    <img 
+                      src={course.thumbnail} 
+                      alt={getCourseTitle(course)}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-10"></div>
+                  </>
+                ) : (
+                  <>
+                    <div className="h-full bg-gradient-to-br from-primary-400 via-purple-500 to-accent-500"></div>
+                    <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-6xl opacity-80">
+                        {getCategoryIcon(course.category)}
+                      </span>
+                    </div>
+                  </>
+                )}
                 <div className="absolute top-4 left-4">
                   <span className="px-3 py-1 bg-white bg-opacity-90 text-gray-800 text-xs font-semibold rounded-full">
                     {getLevelLabel(course.level)}

@@ -9,6 +9,13 @@ import { pythonWeek5Lesson } from '@/data/pythonWeek5Cards';
 import { pythonWeek6Lesson } from '@/data/pythonWeek6Cards';
 import { pythonWeek7Lesson } from '@/data/pythonWeek7Cards';
 import { pythonWeek8Lesson } from '@/data/pythonWeek8Cards';
+import { pythonWeek9Lesson } from '@/data/pythonWeek9Cards';
+import { pythonWeek10Lesson } from '@/data/pythonWeek10Cards';
+import { pythonWeek11Lesson } from '@/data/pythonWeek11Cards';
+import { pythonWeek12Lesson } from '@/data/pythonWeek12Cards';
+import { pythonWeek13Lesson } from '@/data/pythonWeek13Cards';
+import { pythonWeek14Lesson } from '@/data/pythonWeek14Cards';
+import { pythonWeek15Lesson } from '@/data/pythonWeek15Cards';
 import { ChevronLeftIcon, ChevronRightIcon, PlayIcon, CheckCircleIcon, BookOpenIcon } from '@heroicons/react/24/outline';
 import { ClipboardDocumentIcon, AcademicCapIcon, LightBulbIcon } from '@heroicons/react/24/solid';
 
@@ -46,6 +53,20 @@ export default function PythonCardLessonPlayer({ weekNumber, onComplete, onProgr
         return pythonWeek7Lesson;
       case 8:
         return pythonWeek8Lesson;
+      case 9:
+        return pythonWeek9Lesson;
+      case 10:
+        return pythonWeek10Lesson;
+      case 11:
+        return pythonWeek11Lesson;
+      case 12:
+        return pythonWeek12Lesson;
+      case 13:
+        return pythonWeek13Lesson;
+      case 14:
+        return pythonWeek14Lesson;
+      case 15:
+        return pythonWeek15Lesson;
       default:
         return pythonWeek1Lesson;
     }
@@ -56,13 +77,20 @@ export default function PythonCardLessonPlayer({ weekNumber, onComplete, onProgr
 
   // Helper function to get quiz data consistently
   const getQuizData = () => {
-    if (!lessonData?.quiz) return [];
+    // First check for legacy quiz property (Week 7, 8)
+    if (lessonData?.quiz) {
+      if (Array.isArray(lessonData.quiz)) {
+        return lessonData.quiz; // Week 1, 2, 3, 7, 8 format
+      } else if (lessonData.quiz.questions) {
+        return lessonData.quiz.questions; // Week 4, 5 format
+      }
+    }
     
-    // Handle different quiz structures
-    if (Array.isArray(lessonData.quiz)) {
-      return lessonData.quiz; // Week 1, 2, 3, 7, 8 format
-    } else if (lessonData.quiz.questions) {
-      return lessonData.quiz.questions; // Week 4, 5 format
+    // For card-based lessons (Week 9+), extract quiz cards
+    if (lessonData?.cards) {
+      return lessonData.cards
+        .filter((card: any) => card.quiz)
+        .map((card: any) => card.quiz);
     }
     
     return [];
@@ -470,6 +498,83 @@ export default function PythonCardLessonPlayer({ weekNumber, onComplete, onProgr
               </div>
             )}
           </div>
+          
+          {/* Quiz Card Rendering */}
+          {currentCard.type === 'quiz' && (currentCard as any).quiz && (
+            <div className="mt-8 p-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border-2 border-purple-200">
+              <h3 className="text-xl font-bold text-purple-900 mb-4">
+                {getLocalizedText((currentCard as any).quiz.question)}
+              </h3>
+              
+              <div className="space-y-3">
+                {(currentCard as any).quiz.options?.map((option: any, index: number) => {
+                  const isSelected = quizAnswers[currentCardIndex] === index;
+                  const hasAnswered = quizAnswers[currentCardIndex] !== undefined;
+                  const isCorrect = index === (currentCard as any).quiz.correctAnswer;
+                  
+                  let buttonStyles = 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50';
+                  
+                  if (hasAnswered) {
+                    if (isSelected) {
+                      if (isCorrect) {
+                        buttonStyles = 'border-green-500 bg-green-50 text-green-800';
+                      } else {
+                        buttonStyles = 'border-red-500 bg-red-50 text-red-800';
+                      }
+                    } else if (isCorrect) {
+                      buttonStyles = 'border-green-400 bg-green-25 text-green-700 opacity-75';
+                    }
+                  }
+                  
+                  return (
+                    <button
+                      key={index}
+                      onClick={() => !hasAnswered && handleQuizAnswer(currentCardIndex, index)}
+                      disabled={hasAnswered}
+                      className={`w-full text-left p-4 rounded-lg border-2 transition-all ${buttonStyles} ${
+                        hasAnswered ? 'cursor-default' : 'cursor-pointer'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <span className="w-8 h-8 rounded-full border-2 border-current flex items-center justify-center text-sm font-bold">
+                            {String.fromCharCode(65 + index)}
+                          </span>
+                          <span>{getLocalizedText(option)}</span>
+                        </div>
+                        {hasAnswered && (
+                          <div className="flex items-center gap-2">
+                            {isSelected && (
+                              <span className="text-sm font-medium">
+                                {locale === 'ht' ? 'Ou chwazi' : locale === 'fr' ? 'Votre choix' : 'Your choice'}
+                              </span>
+                            )}
+                            {isCorrect ? (
+                              <span className="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm">✓</span>
+                            ) : isSelected ? (
+                              <span className="w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-sm">✗</span>
+                            ) : null}
+                          </div>
+                        )}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+              
+              {/* Show explanation after answering */}
+              {quizAnswers[currentCardIndex] !== undefined && (currentCard as any).quiz.explanation && (
+                <div className="mt-4 p-4 bg-blue-50 border-l-4 border-blue-400 rounded-r-lg">
+                  <h4 className="font-medium text-blue-800 mb-2">
+                    {locale === 'ht' ? '💡 Eksplikasyon:' : locale === 'fr' ? '💡 Explication :' : '💡 Explanation:'}
+                  </h4>
+                  <p className="text-blue-700 text-sm leading-relaxed">
+                    {getLocalizedText((currentCard as any).quiz.explanation)}
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Card Completion */}

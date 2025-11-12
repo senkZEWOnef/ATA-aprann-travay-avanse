@@ -202,13 +202,27 @@ export default function CourseDetailPage() {
         <div className="card overflow-hidden mb-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-0">
             {/* Course Image */}
-            <div className="lg:col-span-1 h-64 lg:h-auto bg-gradient-to-br from-primary-400 via-purple-500 to-accent-500 relative">
-              <div className="absolute inset-0 bg-black bg-opacity-20"></div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-8xl opacity-80">
-                  {getCategoryIcon(course.category)}
-                </span>
-              </div>
+            <div className="lg:col-span-1 h-64 lg:h-auto relative">
+              {course.thumbnail ? (
+                <>
+                  <img 
+                    src={course.thumbnail} 
+                    alt={getCourseTitle(course)}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black bg-opacity-10"></div>
+                </>
+              ) : (
+                <>
+                  <div className="w-full h-full bg-gradient-to-br from-primary-400 via-purple-500 to-accent-500"></div>
+                  <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-8xl opacity-80">
+                      {getCategoryIcon(course.category)}
+                    </span>
+                  </div>
+                </>
+              )}
               <div className="absolute top-4 left-4">
                 <span className="px-3 py-1 bg-white bg-opacity-90 text-gray-800 text-sm font-semibold rounded-full">
                   {getLevelLabel(course.level)}
@@ -300,6 +314,11 @@ export default function CourseDetailPage() {
                       acc.push({ type: 'midterm-exam', lesson: null, index: -1 });
                     }
                     
+                    // Add final exam after lesson 14 for Python course
+                    if (lesson.order === 14 && course.slug === 'python-pou-komanse-yo') {
+                      acc.push({ type: 'final-exam', lesson: null, index: -1 });
+                    }
+                    
                     return acc;
                   }, [] as Array<{type: string, lesson: any, index: number}>)
                   .map(({ type, lesson, index }) => {
@@ -349,6 +368,52 @@ export default function CourseDetailPage() {
                             )}
                           </div>
                         </MidtermComponent>
+                      );
+                    }
+                    
+                    if (type === 'final-exam') {
+                      const FinalComponent = isEnrolled ? 'a' : 'div';
+                      const finalProps = isEnrolled 
+                        ? { href: `/${locale}/courses/${course.slug}/final-exam` }
+                        : {};
+                      
+                      return (
+                        <FinalComponent
+                          key="final-exam"
+                          {...finalProps}
+                          className={`flex items-center p-4 border-2 border-dashed border-purple-300 bg-purple-50 rounded-lg transition-colors ${
+                            isEnrolled 
+                              ? 'hover:border-purple-400 hover:bg-purple-100 cursor-pointer' 
+                              : 'opacity-60'
+                          }`}
+                        >
+                          <div className="flex items-center justify-center w-12 h-12 bg-purple-500 text-white rounded-lg mr-4">
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                          </div>
+                          <div className="flex-1">
+                            <h4 className="font-semibold text-purple-800 text-lg">
+                              🎓 {locale === 'ht' ? 'Egzamen Final' : locale === 'fr' ? 'Examen Final' : 'Final Exam'}
+                            </h4>
+                            <p className="text-sm text-purple-700 mt-1">
+                              {locale === 'ht' ? '90 minit • 35 kesyon • 150 pwen' : 
+                               locale === 'fr' ? '90 minutes • 35 questions • 150 points' :
+                               '90 minutes • 35 questions • 150 points'}
+                            </p>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            {isEnrolled ? (
+                              <svg className="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                              </svg>
+                            ) : (
+                              <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                              </svg>
+                            )}
+                          </div>
+                        </FinalComponent>
                       );
                     }
                     

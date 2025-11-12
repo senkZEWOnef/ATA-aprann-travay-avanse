@@ -6,6 +6,8 @@ import { useState, useEffect } from 'react';
 import { useLocale } from '@/components/LocaleProvider';
 import PythonCardLessonPlayer from '@/components/PythonCardLessonPlayer';
 import PythonMiniProject from '@/components/PythonMiniProject';
+import HtmlCssLessonPlayer from '@/components/HtmlCssLessonPlayer';
+import HtmlCssCardLessonPlayer from '@/components/HtmlCssCardLessonPlayer';
 
 export default function LessonPage() {
   const params = useParams();
@@ -98,7 +100,12 @@ export default function LessonPage() {
   // Check if this is a Python course lesson
   const isPythonCourse = course?.slug === 'python-pou-komanse-yo';
   const pythonWeekNumber = isPythonCourse ? lesson?.order : null;
-  const isPythonCardLesson = isPythonCourse && pythonWeekNumber && pythonWeekNumber <= 8;
+  const isPythonCardLesson = isPythonCourse && pythonWeekNumber && pythonWeekNumber <= 15;
+
+  // Check if this is an HTML/CSS course lesson
+  const isHtmlCssCourse = course?.slug === 'html-css-pou-komanse-yo';
+  const htmlCssWeekNumber = isHtmlCssCourse ? lesson?.order : null;
+  const isHtmlCssLesson = isHtmlCssCourse && htmlCssWeekNumber && htmlCssWeekNumber <= 15;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
@@ -183,6 +190,53 @@ export default function LessonPage() {
                 <a
                   href={`/${locale}/courses/${slug}/lesson/${course.lessons.find(l => l.order === lesson.order + 1)?.id}`}
                   className="px-6 py-3 bg-purple-500 text-white rounded-lg hover:bg-purple-600 flex items-center gap-2 ml-auto"
+                >
+                  {locale === 'ht' ? 'Leson Pwochen' : 'Leçon Suivante'} →
+                </a>
+              )}
+            </div>
+          </div>
+        ) : isHtmlCssLesson ? (
+          // Use HTML/CSS card lessons + progressive project editor
+          <div className="space-y-8">
+            {/* Card-based Learning Content */}
+            <div className="bg-white rounded-lg shadow-lg p-6">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                📚 {locale === 'ht' ? 'Materyèl Leson' : 'Matériel de Leçon'}
+              </h2>
+              <HtmlCssCardLessonPlayer 
+                weekNumber={htmlCssWeekNumber!}
+                onComplete={handleLessonComplete}
+                onProgress={handleProgress}
+              />
+            </div>
+
+            {/* Progressive Project Editor */}
+            <div className="bg-white rounded-lg shadow-lg p-6">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                🎨 {locale === 'ht' ? 'Pwojè Pwogresif' : 'Projet Progressif'}
+              </h2>
+              <HtmlCssLessonPlayer 
+                lessonOrder={htmlCssWeekNumber!}
+                locale={locale}
+              />
+            </div>
+            
+            {/* Navigation */}
+            <div className="flex justify-between mt-8">
+              {lesson && lesson.order > 1 && (
+                <a
+                  href={`/${locale}/courses/${slug}/lesson/${course.lessons.find(l => l.order === lesson.order - 1)?.id}`}
+                  className="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex items-center gap-2"
+                >
+                  ← {locale === 'ht' ? 'Leson Anvan' : 'Leçon Précédente'}
+                </a>
+              )}
+              
+              {lesson && lesson.order < course.lessons.length && (
+                <a
+                  href={`/${locale}/courses/${slug}/lesson/${course.lessons.find(l => l.order === lesson.order + 1)?.id}`}
+                  className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 flex items-center gap-2 ml-auto"
                 >
                   {locale === 'ht' ? 'Leson Pwochen' : 'Leçon Suivante'} →
                 </a>
