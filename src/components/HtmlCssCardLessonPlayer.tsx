@@ -9,6 +9,13 @@ import htmlCssWeek4Cards from '@/data/htmlCssWeek4Cards';
 import htmlCssWeek5Cards from '@/data/htmlCssWeek5Cards';
 import htmlCssWeek6Cards from '@/data/htmlCssWeek6Cards';
 import htmlCssWeek7Cards from '@/data/htmlCssWeek7Cards';
+import htmlCssWeek9Cards from '@/data/htmlCssWeek9Cards';
+import htmlCssWeek10Cards from '@/data/htmlCssWeek10Cards';
+import htmlCssWeek11Cards from '@/data/htmlCssWeek11Cards';
+import htmlCssWeek12Cards from '@/data/htmlCssWeek12Cards';
+import htmlCssWeek13Cards from '@/data/htmlCssWeek13Cards';
+import htmlCssWeek14Cards from '@/data/htmlCssWeek14Cards';
+import htmlCssWeek15Cards from '@/data/htmlCssWeek15Cards';
 
 interface HtmlCssCardLessonPlayerProps {
   weekNumber: number;
@@ -31,6 +38,14 @@ export default function HtmlCssCardLessonPlayer({
       case 5: return htmlCssWeek5Cards;
       case 6: return htmlCssWeek6Cards;
       case 7: return htmlCssWeek7Cards;
+      case 8: return [];
+      case 9: return htmlCssWeek9Cards;
+      case 10: return htmlCssWeek10Cards;
+      case 11: return htmlCssWeek11Cards;
+      case 12: return htmlCssWeek12Cards;
+      case 13: return htmlCssWeek13Cards;
+      case 14: return htmlCssWeek14Cards;
+      case 15: return htmlCssWeek15Cards;
       default: return [];
     }
   };

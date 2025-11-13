@@ -1,25 +1,25 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useLocale } from './LocaleProvider';
-import { htmlCssMidtermExam, type ExamQuestion } from '@/data/htmlCssMidtermExam';
+import { htmlCssFinalExam, type ExamQuestion } from '@/data/htmlCssFinalExam';
 import { ClockIcon, CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/outline';
 import { AcademicCapIcon, FireIcon } from '@heroicons/react/24/solid';
 
-interface HtmlCssMidtermExamProps {
+interface HtmlCssFinalExamProps {
   onComplete?: (score: number, totalPoints: number, timeSpent: number, answers: any) => void;
 }
 
-export default function HtmlCssMidtermExam({ onComplete }: HtmlCssMidtermExamProps) {
+export default function HtmlCssFinalExam({ onComplete }: HtmlCssFinalExamProps) {
   const locale = useLocale();
   const [hasStarted, setHasStarted] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, any>>({});
-  const [timeLeft, setTimeLeft] = useState(htmlCssMidtermExam.duration * 60); // Convert to seconds
+  const [timeLeft, setTimeLeft] = useState(htmlCssFinalExam.duration * 60); // Convert to seconds
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [showResults, setShowResults] = useState(false);
 
-  const currentQuestion = htmlCssMidtermExam.questions[currentQuestionIndex];
-  const isLastQuestion = currentQuestionIndex === htmlCssMidtermExam.questions.length - 1;
+  const currentQuestion = htmlCssFinalExam.questions[currentQuestionIndex];
+  const isLastQuestion = currentQuestionIndex === htmlCssFinalExam.questions.length - 1;
 
   // Timer effect
   useEffect(() => {
@@ -79,7 +79,7 @@ export default function HtmlCssMidtermExam({ onComplete }: HtmlCssMidtermExamPro
     let totalScore = 0;
     let maxScore = 0;
 
-    htmlCssMidtermExam.questions.forEach(question => {
+    htmlCssFinalExam.questions.forEach(question => {
       maxScore += question.points;
       const userAnswer = answers[question.id];
 
@@ -124,7 +124,7 @@ export default function HtmlCssMidtermExam({ onComplete }: HtmlCssMidtermExamPro
     setHasSubmitted(true);
     setShowResults(true);
     const { score, maxScore } = calculateScore();
-    const timeSpent = Math.round((htmlCssMidtermExam.duration * 60 - timeLeft) / 60); // Convert to minutes
+    const timeSpent = Math.round((htmlCssFinalExam.duration * 60 - timeLeft) / 60); // Convert to minutes
     onComplete?.(score, maxScore, timeSpent, answers);
   };
 
@@ -134,7 +134,7 @@ export default function HtmlCssMidtermExam({ onComplete }: HtmlCssMidtermExamPro
   };
 
   const nextQuestion = () => {
-    if (currentQuestionIndex < htmlCssMidtermExam.questions.length - 1) {
+    if (currentQuestionIndex < htmlCssFinalExam.questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     }
   };
@@ -149,15 +149,15 @@ export default function HtmlCssMidtermExam({ onComplete }: HtmlCssMidtermExamPro
   if (!hasStarted) {
     return (
       <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-8">
+        <div className="bg-gradient-to-r from-green-600 to-emerald-600 text-white p-8">
           <div className="flex items-center gap-4">
             <AcademicCapIcon className="w-12 h-12" />
             <div>
               <h1 className="text-3xl font-bold">
-                {getLocalizedText(htmlCssMidtermExam.title)}
+                {getLocalizedText(htmlCssFinalExam.title)}
               </h1>
-              <p className="text-blue-100 mt-2">
-                {getLocalizedText(htmlCssMidtermExam.description)}
+              <p className="text-green-100 mt-2">
+                {getLocalizedText(htmlCssFinalExam.description)}
               </p>
             </div>
           </div>
@@ -169,7 +169,7 @@ export default function HtmlCssMidtermExam({ onComplete }: HtmlCssMidtermExamPro
               {locale === 'ht' ? 'Enstriksyon yo' : 'Instructions'}
             </h2>
             <ul className="space-y-2">
-              {getLocalizedText(htmlCssMidtermExam.instructions).map((instruction, index) => (
+              {getLocalizedText(htmlCssFinalExam.instructions).map((instruction, index) => (
                 <li key={index} className="flex items-start gap-3">
                   <CheckCircleIcon className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
                   <span className="text-gray-700">{instruction}</span>
@@ -181,22 +181,22 @@ export default function HtmlCssMidtermExam({ onComplete }: HtmlCssMidtermExamPro
           <div className="bg-gray-50 rounded-xl p-6 mb-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="text-center">
-                <ClockIcon className="w-8 h-8 text-blue-500 mx-auto mb-2" />
-                <div className="text-lg font-semibold text-gray-900">{htmlCssMidtermExam.duration} {locale === 'ht' ? 'minit' : 'minutes'}</div>
+                <ClockIcon className="w-8 h-8 text-green-500 mx-auto mb-2" />
+                <div className="text-lg font-semibold text-gray-900">{htmlCssFinalExam.duration} {locale === 'ht' ? 'minit' : 'minutes'}</div>
                 <div className="text-sm text-gray-600">
                   {locale === 'ht' ? 'Tan total' : 'Temps total'}
                 </div>
               </div>
               <div className="text-center">
                 <FireIcon className="w-8 h-8 text-orange-500 mx-auto mb-2" />
-                <div className="text-lg font-semibold text-gray-900">{htmlCssMidtermExam.questions.length} {locale === 'ht' ? 'kesyon' : 'questions'}</div>
+                <div className="text-lg font-semibold text-gray-900">{htmlCssFinalExam.questions.length} {locale === 'ht' ? 'kesyon' : 'questions'}</div>
                 <div className="text-sm text-gray-600">
                   {locale === 'ht' ? '20 MC + 5 V/F + 5 kout repons' : '20 choix multiple + 5 vrai/faux + 5 courtes'}
                 </div>
               </div>
               <div className="text-center">
                 <AcademicCapIcon className="w-8 h-8 text-green-500 mx-auto mb-2" />
-                <div className="text-lg font-semibold text-gray-900">{htmlCssMidtermExam.totalPoints} {locale === 'ht' ? 'pwen' : 'points'}</div>
+                <div className="text-lg font-semibold text-gray-900">{htmlCssFinalExam.totalPoints} {locale === 'ht' ? 'pwen' : 'points'}</div>
                 <div className="text-sm text-gray-600">
                   {locale === 'ht' ? 'Maksimòm' : 'Maximum'}
                 </div>
@@ -207,7 +207,7 @@ export default function HtmlCssMidtermExam({ onComplete }: HtmlCssMidtermExamPro
           <div className="text-center">
             <button
               onClick={() => setHasStarted(true)}
-              className="px-8 py-4 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-colors text-lg"
+              className="px-8 py-4 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 transition-colors text-lg"
             >
               {locale === 'ht' ? 'Kòmanse Egzamen an' : 'Commencer l\'Examen'}
             </button>
@@ -225,7 +225,7 @@ export default function HtmlCssMidtermExam({ onComplete }: HtmlCssMidtermExamPro
   if (showResults) {
     const { score, maxScore } = calculateScore();
     const percentage = Math.round((score / maxScore) * 100);
-    const passed = percentage >= htmlCssMidtermExam.passingScore;
+    const passed = percentage >= htmlCssFinalExam.passingScore;
 
     return (
       <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
@@ -243,8 +243,8 @@ export default function HtmlCssMidtermExam({ onComplete }: HtmlCssMidtermExamPro
               }
             </h1>
             <p className="text-lg opacity-90">
-              {locale === 'ht' ? 'Ou fini egzamen midterm HTML & CSS an' : 
-               'Vous avez terminé l\'examen de mi-session HTML & CSS'}
+              {locale === 'ht' ? 'Ou fini egzamen final HTML & CSS an' : 
+               'Vous avez terminé l\'examen final HTML & CSS'}
             </p>
           </div>
         </div>
@@ -275,7 +275,7 @@ export default function HtmlCssMidtermExam({ onComplete }: HtmlCssMidtermExamPro
                   {locale === 'ht' ? 'Kesyon Multiple Choice' : 'Questions à Choix Multiple'}
                 </div>
                 <div className="text-lg font-semibold">
-                  {htmlCssMidtermExam.questions.filter(q => q.type === 'multiple-choice' && answers[q.id] === q.correctAnswer).length} / {htmlCssMidtermExam.questions.filter(q => q.type === 'multiple-choice').length}
+                  {htmlCssFinalExam.questions.filter(q => q.type === 'multiple-choice' && answers[q.id] === q.correctAnswer).length} / {htmlCssFinalExam.questions.filter(q => q.type === 'multiple-choice').length}
                 </div>
               </div>
               <div>
@@ -283,7 +283,7 @@ export default function HtmlCssMidtermExam({ onComplete }: HtmlCssMidtermExamPro
                   {locale === 'ht' ? 'Kesyon Vre/Fo' : 'Questions Vrai/Faux'}
                 </div>
                 <div className="text-lg font-semibold">
-                  {htmlCssMidtermExam.questions.filter(q => q.type === 'true-false' && answers[q.id] === q.correctAnswer).length} / {htmlCssMidtermExam.questions.filter(q => q.type === 'true-false').length}
+                  {htmlCssFinalExam.questions.filter(q => q.type === 'true-false' && answers[q.id] === q.correctAnswer).length} / {htmlCssFinalExam.questions.filter(q => q.type === 'true-false').length}
                 </div>
               </div>
               <div>
@@ -291,7 +291,7 @@ export default function HtmlCssMidtermExam({ onComplete }: HtmlCssMidtermExamPro
                   {locale === 'ht' ? 'Kesyon Kout' : 'Questions Courtes'}
                 </div>
                 <div className="text-lg font-semibold">
-                  {htmlCssMidtermExam.questions.filter(q => q.type === 'short-answer' && answers[q.id]).length} / {htmlCssMidtermExam.questions.filter(q => q.type === 'short-answer').length}
+                  {htmlCssFinalExam.questions.filter(q => q.type === 'short-answer' && answers[q.id]).length} / {htmlCssFinalExam.questions.filter(q => q.type === 'short-answer').length}
                 </div>
               </div>
             </div>
@@ -316,15 +316,15 @@ export default function HtmlCssMidtermExam({ onComplete }: HtmlCssMidtermExamPro
   return (
     <div className="max-w-6xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
       {/* Header with timer and progress */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6">
+      <div className="bg-gradient-to-r from-green-600 to-emerald-600 text-white p-6">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold">
-              {getLocalizedText(htmlCssMidtermExam.title)}
+              {getLocalizedText(htmlCssFinalExam.title)}
             </h1>
-            <div className="flex items-center gap-4 mt-2 text-blue-100">
+            <div className="flex items-center gap-4 mt-2 text-green-100">
               <span>
-                {locale === 'ht' ? 'Kesyon' : 'Question'} {currentQuestionIndex + 1} / {htmlCssMidtermExam.questions.length}
+                {locale === 'ht' ? 'Kesyon' : 'Question'} {currentQuestionIndex + 1} / {htmlCssFinalExam.questions.length}
               </span>
               <span>•</span>
               <span>{currentQuestion.points} {locale === 'ht' ? 'pwen' : 'points'}</span>
@@ -345,10 +345,10 @@ export default function HtmlCssMidtermExam({ onComplete }: HtmlCssMidtermExamPro
         
         {/* Progress bar */}
         <div className="mt-4">
-          <div className="w-full bg-blue-800 bg-opacity-30 rounded-full h-2">
+          <div className="w-full bg-green-800 bg-opacity-30 rounded-full h-2">
             <div 
               className="bg-white h-2 rounded-full transition-all duration-300"
-              style={{ width: `${((currentQuestionIndex + 1) / htmlCssMidtermExam.questions.length) * 100}%` }}
+              style={{ width: `${((currentQuestionIndex + 1) / htmlCssFinalExam.questions.length) * 100}%` }}
             />
           </div>
         </div>
@@ -361,15 +361,15 @@ export default function HtmlCssMidtermExam({ onComplete }: HtmlCssMidtermExamPro
             {locale === 'ht' ? 'Navigasyon' : 'Navigation'}
           </h3>
           <div className="space-y-1">
-            {htmlCssMidtermExam.questions.map((q, index) => (
+            {htmlCssFinalExam.questions.map((q, index) => (
               <button
                 key={q.id}
                 onClick={() => goToQuestion(index)}
                 className={`w-full text-left px-3 py-2 rounded-lg transition-colors ${
                   index === currentQuestionIndex
-                    ? 'bg-blue-100 text-blue-800 font-semibold'
+                    ? 'bg-green-100 text-green-800 font-semibold'
                     : answers[q.id] !== undefined
-                    ? 'bg-green-100 text-green-800'
+                    ? 'bg-emerald-100 text-emerald-800'
                     : 'hover:bg-gray-200 text-gray-700'
                 }`}
               >
@@ -407,7 +407,7 @@ export default function HtmlCssMidtermExam({ onComplete }: HtmlCssMidtermExamPro
                     onClick={() => handleMultipleChoiceAnswer(currentQuestion.id, index)}
                     className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
                       isSelected
-                        ? 'border-blue-500 bg-blue-50 text-blue-800'
+                        ? 'border-green-500 bg-green-50 text-green-800'
                         : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50'
                     }`}
                   >
@@ -473,7 +473,7 @@ export default function HtmlCssMidtermExam({ onComplete }: HtmlCssMidtermExamPro
                 value={answers[currentQuestion.id] || ''}
                 onChange={(e) => handleShortAnswer(currentQuestion.id, e.target.value)}
                 placeholder={locale === 'ht' ? 'Ekri repons ou a...' : 'Écrivez votre réponse...'}
-                className="w-full h-32 p-4 border-2 border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none resize-none"
+                className="w-full h-32 p-4 border-2 border-gray-300 rounded-lg focus:border-green-500 focus:outline-none resize-none"
               />
             </div>
           )}
@@ -492,14 +492,14 @@ export default function HtmlCssMidtermExam({ onComplete }: HtmlCssMidtermExamPro
               {isLastQuestion ? (
                 <button
                   onClick={handleSubmit}
-                  className="px-8 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                  className="px-8 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-colors"
                 >
                   {locale === 'ht' ? 'Soumèt Egzamen an' : 'Soumettre l\'Examen'}
                 </button>
               ) : (
                 <button
                   onClick={nextQuestion}
-                  className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
                 >
                   {locale === 'ht' ? 'Suivan' : 'Suivant'}
                 </button>

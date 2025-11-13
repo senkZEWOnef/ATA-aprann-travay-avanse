@@ -39,11 +39,22 @@ export default function CoursesPage() {
 
   const fetchCourses = async () => {
     try {
+      console.log('🔍 Fetching courses from /api/courses');
       const response = await fetch('/api/courses');
+      console.log('📡 Response status:', response.status);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
       const data = await response.json();
+      console.log('📦 Courses data:', data);
+      console.log('📚 Courses array:', data.courses);
+      console.log('📊 Courses count:', data.courses?.length || 0);
+      
       setCourses(data.courses || []);
     } catch (error) {
-      console.error('Error fetching courses:', error);
+      console.error('❌ Error fetching courses:', error);
     } finally {
       setLoading(false);
     }

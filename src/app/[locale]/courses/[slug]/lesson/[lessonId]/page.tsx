@@ -199,22 +199,27 @@ export default function LessonPage() {
         ) : isHtmlCssLesson ? (
           // Use HTML/CSS card lessons + progressive project editor
           <div className="space-y-8">
-            {/* Card-based Learning Content */}
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                📚 {locale === 'ht' ? 'Materyèl Leson' : 'Matériel de Leçon'}
-              </h2>
-              <HtmlCssCardLessonPlayer 
-                weekNumber={htmlCssWeekNumber!}
-                onComplete={handleLessonComplete}
-                onProgress={handleProgress}
-              />
-            </div>
+            {/* Card-based Learning Content - Skip for Week 8 (Midterm Project Week) */}
+            {htmlCssWeekNumber !== 8 && (
+              <div className="bg-white rounded-lg shadow-lg p-6">
+                <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                  📚 {locale === 'ht' ? 'Materyèl Leson' : 'Matériel de Leçon'}
+                </h2>
+                <HtmlCssCardLessonPlayer 
+                  weekNumber={htmlCssWeekNumber!}
+                  onComplete={handleLessonComplete}
+                  onProgress={handleProgress}
+                />
+              </div>
+            )}
 
             {/* Progressive Project Editor */}
             <div className="bg-white rounded-lg shadow-lg p-6">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                🎨 {locale === 'ht' ? 'Pwojè Pwogresif' : 'Projet Progressif'}
+                🎨 {htmlCssWeekNumber === 8 ? 
+                  (locale === 'ht' ? 'Pwojè Midterm' : 'Projet Midterm') : 
+                  (locale === 'ht' ? 'Pwojè Pwogresif' : 'Projet Progressif')
+                }
               </h2>
               <HtmlCssLessonPlayer 
                 lessonOrder={htmlCssWeekNumber!}
